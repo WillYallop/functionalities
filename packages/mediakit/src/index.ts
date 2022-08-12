@@ -1,7 +1,6 @@
-const hello = () => {
-  console.log("Hello World");
-};
+import MediaKit from "./kits/media";
+import ImageKit from "./kits/image";
+import VideoKit from "./kits/video";
 
-hello();
-
-export default hello;
+export { MediaKit, ImageKit, VideoKit };
+export default MediaKit;
