@@ -1,6 +1,9 @@
+/// <reference types="node" />
+import { IK_processConfig, IK_processDefaultConfig } from "../../types";
 export default class ImageKit {
-    constructor();
-    process(file: File): void;
-    optimise(file: File): void;
+    input: Buffer;
+    config: IK_processDefaultConfig;
+    constructor(input: Buffer, config?: IK_processConfig);
+    process(): Promise<void>;
 }
 //# sourceMappingURL=image.d.ts.map

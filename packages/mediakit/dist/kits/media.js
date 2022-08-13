@@ -1,8 +1,13 @@
-import S3Store from "../stores/s3";
-import LocalStore from "../stores/local";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const s3_1 = __importDefault(require("../stores/s3"));
+const local_1 = __importDefault(require("../stores/local"));
 //
-import path from "path";
-export default class MediaKit {
+const path_1 = __importDefault(require("path"));
+class MediaKit {
     options;
     store;
     constructor(options) {
@@ -16,7 +21,7 @@ export default class MediaKit {
                 bucket: "",
             },
             localOptions: {
-                directory: path.resolve("/media"),
+                directory: path_1.default.resolve("/media"),
             },
             keyPrefix: "",
         };
@@ -24,10 +29,10 @@ export default class MediaKit {
         // create store
         switch (this.options.storeMethod) {
             case "s3":
-                this.store = new S3Store(this.options.s3Options);
+                this.store = new s3_1.default(this.options.s3Options);
                 break;
             case "local":
-                this.store = new LocalStore(this.options.localOptions);
+                this.store = new local_1.default(this.options.localOptions);
                 break;
             default:
                 throw new Error("Invalid store method");
@@ -48,3 +53,4 @@ export default class MediaKit {
         console.log(id);
     }
 }
+exports.default = MediaKit;
