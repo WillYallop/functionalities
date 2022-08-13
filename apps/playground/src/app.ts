@@ -1,7 +1,8 @@
 import express, { NextFunction, Response, Request } from "express";
 import morgan from "morgan";
 import fileUpload, { UploadedFile } from "express-fileupload";
-// import v1Routes from './routes/v1';
+import localRoutes from "./routes/localStore";
+import s3Routes from "./routes/s3Store";
 
 interface Error {
   status?: number;
@@ -30,7 +31,8 @@ app.use(
 // ------------------------------------
 // Routes
 // ------------------------------------
-// app.use('/v1/dev/library', v1Routes.developer.library);
+app.use("/local", localRoutes);
+app.use("/s3", s3Routes);
 
 // ------------------------------------
 // ERROR HANDLING

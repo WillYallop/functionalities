@@ -2,10 +2,11 @@
   "extends": "tsconfig/base.json",
   "compilerOptions": {
     "target": "esnext",
-    "rootDir": "./src",
-    "outDir": "dist"
+    "rootDir": "src",
+    "outDir": "dist",
+    "esModuleInterop": true
   },
-  "include": ["./src/**/*.ts"],
-  "types": ["./types"],
+  "include": ["./src"],
+  "types": ["./types/**.d.ts"],
   "exclude": ["node_modules", ".turbo", "coverage", "dist", "src/**/*.test.ts"]
 }
