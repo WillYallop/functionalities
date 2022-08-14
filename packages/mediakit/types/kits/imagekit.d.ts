@@ -5,19 +5,21 @@ export interface IK_processDefaultConfig {
   position: "center" | "top" | "bottom" | "left" | "right";
   formats: {
     jpeg?: {
-      convert?: boolean;
       quality?: number;
     };
     png?: {
-      convert?: boolean;
       quality?: number;
     };
     webp?: {
-      convert?: boolean;
       quality?: number;
     };
     avif?: {
-      convert?: boolean;
+      quality?: number;
+    };
+    svg?: {
+      quality?: number;
+    };
+    gif?: {
       quality?: number;
     };
   };
@@ -30,20 +32,55 @@ export interface IK_processConfig {
   position?: "center" | "top" | "bottom" | "left" | "right";
   formats?: {
     jpeg?: {
-      convert?: boolean;
       quality?: number;
     };
     png?: {
-      convert?: boolean;
       quality?: number;
     };
     webp?: {
-      convert?: boolean;
       quality?: number;
     };
     avif?: {
-      convert?: boolean;
       quality?: number;
+    };
+    svg?: {
+      quality?: number;
+    };
+    gif?: {
+      quality?: number;
+    };
+  };
+}
+
+export interface IK_data {
+  key: string;
+  width: number;
+  height: number;
+  name: string;
+  images?: {
+    jpeg?: {
+      data: Buffer;
+      mime: string;
+    };
+    png?: {
+      data: Buffer;
+      mime: string;
+    };
+    webp?: {
+      data: Buffer;
+      mime: string;
+    };
+    avif?: {
+      data: Buffer;
+      mime: string;
+    };
+    svg?: {
+      data: Buffer;
+      mime: string;
+    };
+    gif?: {
+      data: Buffer;
+      mime: string;
     };
   };
 }

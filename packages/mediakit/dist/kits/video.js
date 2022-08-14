@@ -6,3 +6,4 @@ class VideoKit {
     optimise(file) { }
 }
 exports.default = VideoKit;
+//# sourceMappingURL=video.js.map

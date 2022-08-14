@@ -11,4 +11,4 @@ exports.ImageKit = image_1.default;
 const video_1 = __importDefault(require("./kits/video"));
 exports.VideoKit = video_1.default;
 exports.default = media_1.default;
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.cjs.map

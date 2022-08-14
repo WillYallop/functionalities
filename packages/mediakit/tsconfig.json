@@ -1,11 +1,18 @@
 {
-  "extends": "tsconfig/base.json",
   "compilerOptions": {
-    "target": "esnext",
-    "rootDir": "src",
-    "outDir": "dist",
     "module": "commonjs",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "target": "esnext",
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist",
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationMap": true
   },
   "include": ["./src"],
   "types": ["./types/**.d.ts"],
