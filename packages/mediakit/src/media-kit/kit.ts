@@ -1,10 +1,10 @@
 // Types
 import { MK_Options, MK_OptionsParam } from "../../types";
 // Class
-import ImageKit from "./image";
-import VideoKit from "./video";
-import S3Store from "../stores/s3";
-import LocalStore from "../stores/local";
+import ImageKit from "../image-kit/kit";
+import VideoKit from "../video-kit/kit";
+import S3Store from "./stores/s3";
+import LocalStore from "./stores/local";
 //
 import path from "path";
 
@@ -43,10 +43,13 @@ export default class MediaKit {
 
   // abstractions on top of store methods
   save(media: ImageKit | VideoKit) {
-    // console.log(media);
-
     if (media instanceof ImageKit) {
-      console.log(media.images);
+      // media.images map into array
+      const images = Array.from(media.images.values());
+      images.forEach((image) => {
+        console.log(image.data.images);
+      });
+      media.close();
       return {
         success: media.images,
       };

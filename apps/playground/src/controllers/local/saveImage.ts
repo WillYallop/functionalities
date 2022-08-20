@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UploadedFile } from "express-fileupload";
-import { ImageKit, MediaKit } from "mediakit";
+import { ImageKit } from "mediakit";
 import { localMediaKitInstance } from "../../util/mediakit";
 
 // New ImageKit Instance
@@ -27,8 +27,6 @@ const saveImage = async (req: Request, res: Response) => {
 
     // store image kit
     const storeImageKitRes = localMediaKitInstance.save(ImageKitInst);
-
-    await ImageKitInst.close();
 
     res.status(200).json(storeImageKitRes);
   } else {

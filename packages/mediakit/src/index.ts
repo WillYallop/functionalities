@@ -1,6 +1,6 @@
-import MediaKit from "./kits/media";
-import ImageKit from "./kits/image";
-import VideoKit from "./kits/video";
+import MediaKit from "./media-kit/kit";
+import ImageKit from "./image-kit/kit";
+import VideoKit from "./video-kit/kit";
 
 export { MediaKit, ImageKit, VideoKit };
 export default MediaKit;

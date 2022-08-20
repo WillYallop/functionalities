@@ -1,7 +1,9 @@
+import { FitEnum } from "sharp";
+
 export interface IK_processConfig {
   width?: number;
   height?: number;
-  fit?: "cover" | "contain" | "fill" | "inside" | "outside" | string;
+  fit?: keyof FitEnum;
   position?: "center" | "top" | "bottom" | "left" | "right" | string;
   formats?: {
     jpeg?: {
@@ -30,7 +32,9 @@ export interface IK_data {
   width: number;
   height: number;
   name: string;
-  images?: {
+  originalFormat?: string;
+  hasAlpha?: boolean;
+  images: {
     jpeg?: {
       data: Buffer;
       mime: string;

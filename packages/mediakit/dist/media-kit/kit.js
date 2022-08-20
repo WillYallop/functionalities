@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const kit_1 = __importDefault(require("../image-kit/kit"));
-const s3_1 = __importDefault(require("../stores/s3"));
-const local_1 = __importDefault(require("../stores/local"));
+const s3_1 = __importDefault(require("./stores/s3"));
+const local_1 = __importDefault(require("./stores/local"));
 const path_1 = __importDefault(require("path"));
 class MediaKit {
     options;
@@ -38,7 +38,11 @@ class MediaKit {
     }
     save(media) {
         if (media instanceof kit_1.default) {
-            console.log(media.images);
+            const images = Array.from(media.images.values());
+            images.forEach((image) => {
+                console.log(image.data.images);
+            });
+            media.close();
             return {
                 success: media.images,
             };
@@ -55,4 +59,4 @@ class MediaKit {
     }
 }
 exports.default = MediaKit;
-//# sourceMappingURL=media.js.map
+//# sourceMappingURL=kit.js.map
