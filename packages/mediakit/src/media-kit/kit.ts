@@ -5,6 +5,8 @@ import ImageKit from "../image-kit/kit";
 import VideoKit from "../video-kit/kit";
 import S3Store from "./stores/s3";
 import LocalStore from "./stores/local";
+// Util
+import flattenImages from "../image-kit/util/flatten-images";
 //
 import path from "path";
 
@@ -43,17 +45,23 @@ export default class MediaKit {
 
   // abstractions on top of store methods
   save(media: ImageKit | VideoKit) {
+    // save image kit
     if (media instanceof ImageKit) {
       // media.images map into array
-      const images = Array.from(media.images.values());
-      images.forEach((image) => {
-        console.log(image.data.images);
-      });
+      const flatData = flattenImages(media.images);
+      for (let i = 0; i < flatData.length; i++) {
+        this.store.save(flatData[i].key, flatData[i].data);
+      }
       media.close();
-      return {
-        success: media.images,
-      };
     }
+    // save video kit
+    else if (media instanceof VideoKit) {
+      media.close();
+    }
+
+    return {
+      success: true,
+    };
   }
   delete(id: string) {
     console.log(id);

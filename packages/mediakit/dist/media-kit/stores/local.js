@@ -8,6 +8,7 @@ class LocalStore extends _1.default {
     constructor(options) {
         super();
     }
+    save(key, data) { }
 }
 exports.default = LocalStore;
 //# sourceMappingURL=local.js.map

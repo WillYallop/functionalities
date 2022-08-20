@@ -1,11 +1,11 @@
 // Classes
 import Image from "./image";
 // Types
-import { IK_processConfig } from "../../types";
+import { IK_processConfig, IK_ImageMap } from "../../types";
 
 export default class ImageKit {
   config: IK_processConfig;
-  injestedImages: Map<string, Image>;
+  injestedImages: IK_ImageMap;
   constructor(config?: IK_processConfig) {
     // default config
     const defaultConfig: IK_processConfig = {

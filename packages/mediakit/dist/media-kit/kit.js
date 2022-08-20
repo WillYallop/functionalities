@@ -4,8 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const kit_1 = __importDefault(require("../image-kit/kit"));
+const kit_2 = __importDefault(require("../video-kit/kit"));
 const s3_1 = __importDefault(require("./stores/s3"));
 const local_1 = __importDefault(require("./stores/local"));
+const flatten_images_1 = __importDefault(require("../image-kit/util/flatten-images"));
 const path_1 = __importDefault(require("path"));
 class MediaKit {
     options;
@@ -38,15 +40,18 @@ class MediaKit {
     }
     save(media) {
         if (media instanceof kit_1.default) {
-            const images = Array.from(media.images.values());
-            images.forEach((image) => {
-                console.log(image.data.images);
-            });
+            const flatData = (0, flatten_images_1.default)(media.images);
+            for (let i = 0; i < flatData.length; i++) {
+                this.store.save(flatData[i].key, flatData[i].data);
+            }
             media.close();
-            return {
-                success: media.images,
-            };
         }
+        else if (media instanceof kit_2.default) {
+            media.close();
+        }
+        return {
+            success: true,
+        };
     }
     delete(id) {
         console.log(id);

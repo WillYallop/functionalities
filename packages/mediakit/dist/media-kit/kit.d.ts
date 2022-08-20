@@ -8,8 +8,8 @@ export default class MediaKit {
     store: S3Store | LocalStore;
     constructor(options: MK_OptionsParam);
     save(media: ImageKit | VideoKit): {
-        success: Map<string, import("../image-kit/image").default>;
-    } | undefined;
+        success: boolean;
+    };
     delete(id: string): void;
     get(id: string): void;
     stream(id: string): void;

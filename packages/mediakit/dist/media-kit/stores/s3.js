@@ -8,6 +8,7 @@ class S3Store extends _1.default {
     constructor(options) {
         super();
     }
+    save(key, data) { }
 }
 exports.default = S3Store;
 //# sourceMappingURL=s3.js.map

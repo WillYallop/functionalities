@@ -24,14 +24,7 @@ class Image {
             width: 0,
             height: 0,
             name: "",
-            images: {
-                jpeg: undefined,
-                png: undefined,
-                webp: undefined,
-                avif: undefined,
-                svg: undefined,
-                gif: undefined,
-            },
+            images: [],
         };
         this.image = (0, sharp_1.default)(input);
         this.image.metadata().then((metadata) => {
@@ -49,10 +42,11 @@ class Image {
             quality: this.config.formats?.jpeg?.quality || 80,
         })
             .toBuffer();
-        this.imageData.images.jpeg = {
+        this.imageData.images.push({
             data: buffer,
             mime: imageMimes.jpeg,
-        };
+            extension: "jpeg",
+        });
     }
     async #convertToPNG() {
         const buffer = await this.image
@@ -60,10 +54,11 @@ class Image {
             quality: this.config.formats?.png?.quality || 80,
         })
             .toBuffer();
-        this.imageData.images.png = {
+        this.imageData.images.push({
             data: buffer,
             mime: imageMimes.png,
-        };
+            extension: "png",
+        });
     }
     async #convertToWEBP() {
         const buffer = await this.image
@@ -71,31 +66,35 @@ class Image {
             quality: this.config.formats?.webp?.quality || 80,
         })
             .toBuffer();
-        this.imageData.images.webp = {
+        this.imageData.images.push({
             data: buffer,
             mime: imageMimes.webp,
-        };
+            extension: "webp",
+        });
     }
     async #convertToAVIF() {
         const buffer = await this.image.avif().toBuffer();
-        this.imageData.images.avif = {
+        this.imageData.images.push({
             data: buffer,
             mime: imageMimes.avif,
-        };
+            extension: "avif",
+        });
     }
     async #optimiseGIF() {
         const buffer = await this.image.toBuffer();
-        this.imageData.images.gif = {
+        this.imageData.images.push({
             data: buffer,
             mime: imageMimes.gif,
-        };
+            extension: "gif",
+        });
     }
     async #optimiseSVG() {
         const buffer = await this.image.toBuffer();
-        this.imageData.images.svg = {
+        this.imageData.images.push({
             data: buffer,
             mime: imageMimes.svg,
-        };
+            extension: "svg",
+        });
     }
     async process() {
         const start = Date.now();

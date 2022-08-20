@@ -1,4 +1,6 @@
 import { FitEnum } from "sharp";
+import Image from "../../src/image-kit/image";
+import { ST_fileDataObj } from "../index";
 
 export interface IK_processConfig {
   width?: number;
@@ -34,30 +36,7 @@ export interface IK_data {
   name: string;
   originalFormat?: string;
   hasAlpha?: boolean;
-  images: {
-    jpeg?: {
-      data: Buffer;
-      mime: string;
-    };
-    png?: {
-      data: Buffer;
-      mime: string;
-    };
-    webp?: {
-      data: Buffer;
-      mime: string;
-    };
-    avif?: {
-      data: Buffer;
-      mime: string;
-    };
-    svg?: {
-      data: Buffer;
-      mime: string;
-    };
-    gif?: {
-      data: Buffer;
-      mime: string;
-    };
-  };
+  images: Array<ST_fileDataObj>;
 }
+
+export type IK_ImageMap = Map<string, Image>;

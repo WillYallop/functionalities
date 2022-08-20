@@ -24,14 +24,7 @@ export default class Image {
       width: 0,
       height: 0,
       name: "",
-      images: {
-        jpeg: undefined,
-        png: undefined,
-        webp: undefined,
-        avif: undefined,
-        svg: undefined,
-        gif: undefined,
-      },
+      images: [],
     };
 
     // injest image into sharp
@@ -55,10 +48,11 @@ export default class Image {
         quality: this.config.formats?.jpeg?.quality || 80,
       })
       .toBuffer();
-    this.imageData.images.jpeg = {
+    this.imageData.images.push({
       data: buffer,
       mime: imageMimes.jpeg,
-    };
+      extension: "jpeg",
+    });
   }
   async #convertToPNG() {
     const buffer = await this.image
@@ -66,10 +60,11 @@ export default class Image {
         quality: this.config.formats?.png?.quality || 80,
       })
       .toBuffer();
-    this.imageData.images.png = {
+    this.imageData.images.push({
       data: buffer,
       mime: imageMimes.png,
-    };
+      extension: "png",
+    });
   }
   async #convertToWEBP() {
     const buffer = await this.image
@@ -77,33 +72,37 @@ export default class Image {
         quality: this.config.formats?.webp?.quality || 80,
       })
       .toBuffer();
-    this.imageData.images.webp = {
+    this.imageData.images.push({
       data: buffer,
       mime: imageMimes.webp,
-    };
+      extension: "webp",
+    });
   }
   async #convertToAVIF() {
     const buffer = await this.image.avif().toBuffer();
-    this.imageData.images.avif = {
+    this.imageData.images.push({
       data: buffer,
       mime: imageMimes.avif,
-    };
+      extension: "avif",
+    });
   }
 
   async #optimiseGIF() {
     // store buffer in image data
     const buffer = await this.image.toBuffer();
-    this.imageData.images.gif = {
+    this.imageData.images.push({
       data: buffer,
       mime: imageMimes.gif,
-    };
+      extension: "gif",
+    });
   }
   async #optimiseSVG() {
     const buffer = await this.image.toBuffer();
-    this.imageData.images.svg = {
+    this.imageData.images.push({
       data: buffer,
       mime: imageMimes.svg,
-    };
+      extension: "svg",
+    });
   }
 
   // external
