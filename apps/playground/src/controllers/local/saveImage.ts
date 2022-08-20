@@ -26,7 +26,10 @@ const saveImage = async (req: Request, res: Response) => {
     await Image.process();
 
     // store image kit
-    const storeImageKitRes = localMediaKitInstance.save(ImageKitInst);
+    const storeImageKitRes = localMediaKitInstance.save(
+      ImageKitInst,
+      "/images"
+    );
 
     res.status(200).json(storeImageKitRes);
   } else {

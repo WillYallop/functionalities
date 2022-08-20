@@ -1,5 +1,5 @@
 // Types
-import { MK_Options, MK_OptionsParam } from "../../types";
+import { MK_Options, MK_OptionsParam, ST_fileDataObj } from "../../types";
 // Class
 import ImageKit from "../image-kit/kit";
 import VideoKit from "../video-kit/kit";
@@ -33,10 +33,16 @@ export default class MediaKit {
     // create store
     switch (this.options.storeMethod) {
       case "s3":
-        this.store = new S3Store(this.options.s3Options);
+        this.store = new S3Store(
+          this.options.s3Options,
+          this.options.keyPrefix
+        );
         break;
       case "local":
-        this.store = new LocalStore(this.options.localOptions);
+        this.store = new LocalStore(
+          this.options.localOptions,
+          this.options.keyPrefix
+        );
         break;
       default:
         throw new Error("Invalid store method");
@@ -44,21 +50,16 @@ export default class MediaKit {
   }
 
   // abstractions on top of store methods
-  save(media: ImageKit | VideoKit) {
-    // save image kit
+  save(media: ImageKit | VideoKit, folder?: string) {
     if (media instanceof ImageKit) {
-      // media.images map into array
       const flatData = flattenImages(media.images);
       for (let i = 0; i < flatData.length; i++) {
-        this.store.save(flatData[i].key, flatData[i].data);
+        this.store.save(flatData[i].key, flatData[i].data, folder);
       }
-      media.close();
-    }
-    // save video kit
-    else if (media instanceof VideoKit) {
-      media.close();
+    } else if (media instanceof VideoKit) {
     }
 
+    media.close();
     return {
       success: true,
     };

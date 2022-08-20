@@ -7,7 +7,7 @@ export default class MediaKit {
     options: MK_Options;
     store: S3Store | LocalStore;
     constructor(options: MK_OptionsParam);
-    save(media: ImageKit | VideoKit): {
+    save(media: ImageKit | VideoKit, folder?: string): {
         success: boolean;
     };
     delete(id: string): void;

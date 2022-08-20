@@ -1,9 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Store {
-    constructor() { }
-    get key() {
-        return "";
+    options;
+    constructor(options) {
+        this.options = options;
+    }
+    fileKey(key, ext) {
+        return `${this.options.keyPrefix}${key}.${ext}`;
     }
 }
 exports.default = Store;

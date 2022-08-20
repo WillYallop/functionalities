@@ -4,9 +4,11 @@ const flattenImageData = (imgMap) => {
     const imagesArr = Array.from(imgMap.values());
     const flatData = [];
     imagesArr.map((img) => {
-        flatData.push({
-            key: img.key,
-            data: img.data.images,
+        img.data.images.map((imgData) => {
+            flatData.push({
+                key: img.key,
+                data: imgData,
+            });
         });
     });
     return flatData;

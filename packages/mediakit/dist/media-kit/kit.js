@@ -29,26 +29,25 @@ class MediaKit {
         this.options = { ...defaultOptions, ...options };
         switch (this.options.storeMethod) {
             case "s3":
-                this.store = new s3_1.default(this.options.s3Options);
+                this.store = new s3_1.default(this.options.s3Options, this.options.keyPrefix);
                 break;
             case "local":
-                this.store = new local_1.default(this.options.localOptions);
+                this.store = new local_1.default(this.options.localOptions, this.options.keyPrefix);
                 break;
             default:
                 throw new Error("Invalid store method");
         }
     }
-    save(media) {
+    save(media, folder) {
         if (media instanceof kit_1.default) {
             const flatData = (0, flatten_images_1.default)(media.images);
             for (let i = 0; i < flatData.length; i++) {
-                this.store.save(flatData[i].key, flatData[i].data);
+                this.store.save(flatData[i].key, flatData[i].data, folder);
             }
-            media.close();
         }
         else if (media instanceof kit_2.default) {
-            media.close();
         }
+        media.close();
         return {
             success: true,
         };
