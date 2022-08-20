@@ -43,7 +43,14 @@ export default class MediaKit {
 
   // abstractions on top of store methods
   save(media: ImageKit | VideoKit) {
-    console.log(media);
+    // console.log(media);
+
+    if (media instanceof ImageKit) {
+      console.log(media.images);
+      return {
+        success: media.images,
+      };
+    }
   }
   delete(id: string) {
     console.log(id);

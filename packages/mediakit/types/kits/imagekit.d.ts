@@ -1,35 +1,8 @@
-export interface IK_processDefaultConfig {
-  width?: number;
-  height?: number;
-  fit: "cover" | "contain" | "fill" | "inside" | "outside";
-  position: "center" | "top" | "bottom" | "left" | "right";
-  formats: {
-    jpeg?: {
-      quality?: number;
-    };
-    png?: {
-      quality?: number;
-    };
-    webp?: {
-      quality?: number;
-    };
-    avif?: {
-      quality?: number;
-    };
-    svg?: {
-      quality?: number;
-    };
-    gif?: {
-      quality?: number;
-    };
-  };
-}
-
 export interface IK_processConfig {
   width?: number;
   height?: number;
-  fit?: "cover" | "contain" | "fill" | "inside" | "outside";
-  position?: "center" | "top" | "bottom" | "left" | "right";
+  fit?: "cover" | "contain" | "fill" | "inside" | "outside" | string;
+  position?: "center" | "top" | "bottom" | "left" | "right" | string;
   formats?: {
     jpeg?: {
       quality?: number;

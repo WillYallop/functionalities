@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const image_1 = __importDefault(require("./image"));
 const s3_1 = __importDefault(require("../stores/s3"));
 const local_1 = __importDefault(require("../stores/local"));
 const path_1 = __importDefault(require("path"));
@@ -36,7 +37,12 @@ class MediaKit {
         }
     }
     save(media) {
-        console.log(media);
+        if (media instanceof image_1.default) {
+            console.log(media.images);
+            return {
+                success: media.images,
+            };
+        }
     }
     delete(id) {
         console.log(id);

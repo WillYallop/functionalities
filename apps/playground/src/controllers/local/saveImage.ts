@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
 import { UploadedFile } from "express-fileupload";
-import { ImageKit } from "mediakit";
+import { ImageKit, MediaKit } from "mediakit";
 import { localMediaKitInstance } from "../../util/mediakit";
+
+// New ImageKit Instance
+const ImageKitInst = new ImageKit();
 
 const saveImage = async (req: Request, res: Response) => {
   if (req.files) {
@@ -19,18 +22,15 @@ const saveImage = async (req: Request, res: Response) => {
       return;
     }
 
-    const injestedCB = () => {
-      res.status(200).json({
-        data: injestImg.data,
-      });
-      localMediaKitInstance.save(injestImg);
-    };
+    const Image = await ImageKitInst.injest(file.data, file.name);
+    await Image.process();
 
-    // injest new image into imagekit
-    const injestImg = new ImageKit(file.data, {
-      name: file.name,
-      injested: injestedCB,
-    });
+    // store image kit
+    const storeImageKitRes = localMediaKitInstance.save(ImageKitInst);
+
+    await ImageKitInst.close();
+
+    res.status(200).json(storeImageKitRes);
   } else {
     res.status(400).send("No files were uploaded.");
     return;

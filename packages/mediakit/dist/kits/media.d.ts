@@ -7,7 +7,9 @@ export default class MediaKit {
     options: MK_Options;
     store: S3Store | LocalStore;
     constructor(options: MK_OptionsParam);
-    save(media: ImageKit | VideoKit): void;
+    save(media: ImageKit | VideoKit): {
+        success: Map<string, import("../singles/image").default>;
+    } | undefined;
     delete(id: string): void;
     get(id: string): void;
     stream(id: string): void;

@@ -1,18 +1,12 @@
 /// <reference types="node" />
-import sharp from "sharp";
-import { IK_processConfig, IK_processDefaultConfig, IK_data } from "../../types";
+import Image from "../singles/image";
+import { IK_processConfig } from "../../types";
 export default class ImageKit {
-    #private;
-    input: Buffer;
-    config: IK_processDefaultConfig;
-    imageData: IK_data;
-    image: sharp.Sharp;
-    constructor(input: Buffer, config: {
-        name?: string;
-        injested?: () => void;
-    });
-    process(config?: IK_processConfig): Promise<void>;
-    get key(): string;
-    get data(): IK_data;
+    config: IK_processConfig;
+    injestedImages: Map<string, Image>;
+    constructor(config?: IK_processConfig);
+    injest(input: Buffer, name?: string): Promise<Image>;
+    close(): Promise<void>;
+    get images(): Map<string, Image>;
 }
 //# sourceMappingURL=image.d.ts.map

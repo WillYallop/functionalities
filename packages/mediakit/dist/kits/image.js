@@ -5,14 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const uuid_1 = require("uuid");
 const sharp_1 = __importDefault(require("sharp"));
+const image_1 = __importDefault(require("../singles/image"));
 class ImageKit {
-    input;
     config;
-    imageData;
-    image;
-    constructor(input, config) {
-        this.input = input;
-        this.config = {
+    injestedImages;
+    constructor(config) {
+        const defaultConfig = {
             width: undefined,
             height: undefined,
             fit: "cover",
@@ -35,23 +33,22 @@ class ImageKit {
                 },
             },
         };
-        this.imageData = {
+        this.config = { ...defaultConfig, ...config };
+        this.injestedImages = new Map();
+    }
+    async injest(input, name) {
+        const imageData = {
             key: (0, uuid_1.v4)(),
             width: 0,
             height: 0,
-            name: config?.name || "",
+            name: "",
             images: undefined,
         };
-        this.image = (0, sharp_1.default)(this.input);
-        this.image.metadata().then((metadata) => {
-            this.imageData.width = metadata.width || 0;
-            this.imageData.height = metadata.height || 0;
-            this.#setImageData(metadata);
-            if (config.injested)
-                config.injested();
-        });
-    }
-    async #setImageData(metadata) {
+        const image = (0, sharp_1.default)(input);
+        const metadata = await image.metadata();
+        imageData.width = metadata.width || 0;
+        imageData.height = metadata.height || 0;
+        imageData.name = name || "";
         const imageMimes = {
             jpeg: "image/jpeg",
             png: "image/png",
@@ -66,11 +63,11 @@ class ImageKit {
             if (target !== metadata.format)
                 return undefined;
             return {
-                data: this.input,
+                data: input,
                 mime: imageMimes[target],
             };
         };
-        this.imageData.images = {
+        imageData.images = {
             jpeg: imagesTypeData("jpeg"),
             png: imagesTypeData("png"),
             webp: imagesTypeData("webp"),
@@ -78,15 +75,15 @@ class ImageKit {
             svg: imagesTypeData("svg"),
             gif: imagesTypeData("gif"),
         };
+        const ImageInst = new image_1.default(imageData, image);
+        this.injestedImages.set(imageData.key, ImageInst);
+        return ImageInst;
     }
-    async process(config) {
-        this.config = { ...this.config, ...config };
+    async close() {
+        this.injestedImages.clear();
     }
-    get key() {
-        return this.data.key;
-    }
-    get data() {
-        return this.imageData;
+    get images() {
+        return this.injestedImages;
     }
 }
 exports.default = ImageKit;

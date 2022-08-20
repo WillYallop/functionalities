@@ -1,28 +1,17 @@
 //
 import { v4 as uuidv4 } from "uuid";
 import sharp from "sharp";
+// Classes
+import Image from "../singles/image";
 // Types
-import {
-  IK_processConfig,
-  IK_processDefaultConfig,
-  IK_data,
-} from "../../types";
+import { IK_processConfig, IK_data } from "../../types";
 
 export default class ImageKit {
-  input: Buffer;
-  config: IK_processDefaultConfig;
-  imageData: IK_data;
-  image: sharp.Sharp;
-  constructor(
-    input: Buffer,
-    config: {
-      name?: string;
-      injested?: () => void;
-    }
-  ) {
-    this.input = input;
+  config: IK_processConfig;
+  injestedImages: Map<string, Image>;
+  constructor(config?: IK_processConfig) {
     // default config
-    this.config = {
+    const defaultConfig: IK_processConfig = {
       width: undefined,
       height: undefined,
       fit: "cover",
@@ -45,30 +34,33 @@ export default class ImageKit {
         },
       },
     };
+    this.config = { ...defaultConfig, ...config };
+    this.injestedImages = new Map();
+  }
 
-    // data
-    this.imageData = {
+  // --------------------------------------------------
+  // public
+  // --------------------------------------------------
+  // Inject and return new Image instance
+  async injest(input: Buffer, name?: string) {
+    const imageData: IK_data = {
       key: uuidv4(),
       width: 0,
       height: 0,
-      name: config?.name || "",
+      name: "",
       images: undefined,
     };
 
     // injest image into sharp
-    this.image = sharp(this.input);
+    const image = sharp(input);
+
     // update image data obj
-    this.image.metadata().then((metadata) => {
-      this.imageData.width = metadata.width || 0;
-      this.imageData.height = metadata.height || 0;
-      this.#setImageData(metadata);
-      if (config.injested) config.injested();
-    });
-  }
-  // --------------------------------------------------
-  // internal
-  // --------------------------------------------------
-  async #setImageData(metadata: sharp.Metadata) {
+    const metadata = await image.metadata();
+
+    imageData.width = metadata.width || 0;
+    imageData.height = metadata.height || 0;
+    imageData.name = name || "";
+
     const imageMimes = {
       jpeg: "image/jpeg",
       png: "image/png",
@@ -84,11 +76,11 @@ export default class ImageKit {
       if (!metadata.format) return undefined;
       if (target !== metadata.format) return undefined;
       return {
-        data: this.input,
+        data: input,
         mime: imageMimes[target],
       };
     };
-    this.imageData.images = {
+    imageData.images = {
       jpeg: imagesTypeData("jpeg"),
       png: imagesTypeData("png"),
       webp: imagesTypeData("webp"),
@@ -96,23 +88,17 @@ export default class ImageKit {
       svg: imagesTypeData("svg"),
       gif: imagesTypeData("gif"),
     };
+
+    const ImageInst = new Image(imageData, image);
+    this.injestedImages.set(imageData.key, ImageInst);
+    return ImageInst;
+  }
+  async close() {
+    this.injestedImages.clear();
   }
 
-  // --------------------------------------------------
-  // public
-  // --------------------------------------------------
-  // Handle resizing the image & converting it to a different format
-  async process(config?: IK_processConfig) {
-    this.config = { ...this.config, ...config };
-  }
-
-  // --------------------------------------------------
   //
-  // --------------------------------------------------
-  get key() {
-    return this.data.key;
-  }
-  get data() {
-    return this.imageData;
+  get images(): Map<string, Image> {
+    return this.injestedImages;
   }
 }
