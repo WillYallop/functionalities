@@ -9,6 +9,7 @@ class ImageKit {
     injestedImages;
     constructor(config) {
         const defaultConfig = {
+            keyPrefix: "",
             width: undefined,
             height: undefined,
             fit: "cover",

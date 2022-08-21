@@ -3,6 +3,7 @@ import Image from "../../src/image-kit/image";
 import { ST_fileDataObj } from "../index";
 
 export interface IK_processConfig {
+  keyPrefix?: string;
   width?: number;
   height?: number;
   fit?: keyof FitEnum;

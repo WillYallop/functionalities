@@ -5,7 +5,6 @@ export const localMediaKitInstance = new MediaKit({
   localOptions: {
     directory: "./uploads",
   },
-  keyPrefix: "playground_",
 });
 
 export const s3MediaKitInstance = new MediaKit({
@@ -16,5 +15,4 @@ export const s3MediaKitInstance = new MediaKit({
     accessKeyId: "AKIAIOSFODNN7EXAMPLE",
     secretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
   },
-  keyPrefix: "playground_",
 });

@@ -20,7 +20,7 @@ class Image {
     constructor(config, input, name) {
         this.config = config;
         this.imageData = {
-            key: (0, uuid_1.v4)(),
+            key: `${this.config.keyPrefix}${(0, uuid_1.v4)()}`,
             width: 0,
             height: 0,
             name: "",

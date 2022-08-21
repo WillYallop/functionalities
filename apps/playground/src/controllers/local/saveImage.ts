@@ -4,7 +4,11 @@ import { ImageKit } from "mediakit";
 import { localMediaKitInstance } from "../../util/mediakit";
 
 // New ImageKit Instance
-const ImageKitInst = new ImageKit();
+const ImageKitInst = new ImageKit({
+  keyPrefix: "playground_",
+  width: 500,
+  height: 500,
+});
 
 const saveImage = async (req: Request, res: Response) => {
   if (req.files) {

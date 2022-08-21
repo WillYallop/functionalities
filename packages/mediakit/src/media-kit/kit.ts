@@ -1,5 +1,6 @@
 // Types
 import { MK_Options, MK_OptionsParam, ST_fileDataObj } from "../../types";
+import { ReadStream } from "fs";
 // Class
 import ImageKit from "../image-kit/kit";
 import VideoKit from "../video-kit/kit";
@@ -26,23 +27,16 @@ export default class MediaKit {
       localOptions: {
         directory: path.resolve("/media"),
       },
-      keyPrefix: "",
     };
     this.options = { ...defaultOptions, ...options };
 
     // create store
     switch (this.options.storeMethod) {
       case "s3":
-        this.store = new S3Store(
-          this.options.s3Options,
-          this.options.keyPrefix
-        );
+        this.store = new S3Store(this.options.s3Options);
         break;
       case "local":
-        this.store = new LocalStore(
-          this.options.localOptions,
-          this.options.keyPrefix
-        );
+        this.store = new LocalStore(this.options.localOptions);
         break;
       default:
         throw new Error("Invalid store method");
@@ -64,14 +58,14 @@ export default class MediaKit {
       success: true,
     };
   }
-  delete(id: string) {
-    console.log(id);
+  delete(key: string) {
+    this.store.delete(key);
   }
-  get(id: string) {
-    console.log(id);
+  get(key: string, folder?: string) {
+    this.store.get(key, folder);
   }
   // stream media
-  stream(id: string) {
-    console.log(id);
+  stream(key: string, folder?: string): ReadStream {
+    return this.store.stream(key, folder);
   }
 }

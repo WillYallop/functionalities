@@ -24,15 +24,14 @@ class MediaKit {
             localOptions: {
                 directory: path_1.default.resolve("/media"),
             },
-            keyPrefix: "",
         };
         this.options = { ...defaultOptions, ...options };
         switch (this.options.storeMethod) {
             case "s3":
-                this.store = new s3_1.default(this.options.s3Options, this.options.keyPrefix);
+                this.store = new s3_1.default(this.options.s3Options);
                 break;
             case "local":
-                this.store = new local_1.default(this.options.localOptions, this.options.keyPrefix);
+                this.store = new local_1.default(this.options.localOptions);
                 break;
             default:
                 throw new Error("Invalid store method");
@@ -52,14 +51,14 @@ class MediaKit {
             success: true,
         };
     }
-    delete(id) {
-        console.log(id);
+    delete(key) {
+        this.store.delete(key);
     }
-    get(id) {
-        console.log(id);
+    get(key, folder) {
+        this.store.get(key, folder);
     }
-    stream(id) {
-        console.log(id);
+    stream(key, folder) {
+        return this.store.stream(key, folder);
     }
 }
 exports.default = MediaKit;

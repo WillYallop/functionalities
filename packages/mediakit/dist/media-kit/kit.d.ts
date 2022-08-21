@@ -1,4 +1,6 @@
+/// <reference types="node" />
 import { MK_Options, MK_OptionsParam } from "../../types";
+import { ReadStream } from "fs";
 import ImageKit from "../image-kit/kit";
 import VideoKit from "../video-kit/kit";
 import S3Store from "./stores/s3";
@@ -10,8 +12,8 @@ export default class MediaKit {
     save(media: ImageKit | VideoKit, folder?: string): {
         success: boolean;
     };
-    delete(id: string): void;
-    get(id: string): void;
-    stream(id: string): void;
+    delete(key: string): void;
+    get(key: string, folder?: string): void;
+    stream(key: string, folder?: string): ReadStream;
 }
 //# sourceMappingURL=kit.d.ts.map

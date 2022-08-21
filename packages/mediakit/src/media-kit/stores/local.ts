@@ -7,10 +7,8 @@ import Store from ".";
 
 export default class LocalStore extends Store {
   localOptions: ST_LocalOptions;
-  constructor(options: ST_LocalOptions, keyPrefix: string) {
-    super({
-      keyPrefix: keyPrefix,
-    });
+  constructor(options: ST_LocalOptions) {
+    super();
     this.localOptions = options;
   }
 
@@ -29,6 +27,22 @@ export default class LocalStore extends Store {
       this.fileKey(key, data.extension)
     );
     fs.writeFileSync(filePath, data.data);
+  }
+  get(key: string, folder?: string) {
+    const filePath = path.join(this.localOptions.directory, folder || "", key);
+    return fs.readFileSync(filePath);
+  }
+  delete(key: string, folder?: string) {
+    const filePath = path.join(this.localOptions.directory, folder || "", key);
+    fs.unlinkSync(filePath);
+    return {
+      deleted: true,
+    };
+  }
+  stream(key: string, folder?: string) {
+    const filePath = path.join(this.localOptions.directory, folder || "", key);
+    console.log("LOCAL STORE");
+    return fs.createReadStream(filePath);
   }
 
   // ------------------------------------------------------------

@@ -20,7 +20,7 @@ export default class Image {
     this.config = config;
 
     this.imageData = {
-      key: uuidv4(),
+      key: `${this.config.keyPrefix}${uuidv4()}`,
       width: 0,
       height: 0,
       name: "",

@@ -9,6 +9,7 @@ export default class ImageKit {
   constructor(config?: IK_processConfig) {
     // default config
     const defaultConfig: IK_processConfig = {
+      keyPrefix: "",
       width: undefined,
       height: undefined,
       fit: "cover",
@@ -38,7 +39,7 @@ export default class ImageKit {
   // --------------------------------------------------
   // public
   // --------------------------------------------------
-  // Inject and return new Image instance
+  // Injest and return new Image instance
   async injest(input: Buffer, name?: string) {
     const ImageInst = new Image(this.config, input, name);
     this.injestedImages.set(ImageInst.key, ImageInst);

@@ -5,11 +5,9 @@ export interface MK_OptionsParam {
   storeMethod: "local" | "s3";
   s3Options?: ST_S3Options;
   localOptions?: ST_LocalOptions;
-  keyPrefix?: string;
 }
 export interface MK_Options {
   storeMethod: "local" | "s3";
   s3Options: ST_S3Options;
   localOptions: ST_LocalOptions;
-  keyPrefix: string;
 }
