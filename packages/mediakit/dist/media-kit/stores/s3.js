@@ -10,9 +10,16 @@ class S3Store extends _1.default {
     constructor(options) {
         super();
     }
-    save(key, data) { }
+    async save(key, data, folder) {
+        return {
+            saved: true,
+            key: this.fileKey(key, data.extension),
+            mime: data.mime,
+            extension: data.extension,
+        };
+    }
     get(key, folder) { }
-    delete(key) { }
+    delete(key, folder) { }
     stream(key, folder) {
         const filePath = path_1.default.join("./uploads", folder || "", key);
         return fs_extra_1.default.createReadStream(filePath);

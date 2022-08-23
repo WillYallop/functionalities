@@ -1,5 +1,10 @@
 // Types
-import { MK_Options, MK_OptionsParam, ST_fileDataObj } from "../../types";
+import {
+  MK_Options,
+  MK_OptionsParam,
+  ST_SaveFileResponse,
+  MK_SaveSingleFileRes,
+} from "../../types";
 import { ReadStream } from "fs";
 // Class
 import ImageKit from "../image-kit/kit";
@@ -44,28 +49,46 @@ export default class MediaKit {
   }
 
   // abstractions on top of store methods
-  save(media: ImageKit | VideoKit, folder?: string) {
+  async save(media: ImageKit | VideoKit, folder?: string) {
+    const savedFiles: Map<string, MK_SaveSingleFileRes> = new Map();
+
     if (media instanceof ImageKit) {
       const flatData = flattenImages(media.images);
       for (let i = 0; i < flatData.length; i++) {
-        this.store.save(flatData[i].key, flatData[i].data, folder);
+        // check if there is a savedFiles map instaqnce with this key
+        if (!savedFiles.has(flatData[i].key)) {
+          savedFiles.set(flatData[i].key, {
+            key: flatData[i].key,
+            name: flatData[i].name,
+            height: flatData[i].height,
+            width: flatData[i].width,
+            folder: folder,
+            files: [],
+          });
+        }
+        // get map instance for this key
+        const savedFile = savedFiles.get(flatData[i].key);
+        const saveRes = await this.store.save(
+          flatData[i].key,
+          flatData[i].data,
+          folder
+        );
+        if (savedFile) savedFile.files.push(saveRes);
       }
     } else if (media instanceof VideoKit) {
     }
 
     media.close();
-    return {
-      success: true,
-    };
+    return Array.from(savedFiles.values());
   }
-  delete(key: string) {
-    this.store.delete(key);
+  delete(key: string, folder?: string) {
+    return this.store.delete(key, folder);
   }
   get(key: string, folder?: string) {
-    this.store.get(key, folder);
+    return this.store.get(key, folder);
   }
   // stream media
-  stream(key: string, folder?: string): ReadStream {
+  stream(key: string, folder?: string): ReadStream | null {
     return this.store.stream(key, folder);
   }
 }

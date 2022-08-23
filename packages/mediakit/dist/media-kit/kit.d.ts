@@ -1,5 +1,6 @@
 /// <reference types="node" />
-import { MK_Options, MK_OptionsParam } from "../../types";
+/// <reference types="node" />
+import { MK_Options, MK_OptionsParam, MK_SaveSingleFileRes } from "../../types";
 import { ReadStream } from "fs";
 import ImageKit from "../image-kit/kit";
 import VideoKit from "../video-kit/kit";
@@ -9,11 +10,11 @@ export default class MediaKit {
     options: MK_Options;
     store: S3Store | LocalStore;
     constructor(options: MK_OptionsParam);
-    save(media: ImageKit | VideoKit, folder?: string): {
-        success: boolean;
+    save(media: ImageKit | VideoKit, folder?: string): Promise<MK_SaveSingleFileRes[]>;
+    delete(key: string, folder?: string): void | {
+        deleted: boolean;
     };
-    delete(key: string): void;
-    get(key: string, folder?: string): void;
-    stream(key: string, folder?: string): ReadStream;
+    get(key: string, folder?: string): void | Buffer | null;
+    stream(key: string, folder?: string): ReadStream | null;
 }
 //# sourceMappingURL=kit.d.ts.map

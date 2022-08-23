@@ -37,25 +37,37 @@ class MediaKit {
                 throw new Error("Invalid store method");
         }
     }
-    save(media, folder) {
+    async save(media, folder) {
+        const savedFiles = new Map();
         if (media instanceof kit_1.default) {
             const flatData = (0, flatten_images_1.default)(media.images);
             for (let i = 0; i < flatData.length; i++) {
-                this.store.save(flatData[i].key, flatData[i].data, folder);
+                if (!savedFiles.has(flatData[i].key)) {
+                    savedFiles.set(flatData[i].key, {
+                        key: flatData[i].key,
+                        name: flatData[i].name,
+                        height: flatData[i].height,
+                        width: flatData[i].width,
+                        folder: folder,
+                        files: [],
+                    });
+                }
+                const savedFile = savedFiles.get(flatData[i].key);
+                const saveRes = await this.store.save(flatData[i].key, flatData[i].data, folder);
+                if (savedFile)
+                    savedFile.files.push(saveRes);
             }
         }
         else if (media instanceof kit_2.default) {
         }
         media.close();
-        return {
-            success: true,
-        };
+        return Array.from(savedFiles.values());
     }
-    delete(key) {
-        this.store.delete(key);
+    delete(key, folder) {
+        return this.store.delete(key, folder);
     }
     get(key, folder) {
-        this.store.get(key, folder);
+        return this.store.get(key, folder);
     }
     stream(key, folder) {
         return this.store.stream(key, folder);

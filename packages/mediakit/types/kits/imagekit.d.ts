@@ -1,8 +1,8 @@
 import { FitEnum } from "sharp";
 import Image from "../../src/image-kit/image";
-import { ST_fileDataObj } from "../index";
+import { ST_FileDataObj } from "../index";
 
-export interface IK_processConfig {
+export interface IK_ProcessConfig {
   keyPrefix?: string;
   width?: number;
   height?: number;
@@ -30,14 +30,14 @@ export interface IK_processConfig {
   };
 }
 
-export interface IK_data {
+export interface IK_Data {
   key: string;
   width: number;
   height: number;
   name: string;
   originalFormat?: string;
   hasAlpha?: boolean;
-  images: Array<ST_fileDataObj>;
+  images: Array<ST_FileDataObj>;
 }
 
 export type IK_ImageMap = Map<string, Image>;

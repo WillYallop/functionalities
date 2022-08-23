@@ -6,17 +6,19 @@ const streamImage = async (req: Request, res: Response) => {
   const steamRes = localMediaKitInstance.stream(req.params.key, "/images");
 
   // stream  image
-  steamRes
-    .on("data", (chunk) => {
-      res.write(chunk);
-    })
-    .on("end", () => {
-      res.end();
-    })
-    .on("error", (err) => {
-      res.status(500).send(err);
-    })
-    .pipe(res);
+  if (steamRes) {
+    steamRes
+      .on("data", (chunk) => {
+        res.write(chunk);
+      })
+      .on("end", () => {
+        res.end();
+      })
+      .on("error", (err) => {
+        res.status(500).send(err);
+      })
+      .pipe(res);
+  }
 };
 
 export default streamImage;

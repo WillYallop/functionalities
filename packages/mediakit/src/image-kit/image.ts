@@ -1,7 +1,7 @@
 import sharp from "sharp";
 import { v4 as uuidv4 } from "uuid";
 // types
-import { IK_data, IK_processConfig } from "../../types";
+import { IK_Data, IK_ProcessConfig } from "../../types";
 
 const imageMimes = {
   jpeg: "image/jpeg",
@@ -14,9 +14,9 @@ const imageMimes = {
 
 export default class Image {
   image: sharp.Sharp;
-  imageData: IK_data;
-  config: IK_processConfig;
-  constructor(config: IK_processConfig, input: Buffer, name?: string) {
+  imageData: IK_Data;
+  config: IK_ProcessConfig;
+  constructor(config: IK_ProcessConfig, input: Buffer, name?: string) {
     this.config = config;
 
     this.imageData = {
@@ -153,7 +153,7 @@ export default class Image {
     }
   }
 
-  get data(): IK_data {
+  get data(): IK_Data {
     return this.imageData;
   }
   get key(): string {

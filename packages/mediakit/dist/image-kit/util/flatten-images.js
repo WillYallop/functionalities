@@ -7,6 +7,9 @@ const flattenImageData = (imgMap) => {
         img.data.images.map((imgData) => {
             flatData.push({
                 key: img.key,
+                name: img.data.name,
+                height: img.data.height,
+                width: img.data.width,
                 data: imgData,
             });
         });

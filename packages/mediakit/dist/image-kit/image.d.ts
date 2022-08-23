@@ -1,17 +1,17 @@
 /// <reference types="node" />
 import sharp from "sharp";
-import { IK_data, IK_processConfig } from "../../types";
+import { IK_Data, IK_ProcessConfig } from "../../types";
 export default class Image {
     #private;
     image: sharp.Sharp;
-    imageData: IK_data;
-    config: IK_processConfig;
-    constructor(config: IK_processConfig, input: Buffer, name?: string);
+    imageData: IK_Data;
+    config: IK_ProcessConfig;
+    constructor(config: IK_ProcessConfig, input: Buffer, name?: string);
     process(): Promise<{
         complete: boolean;
         time: number;
     }>;
-    get data(): IK_data;
+    get data(): IK_Data;
     get key(): string;
 }
 //# sourceMappingURL=image.d.ts.map
