@@ -3,13 +3,6 @@ import { UploadedFile } from "express-fileupload";
 import { ImageKit } from "mediakit";
 import { localMediaKitInstance } from "../../util/mediakit";
 
-// New ImageKit Instance
-const ImageKitInst = new ImageKit({
-  keyPrefix: "playground_",
-  width: 500,
-  height: 500,
-});
-
 const saveImage = async (req: Request, res: Response) => {
   if (req.files) {
     const keys: Array<string> = Object.keys(req.files);
@@ -25,6 +18,13 @@ const saveImage = async (req: Request, res: Response) => {
       });
       return;
     }
+
+    // New ImageKit Instance
+    const ImageKitInst = new ImageKit({
+      keyPrefix: "playground_",
+      width: 500,
+      height: 500,
+    });
 
     const Image = await ImageKitInst.injest(file.data, file.name);
     await Image.process();

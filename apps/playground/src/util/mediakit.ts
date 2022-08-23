@@ -1,4 +1,6 @@
 import MediaKit from "mediakit";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const localMediaKitInstance = new MediaKit({
   storeMethod: "local",
@@ -10,9 +12,9 @@ export const localMediaKitInstance = new MediaKit({
 export const s3MediaKitInstance = new MediaKit({
   storeMethod: "s3",
   s3Options: {
-    bucket: "my-bucket",
-    region: "us-east-1",
-    accessKeyId: "AKIAIOSFODNN7EXAMPLE",
-    secretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+    bucket: "oxygen-bucket",
+    region: "eu-central-1",
+    accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID as string,
+    secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY as string,
   },
 });
