@@ -58,6 +58,7 @@ export default class MediaKit {
         // check if there is a savedFiles map instaqnce with this key
         if (!savedFiles.has(flatData[i].key)) {
           savedFiles.set(flatData[i].key, {
+            success: true,
             key: flatData[i].key,
             name: flatData[i].name,
             height: flatData[i].height,
@@ -68,12 +69,25 @@ export default class MediaKit {
         }
         // get map instance for this key
         const savedFile = savedFiles.get(flatData[i].key);
+
+        // skip if the previous file for this instances has failed
+        if (!savedFile?.success) continue;
+
+        // save file
         const saveRes = await this.store.save(
           flatData[i].key,
           flatData[i].data,
           folder
         );
-        if (savedFile) savedFile.files.push(saveRes);
+
+        if (savedFile) {
+          // if it returns false, then mark the savedFiles map instance as faild and continue
+          if (!saveRes.saved) {
+            savedFile.success = false;
+            continue;
+          }
+          savedFile.files.push(saveRes);
+        }
       }
     } else if (media instanceof VideoKit) {
     }
@@ -81,14 +95,14 @@ export default class MediaKit {
     media.close();
     return Array.from(savedFiles.values());
   }
-  delete(key: string, folder?: string) {
-    return this.store.delete(key, folder);
+  async delete(key: string, folder?: string) {
+    return await this.store.delete(key, folder);
   }
-  get(key: string, folder?: string) {
-    return this.store.get(key, folder);
+  async get(key: string, folder?: string) {
+    return await this.store.get(key, folder);
   }
   // stream media
-  stream(key: string, folder?: string): ReadStream | null {
+  stream(key: string, folder?: string) {
     return this.store.stream(key, folder);
   }
 }

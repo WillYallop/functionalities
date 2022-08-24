@@ -21,12 +21,13 @@ export default class LocalStore extends Store {
   // ------------------------------------------------------------
 
   // save files to local directory
-  async save(
-    key: string,
-    data: ST_FileDataObj,
-    folder?: string
-  ): Promise<ST_SaveFileResponse> {
-    try {
+  save(key: string, data: ST_FileDataObj, folder?: string) {
+    // save function
+    const saveFunction = async (
+      key: string,
+      data: ST_FileDataObj,
+      folder?: string
+    ) => {
       // build the directory if it doesn't exist
       this.#buildDirectories(folder);
       // save the file
@@ -36,62 +37,42 @@ export default class LocalStore extends Store {
         this.fileKey(key, data.extension)
       );
       await fs.writeFile(filePath, data.data);
-      return {
-        saved: true,
-        key: this.fileKey(key, data.extension),
-        mime: data.mime,
-        extension: data.extension,
-      };
-    } catch (err) {
-      console.log(err);
-      return {
-        saved: false,
-        key: this.fileKey(key, data.extension),
-        mime: data.mime,
-        extension: data.extension,
-      };
-    }
+    };
+    // return save wrapper res
+    return this.saveWrapper(key, data, saveFunction, folder);
   }
   get(key: string, folder?: string) {
-    try {
+    // get function
+    const getFunction = async (key: string, folder?: string) => {
       const filePath = path.join(
         this.localOptions.directory,
         folder || "",
         key
       );
-      return fs.readFileSync(filePath);
-    } catch (err) {
-      return null;
-    }
+      return await fs.readFile(filePath);
+    };
+    // return get wrapper res
+    return this.getWrapper(key, getFunction, folder);
   }
   delete(key: string, folder?: string) {
-    try {
-      const filePath = path.join(
-        this.localOptions.directory,
-        folder || "",
-        key
-      );
-      fs.unlinkSync(filePath);
-      return {
-        deleted: true,
-      };
-    } catch (err) {
-      return {
-        deleted: false,
-      };
-    }
+    // delete function
+    const deleteFunction = (key: string, folder?: string) => {
+      // check if file exists
+      if (fs.existsSync(this.#filePath(key, folder))) {
+        // delete the file
+        fs.unlinkSync(this.#filePath(key, folder));
+      }
+    };
+    // return delete wrapper res
+    return this.deleteWrapper(key, deleteFunction, folder);
   }
   stream(key: string, folder?: string) {
-    try {
-      const filePath = path.join(
-        this.localOptions.directory,
-        folder || "",
-        key
-      );
-      return fs.createReadStream(filePath);
-    } catch (err) {
-      return null;
-    }
+    // stream function
+    const streamFunction = (key: string, folder?: string) => {
+      return fs.createReadStream(this.#filePath(key, folder));
+    };
+    // return stream wrapper res
+    return this.streamWrapper(key, streamFunction, folder);
   }
 
   // ------------------------------------------------------------
@@ -106,5 +87,9 @@ export default class LocalStore extends Store {
       fs.mkdirSync(dir, {
         recursive: true,
       });
+  }
+  // get file path
+  #filePath(key: string, folder?: string) {
+    return path.join(this.localOptions.directory, folder || "", key);
   }
 }

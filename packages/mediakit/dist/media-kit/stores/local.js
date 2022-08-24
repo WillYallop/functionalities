@@ -12,59 +12,34 @@ class LocalStore extends _1.default {
         super();
         this.localOptions = options;
     }
-    async save(key, data, folder) {
-        try {
+    save(key, data, folder) {
+        const saveFunction = async (key, data, folder) => {
             this.#buildDirectories(folder);
             const filePath = path_1.default.join(this.localOptions.directory, folder || "", this.fileKey(key, data.extension));
             await fs_extra_1.default.writeFile(filePath, data.data);
-            return {
-                saved: true,
-                key: this.fileKey(key, data.extension),
-                mime: data.mime,
-                extension: data.extension,
-            };
-        }
-        catch (err) {
-            console.log(err);
-            return {
-                saved: false,
-                key: this.fileKey(key, data.extension),
-                mime: data.mime,
-                extension: data.extension,
-            };
-        }
+        };
+        return this.saveWrapper(key, data, saveFunction, folder);
     }
     get(key, folder) {
-        try {
+        const getFunction = async (key, folder) => {
             const filePath = path_1.default.join(this.localOptions.directory, folder || "", key);
-            return fs_extra_1.default.readFileSync(filePath);
-        }
-        catch (err) {
-            return null;
-        }
+            return await fs_extra_1.default.readFile(filePath);
+        };
+        return this.getWrapper(key, getFunction, folder);
     }
     delete(key, folder) {
-        try {
-            const filePath = path_1.default.join(this.localOptions.directory, folder || "", key);
-            fs_extra_1.default.unlinkSync(filePath);
-            return {
-                deleted: true,
-            };
-        }
-        catch (err) {
-            return {
-                deleted: false,
-            };
-        }
+        const deleteFunction = (key, folder) => {
+            if (fs_extra_1.default.existsSync(this.#filePath(key, folder))) {
+                fs_extra_1.default.unlinkSync(this.#filePath(key, folder));
+            }
+        };
+        return this.deleteWrapper(key, deleteFunction, folder);
     }
     stream(key, folder) {
-        try {
-            const filePath = path_1.default.join(this.localOptions.directory, folder || "", key);
-            return fs_extra_1.default.createReadStream(filePath);
-        }
-        catch (err) {
-            return null;
-        }
+        const streamFunction = (key, folder) => {
+            return fs_extra_1.default.createReadStream(this.#filePath(key, folder));
+        };
+        return this.streamWrapper(key, streamFunction, folder);
     }
     #buildDirectories(folder) {
         const dir = path_1.default.join(this.localOptions.directory, folder || "");
@@ -72,6 +47,9 @@ class LocalStore extends _1.default {
             fs_extra_1.default.mkdirSync(dir, {
                 recursive: true,
             });
+    }
+    #filePath(key, folder) {
+        return path_1.default.join(this.localOptions.directory, folder || "", key);
     }
 }
 exports.default = LocalStore;

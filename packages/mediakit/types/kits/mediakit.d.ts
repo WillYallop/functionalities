@@ -17,6 +17,7 @@ export interface MK_Options {
 }
 
 export interface MK_SaveSingleFileRes {
+  success: boolean;
   key: string;
   name: string;
   height?: number;

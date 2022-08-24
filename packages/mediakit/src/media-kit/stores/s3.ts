@@ -1,5 +1,4 @@
-import fs from "fs-extra";
-import path from "path";
+import AWS from "aws-sdk";
 // Types
 import {
   ST_S3Options,
@@ -10,25 +9,83 @@ import {
 import Store from ".";
 
 export default class S3Store extends Store {
+  client: AWS.S3;
+  options: ST_S3Options;
   constructor(options: ST_S3Options) {
     super();
+    this.options = options;
+    this.client = new AWS.S3({
+      accessKeyId: options.accessKeyId,
+      secretAccessKey: options.secretAccessKey,
+      region: options.region,
+    });
   }
-  async save(
+  save(
     key: string,
     data: ST_FileDataObj,
     folder?: string
   ): Promise<ST_SaveFileResponse> {
-    return {
-      saved: true,
-      key: this.fileKey(key, data.extension),
-      mime: data.mime,
-      extension: data.extension,
+    // save function
+    const saveFunction = async (
+      key: string,
+      data: ST_FileDataObj,
+      folder?: string
+    ) => {
+      const params = {
+        Bucket: this.options.bucket,
+        Key: `${this.#formatFolder(folder)}${this.fileKey(
+          key,
+          data.extension
+        )}`,
+        Body: data.data,
+        ContentType: data.mime,
+      };
+      await this.client.upload(params).promise();
     };
+    // return save wrapper res
+    return this.saveWrapper(key, data, saveFunction, folder);
   }
-  get(key: string, folder?: string) {}
-  delete(key: string, folder?: string) {}
+  get(key: string, folder?: string) {
+    // get function
+    const getFunction = async (key: string, folder?: string) => {
+      const params = {
+        Key: `${this.#formatFolder(folder)}${key}`,
+        Bucket: this.options.bucket,
+      };
+      const fileRes = await this.client.getObject(params).promise();
+      return fileRes.Body as Buffer;
+    };
+    // return get wrapper res
+    return this.getWrapper(key, getFunction, folder);
+  }
+  delete(key: string, folder?: string) {
+    // delete function
+    const deleteFunction = async (key: string, folder?: string) => {
+      const params = {
+        Key: `${this.#formatFolder(folder)}${key}`,
+        Bucket: this.options.bucket,
+      };
+      await this.client.deleteObject(params).promise();
+    };
+    // return delete wrapper res
+    return this.deleteWrapper(key, deleteFunction, folder);
+  }
   stream(key: string, folder?: string) {
-    const filePath = path.join("./uploads", folder || "", key);
-    return fs.createReadStream(filePath);
+    // stream function
+    const streamFunction = (key: string, folder?: string) => {
+      const params = {
+        Key: `${this.#formatFolder(folder)}${key}`,
+        Bucket: this.options.bucket,
+      };
+      return this.client.getObject(params).createReadStream();
+    };
+    // return stream wrapper res
+    return this.streamWrapper(key, streamFunction, folder);
   }
+
+  // private
+  #formatFolder = (folder?: string) => {
+    // remove leading slash and full stop if they exist and add a trailing slash if there isnt one
+    return folder ? folder.replace(/^\//, "").replace(/\.$/, "") + "/" : "";
+  };
 }

@@ -44,6 +44,7 @@ class MediaKit {
             for (let i = 0; i < flatData.length; i++) {
                 if (!savedFiles.has(flatData[i].key)) {
                     savedFiles.set(flatData[i].key, {
+                        success: true,
                         key: flatData[i].key,
                         name: flatData[i].name,
                         height: flatData[i].height,
@@ -53,9 +54,16 @@ class MediaKit {
                     });
                 }
                 const savedFile = savedFiles.get(flatData[i].key);
+                if (!savedFile?.success)
+                    continue;
                 const saveRes = await this.store.save(flatData[i].key, flatData[i].data, folder);
-                if (savedFile)
+                if (savedFile) {
+                    if (!saveRes.saved) {
+                        savedFile.success = false;
+                        continue;
+                    }
                     savedFile.files.push(saveRes);
+                }
             }
         }
         else if (media instanceof kit_2.default) {
@@ -63,11 +71,11 @@ class MediaKit {
         media.close();
         return Array.from(savedFiles.values());
     }
-    delete(key, folder) {
-        return this.store.delete(key, folder);
+    async delete(key, folder) {
+        return await this.store.delete(key, folder);
     }
-    get(key, folder) {
-        return this.store.get(key, folder);
+    async get(key, folder) {
+        return await this.store.get(key, folder);
     }
     stream(key, folder) {
         return this.store.stream(key, folder);
