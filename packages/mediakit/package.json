@@ -1,7 +1,7 @@
 {
-  "name": "mediakit",
-  "version": "1.0.0",
-  "private": true,
+  "name": "@functionalities/mediakit",
+  "version": "0.1.0",
+  "private": false,
   "type": "commonjs",
   "sideEffects": false,
   "description": "A backend utility package for optimising, processing, saving and serving both videos and images.",
@@ -30,10 +30,11 @@
   "jest": {
     "preset": "scripts/jest/node"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "William Yallop",
+  "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.1201.0",
     "sharp": "^0.30.7"
-  }
+  },
+  "types": "./dist/index.d.ts"
 }
