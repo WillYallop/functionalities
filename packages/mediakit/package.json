@@ -1,6 +1,6 @@
 {
   "name": "@functionalities/mediakit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "type": "commonjs",
   "sideEffects": false,
@@ -13,9 +13,12 @@
     "lint": "eslint src --fix"
   },
   "files": [
-    "dist/**",
-    "src/**"
+    "dist/**"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WillYallop/functionalities/tree/main/packages/mediakit"
+  },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
     "@types/jest": "^26.0.22",
