@@ -1,11 +1,7 @@
 import fs from "fs-extra";
 import path from "path";
 // Types
-import {
-  ST_LocalOptions,
-  ST_FileDataObj,
-  ST_SaveFileResponse,
-} from "../../../types";
+import { ST_LocalOptions, ST_FileDataObj, VK_VideoData } from "../../../types";
 // Class
 import Store from ".";
 
@@ -73,6 +69,28 @@ export default class LocalStore extends Store {
     };
     // return stream wrapper res
     return this.streamWrapper(key, streamFunction, folder);
+  }
+
+  // video
+  saveVideo(key: string, data: VK_VideoData, folder?: string) {
+    // save function
+    const saveFunction = async (
+      key: string,
+      data: VK_VideoData,
+      folder?: string
+    ) => {
+      // build the directory if it doesn't exist
+      this.#buildDirectories(folder);
+      // move the file from temp to final location
+      const filePath = path.join(
+        this.localOptions.directory,
+        folder || "",
+        this.fileKey(key, data.extension)
+      );
+      await fs.move(data.temp_location, filePath);
+    };
+    // return save wrapper res
+    return this.saveVideoWrapper(key, data, saveFunction, folder);
   }
 
   // ------------------------------------------------------------

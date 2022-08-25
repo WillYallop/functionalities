@@ -1,12 +1,21 @@
 import { ReadStream } from "fs-extra";
 import { Readable } from "stream";
 // Types
-import { ST_FileDataObj, ST_SaveFileResponse } from "../../../types";
+import {
+  ST_FileDataObj,
+  VK_VideoData,
+  ST_SaveFileResponse,
+} from "../../../types";
 
 // function types
 type ST_SaveFunction = (
   key: string,
   data: ST_FileDataObj,
+  folder?: string
+) => void;
+type ST_SaveVideoFunction = (
+  key: string,
+  data: VK_VideoData,
   folder?: string
 ) => void;
 type ST_GetFunction = (key: string, folder?: string) => Promise<Buffer>;
@@ -22,7 +31,7 @@ export default class Store {
     return `${key}.${ext}`;
   }
 
-  // to keep all store types consistent
+  // Images and file
   async saveWrapper(
     key: string,
     data: ST_FileDataObj,
@@ -79,6 +88,32 @@ export default class Store {
       return streamFunction(key, folder);
     } catch (err) {
       return null;
+    }
+  }
+
+  // Videos
+  async saveVideoWrapper(
+    key: string,
+    data: VK_VideoData,
+    saveFunction: ST_SaveVideoFunction,
+    folder?: string
+  ): Promise<ST_SaveFileResponse> {
+    try {
+      saveFunction(key, data, folder);
+      return {
+        saved: true,
+        key: this.fileKey(key, data.extension),
+        mime: data.mimetype,
+        extension: data.extension,
+      };
+    } catch (err) {
+      console.log(err);
+      return {
+        saved: false,
+        key: this.fileKey(key, data.extension),
+        mime: data.mimetype,
+        extension: data.extension,
+      };
     }
   }
 }

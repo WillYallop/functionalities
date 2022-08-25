@@ -54,6 +54,26 @@ class Store {
             return null;
         }
     }
+    async saveVideoWrapper(key, data, saveFunction, folder) {
+        try {
+            saveFunction(key, data, folder);
+            return {
+                saved: true,
+                key: this.fileKey(key, data.extension),
+                mime: data.mimetype,
+                extension: data.extension,
+            };
+        }
+        catch (err) {
+            console.log(err);
+            return {
+                saved: false,
+                key: this.fileKey(key, data.extension),
+                mime: data.mimetype,
+                extension: data.extension,
+            };
+        }
+    }
 }
 exports.default = Store;
 //# sourceMappingURL=index.js.map

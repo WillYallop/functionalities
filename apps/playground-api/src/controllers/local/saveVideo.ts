@@ -28,19 +28,15 @@ const saveVideo = async (req: Request, res: Response) => {
     keyPrefix: "playground_",
   });
 
-  const Video = await VideoKitInst.injest(
-    file.tempFilePath,
-    file.mimetype,
-    file.name
+  await VideoKitInst.injest(file.tempFilePath, file.mimetype, file.name);
+
+  // store video kit
+  const storeImageKitRes = await localMediaKitInstance.save(
+    VideoKitInst,
+    "/videos"
   );
 
-  //   // store video kit
-  //   const storeImageKitRes = await localMediaKitInstance.save(
-  //     VideoKitInst,
-  //     "/videos"
-  //   );
-
-  res.status(200).json(Video.data);
+  res.status(200).json(storeImageKitRes);
 };
 
 export default saveVideo;

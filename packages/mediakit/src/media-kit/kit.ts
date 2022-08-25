@@ -2,7 +2,7 @@
 import {
   MK_Options,
   MK_OptionsParam,
-  ST_SaveFileResponse,
+  MK_SaveSingleVideoRes,
   MK_SaveSingleFileRes,
 } from "../../types";
 import { ReadStream } from "fs";
@@ -86,10 +86,49 @@ export default class MediaKit {
             savedFile.success = false;
             continue;
           }
-          savedFile.files.push(saveRes);
+          if (savedFile.files) {
+            savedFile.files.push(saveRes);
+          }
         }
       }
     } else if (media instanceof VideoKit) {
+      // convert the Videokit.videos map to an array
+      const videos = Array.from(media.videos.values());
+      for (let i = 0; i < videos.length; i++) {
+        // check if there is a savedFiles map instaqnce with this key
+        if (!savedFiles.has(videos[i].key)) {
+          savedFiles.set(videos[i].key, {
+            success: true,
+            key: videos[i].key,
+            name: videos[i].data.name,
+            folder: folder,
+            files: [],
+          });
+        }
+        // get map instance for this key
+        const savedFile = savedFiles.get(videos[i].key);
+
+        // skip if the previous file for this instances has failed
+        if (!savedFile?.success) continue;
+
+        // save file
+        const saveRes = await this.store.saveVideo(
+          videos[i].key,
+          videos[i].data,
+          folder
+        );
+
+        if (saveRes) {
+          // if it returns false, then mark the savedFiles map instance as faild and continue
+          if (!saveRes.saved) {
+            savedFile.success = false;
+            continue;
+          }
+          if (savedFile.files) {
+            savedFile.files.push(saveRes);
+          }
+        }
+      }
     }
 
     media.close();

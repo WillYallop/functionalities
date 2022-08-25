@@ -62,11 +62,38 @@ class MediaKit {
                         savedFile.success = false;
                         continue;
                     }
-                    savedFile.files.push(saveRes);
+                    if (savedFile.files) {
+                        savedFile.files.push(saveRes);
+                    }
                 }
             }
         }
         else if (media instanceof kit_2.default) {
+            const videos = Array.from(media.videos.values());
+            for (let i = 0; i < videos.length; i++) {
+                if (!savedFiles.has(videos[i].key)) {
+                    savedFiles.set(videos[i].key, {
+                        success: true,
+                        key: videos[i].key,
+                        name: videos[i].data.name,
+                        folder: folder,
+                        files: [],
+                    });
+                }
+                const savedFile = savedFiles.get(videos[i].key);
+                if (!savedFile?.success)
+                    continue;
+                const saveRes = await this.store.saveVideo(videos[i].key, videos[i].data, folder);
+                if (saveRes) {
+                    if (!saveRes.saved) {
+                        savedFile.success = false;
+                        continue;
+                    }
+                    if (savedFile.files) {
+                        savedFile.files.push(saveRes);
+                    }
+                }
+            }
         }
         media.close();
         return Array.from(savedFiles.values());

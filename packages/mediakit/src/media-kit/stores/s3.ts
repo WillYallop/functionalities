@@ -4,6 +4,7 @@ import {
   ST_S3Options,
   ST_FileDataObj,
   ST_SaveFileResponse,
+  VK_VideoData,
 } from "../../../types";
 // Class
 import Store from ".";
@@ -81,6 +82,18 @@ export default class S3Store extends Store {
     };
     // return stream wrapper res
     return this.streamWrapper(key, streamFunction, folder);
+  }
+
+  // video
+  saveVideo(key: string, data: VK_VideoData, folder?: string) {
+    // save function
+    const saveFunction = async (
+      key: string,
+      data: VK_VideoData,
+      folder?: string
+    ) => {};
+    // return save wrapper res
+    return this.saveVideoWrapper(key, data, saveFunction, folder);
   }
 
   // private

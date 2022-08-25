@@ -60,6 +60,10 @@ class S3Store extends _1.default {
         };
         return this.streamWrapper(key, streamFunction, folder);
     }
+    saveVideo(key, data, folder) {
+        const saveFunction = async (key, data, folder) => { };
+        return this.saveVideoWrapper(key, data, saveFunction, folder);
+    }
     #formatFolder = (folder) => {
         return folder ? folder.replace(/^\//, "").replace(/\.$/, "") + "/" : "";
     };

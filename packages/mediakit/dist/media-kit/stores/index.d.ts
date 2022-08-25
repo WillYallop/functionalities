@@ -3,8 +3,9 @@
 /// <reference types="node" />
 import { ReadStream } from "fs-extra";
 import { Readable } from "stream";
-import { ST_FileDataObj, ST_SaveFileResponse } from "../../../types";
+import { ST_FileDataObj, VK_VideoData, ST_SaveFileResponse } from "../../../types";
 declare type ST_SaveFunction = (key: string, data: ST_FileDataObj, folder?: string) => void;
+declare type ST_SaveVideoFunction = (key: string, data: VK_VideoData, folder?: string) => void;
 declare type ST_GetFunction = (key: string, folder?: string) => Promise<Buffer>;
 declare type ST_DeleteFunction = (key: string, folder?: string) => void;
 declare type ST_StreamFunction = (key: string, folder?: string) => ReadStream | Readable | null;
@@ -17,6 +18,7 @@ export default class Store {
         deleted: boolean;
     }>;
     streamWrapper(key: string, streamFunction: ST_StreamFunction, folder?: string): Readable | null;
+    saveVideoWrapper(key: string, data: VK_VideoData, saveFunction: ST_SaveVideoFunction, folder?: string): Promise<ST_SaveFileResponse>;
 }
 export {};
 //# sourceMappingURL=index.d.ts.map

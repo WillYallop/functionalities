@@ -13,3 +13,11 @@ export interface VK_VideoData {
 }
 
 export type VK_VideoMap = Map<string, Video>;
+
+export interface MK_SaveSingleVideoRes {
+  success: boolean;
+  key: string;
+  name: string;
+  mime: string;
+  extension: string;
+}

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 /// <reference types="node" />
 import AWS from "aws-sdk";
-import { ST_S3Options, ST_FileDataObj, ST_SaveFileResponse } from "../../../types";
+import { ST_S3Options, ST_FileDataObj, ST_SaveFileResponse, VK_VideoData } from "../../../types";
 import Store from ".";
 export default class S3Store extends Store {
     #private;
@@ -14,5 +14,6 @@ export default class S3Store extends Store {
         deleted: boolean;
     }>;
     stream(key: string, folder?: string): import("stream").Readable | null;
+    saveVideo(key: string, data: VK_VideoData, folder?: string): Promise<ST_SaveFileResponse>;
 }
 //# sourceMappingURL=s3.d.ts.map

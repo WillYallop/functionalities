@@ -41,6 +41,14 @@ class LocalStore extends _1.default {
         };
         return this.streamWrapper(key, streamFunction, folder);
     }
+    saveVideo(key, data, folder) {
+        const saveFunction = async (key, data, folder) => {
+            this.#buildDirectories(folder);
+            const filePath = path_1.default.join(this.localOptions.directory, folder || "", this.fileKey(key, data.extension));
+            await fs_extra_1.default.move(data.temp_location, filePath);
+        };
+        return this.saveVideoWrapper(key, data, saveFunction, folder);
+    }
     #buildDirectories(folder) {
         const dir = path_1.default.join(this.localOptions.directory, folder || "");
         if (!fs_extra_1.default.existsSync(dir))
