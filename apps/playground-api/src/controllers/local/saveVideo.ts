@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { UploadedFile } from "express-fileupload";
-import { ImageKit } from "mediakit";
-import { s3MediaKitInstance } from "../../util/mediakit";
+import { VideoKit } from "mediakit";
+import { localMediaKitInstance } from "../../util/mediakit";
 
-const saveImage = async (req: Request, res: Response) => {
+const saveVideo = async (req: Request, res: Response) => {
   if (!req.files) {
     res.status(400).send("No files were uploaded.");
     return;
@@ -24,22 +24,23 @@ const saveImage = async (req: Request, res: Response) => {
   }
 
   // New ImageKit Instance
-  const ImageKitInst = new ImageKit({
+  const VideoKitInst = new VideoKit({
     keyPrefix: "playground_",
-    width: 500,
-    height: 500,
   });
 
-  const Image = await ImageKitInst.injest(file.data, file.name);
-  await Image.process();
-
-  // store image kit
-  const storeImageKitRes = await s3MediaKitInstance.save(
-    ImageKitInst,
-    "/images"
+  const Video = await VideoKitInst.injest(
+    file.tempFilePath,
+    file.mimetype,
+    file.name
   );
 
-  res.status(200).json(storeImageKitRes);
+  //   // store video kit
+  //   const storeImageKitRes = await localMediaKitInstance.save(
+  //     VideoKitInst,
+  //     "/videos"
+  //   );
+
+  res.status(200).json(Video.data);
 };
 
-export default saveImage;
+export default saveVideo;

@@ -1,7 +1,11 @@
+import Video from "./video";
+import { VK_ProcessConfig, VK_VideoMap } from "../../types";
 export default class VideoKit {
-    constructor();
-    process(file: File): void;
-    optimise(file: File): void;
-    close(): void;
+    config: VK_ProcessConfig;
+    injestedVideos: VK_VideoMap;
+    constructor(config?: VK_ProcessConfig);
+    injest(location: string, mimetype: string, name?: string): Promise<Video>;
+    close(): Promise<void>;
+    get videos(): VK_VideoMap;
 }
 //# sourceMappingURL=kit.d.ts.map

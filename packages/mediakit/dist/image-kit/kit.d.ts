@@ -7,6 +7,6 @@ export default class ImageKit {
     constructor(config?: IK_ProcessConfig);
     injest(input: Buffer, name?: string): Promise<Image>;
     close(): Promise<void>;
-    get images(): Map<string, Image>;
+    get images(): IK_ImageMap;
 }
 //# sourceMappingURL=kit.d.ts.map

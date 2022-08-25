@@ -4,12 +4,12 @@ Functionalities is a collection packages for the backend and frontend that aims 
 
 ## Backend Packages:
 
-- [@functionalities/mediaKit](/packages/mediakit/README.md)
+- [@functionalities/mediakit](/packages/mediakit/README.md)
 
 ## Frontend Packages
 
 - @functionalities/accordions (WIP)
 - @functionalities/toggler (WIP)
 - @functionalities/animations (WIP)
-- @functionalities/stickyHeader (WIP)
-- @functionalities/formValidation (WIP)
+- @functionalities/stickyheader (WIP)
+- @functionalities/formvalidation (WIP)

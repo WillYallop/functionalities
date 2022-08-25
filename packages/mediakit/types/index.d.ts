@@ -3,3 +3,4 @@ export * from "./stores/local";
 export * from "./stores/s3";
 export * from "./stores/index";
 export * from "./kits/imagekit";
+export * from "./kits/videokit";

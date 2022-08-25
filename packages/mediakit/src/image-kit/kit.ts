@@ -51,7 +51,7 @@ export default class ImageKit {
   }
 
   // get all injested images
-  get images(): Map<string, Image> {
+  get images(): IK_ImageMap {
     return this.injestedImages;
   }
 }

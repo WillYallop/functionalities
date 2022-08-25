@@ -2,16 +2,16 @@
 
 # MediaKit
 
-MediaKit is a backend utility package for processing, saving, getting and streaming images, files and video! We support both local and AWS S3 to store files process with MediaKit.
+MediaKit is a backend utility package for processing, saving, getting and streaming images, files and video! We support both local and AWS S3 to store files processed with MediaKit.
 
-Alongside the MediaKit class that is exported as default, there is a ImageKit and VideoKit class. These will be your main entry point for handling images and videos. They are responsible for injesting and process their corresponding file type.
+Alongside the MediaKit class that is exported as default, there is an ImageKit and VideoKit class. These will be your main entry point for handling images and videos. They are responsible for injesting and processing their corresponding file type.
 
 The MediaKit class is how you will save, delete, get and stream files.
 
 ## Install
 
 ```
-npm install @functionalities/mediaKit --save
+npm install @functionalities/mediakit --save
 ```
 
 ## Initialise MediaKit
