@@ -1,4 +1,6 @@
 import AWS from "aws-sdk";
+import stream from "stream";
+import fs from "fs-extra";
 // Types
 import {
   ST_S3Options,
@@ -91,7 +93,16 @@ export default class S3Store extends Store {
       key: string,
       data: VK_VideoData,
       folder?: string
-    ) => {};
+    ) => {
+      const { writeStream, promise } = this.#uploadStream(
+        this.options.bucket,
+        `${this.#formatFolder(folder)}${this.fileKey(key, data.extension)}`,
+        data.mimetype
+      );
+      const readStream = fs.createReadStream(data.temp_location);
+      readStream.pipe(writeStream);
+      return promise;
+    };
     // return save wrapper res
     return this.saveVideoWrapper(key, data, saveFunction, folder);
   }
@@ -100,5 +111,14 @@ export default class S3Store extends Store {
   #formatFolder = (folder?: string) => {
     // remove leading slash and full stop if they exist and add a trailing slash if there isnt one
     return folder ? folder.replace(/^\//, "").replace(/\.$/, "") + "/" : "";
+  };
+  #uploadStream = (Bucket: string, Key: string, ContentType: string) => {
+    const pass = new stream.PassThrough();
+    return {
+      writeStream: pass,
+      promise: this.client
+        .upload({ Bucket, Key, ContentType, Body: pass })
+        .promise(),
+    };
   };
 }

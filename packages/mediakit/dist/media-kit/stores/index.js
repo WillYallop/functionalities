@@ -56,7 +56,7 @@ class Store {
     }
     async saveVideoWrapper(key, data, saveFunction, folder) {
         try {
-            saveFunction(key, data, folder);
+            await saveFunction(key, data, folder);
             return {
                 saved: true,
                 key: this.fileKey(key, data.extension),

@@ -4,6 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const aws_sdk_1 = __importDefault(require("aws-sdk"));
+const stream_1 = __importDefault(require("stream"));
+const fs_extra_1 = __importDefault(require("fs-extra"));
 const _1 = __importDefault(require("."));
 class S3Store extends _1.default {
     client;
@@ -61,11 +63,25 @@ class S3Store extends _1.default {
         return this.streamWrapper(key, streamFunction, folder);
     }
     saveVideo(key, data, folder) {
-        const saveFunction = async (key, data, folder) => { };
+        const saveFunction = async (key, data, folder) => {
+            const { writeStream, promise } = this.#uploadStream(this.options.bucket, `${this.#formatFolder(folder)}${this.fileKey(key, data.extension)}`, data.mimetype);
+            const readStream = fs_extra_1.default.createReadStream(data.temp_location);
+            readStream.pipe(writeStream);
+            return promise;
+        };
         return this.saveVideoWrapper(key, data, saveFunction, folder);
     }
     #formatFolder = (folder) => {
         return folder ? folder.replace(/^\//, "").replace(/\.$/, "") + "/" : "";
+    };
+    #uploadStream = (Bucket, Key, ContentType) => {
+        const pass = new stream_1.default.PassThrough();
+        return {
+            writeStream: pass,
+            promise: this.client
+                .upload({ Bucket, Key, ContentType, Body: pass })
+                .promise(),
+        };
     };
 }
 exports.default = S3Store;

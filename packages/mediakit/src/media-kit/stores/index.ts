@@ -99,7 +99,7 @@ export default class Store {
     folder?: string
   ): Promise<ST_SaveFileResponse> {
     try {
-      saveFunction(key, data, folder);
+      await saveFunction(key, data, folder);
       return {
         saved: true,
         key: this.fileKey(key, data.extension),
