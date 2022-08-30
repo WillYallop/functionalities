@@ -1,9 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const CHUNK_SIZE = 10 ** 6;
 class Store {
     constructor() { }
     fileKey(key, ext) {
         return `${key}.${ext}`;
+    }
+    streamRange(range, videoSize) {
+        const start = Number(range.replace(/\D/g, ""));
+        const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+        const contentLength = end - start + 1;
+        return {
+            start,
+            end,
+            headers: {
+                "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+                "Accept-Ranges": "bytes",
+                "Content-Length": contentLength,
+                "Content-Type": "video/mp4",
+            },
+        };
     }
     async saveWrapper(key, data, saveFunction, folder) {
         try {
@@ -72,6 +88,14 @@ class Store {
                 mime: data.mimetype,
                 extension: data.extension,
             };
+        }
+    }
+    streamVideoWrapper(key, range, streamFunction, folder) {
+        try {
+            return streamFunction(key, range, folder);
+        }
+        catch (err) {
+            return null;
         }
     }
 }

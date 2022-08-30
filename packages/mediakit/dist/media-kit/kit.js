@@ -107,6 +107,9 @@ class MediaKit {
     stream(key, folder) {
         return this.store.stream(key, folder);
     }
+    streamVideo(key, range = "", folder) {
+        return this.store.streamVideo(key, range, folder);
+    }
 }
 exports.default = MediaKit;
 //# sourceMappingURL=kit.js.map

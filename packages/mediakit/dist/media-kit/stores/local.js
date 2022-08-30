@@ -49,6 +49,20 @@ class LocalStore extends _1.default {
         };
         return this.saveVideoWrapper(key, data, saveFunction, folder);
     }
+    streamVideo(key, range, folder) {
+        const streamFunction = (key, range, folder) => {
+            const videoSize = fs_extra_1.default.statSync(this.#filePath(key, folder)).size;
+            const streamRange = this.streamRange(range, videoSize);
+            return {
+                stream: fs_extra_1.default.createReadStream(this.#filePath(key, folder), {
+                    start: streamRange.start,
+                    end: streamRange.end,
+                }),
+                headers: streamRange.headers,
+            };
+        };
+        return this.streamVideoWrapper(key, range, streamFunction, folder);
+    }
     #buildDirectories(folder) {
         const dir = path_1.default.join(this.localOptions.directory, folder || "");
         if (!fs_extra_1.default.existsSync(dir))

@@ -92,6 +92,22 @@ export default class LocalStore extends Store {
     // return save wrapper res
     return this.saveVideoWrapper(key, data, saveFunction, folder);
   }
+  streamVideo(key: string, range: string, folder?: string) {
+    // stream function
+    const streamFunction = (key: string, range: string, folder?: string) => {
+      const videoSize = fs.statSync(this.#filePath(key, folder)).size;
+      const streamRange = this.streamRange(range, videoSize);
+      return {
+        stream: fs.createReadStream(this.#filePath(key, folder), {
+          start: streamRange.start,
+          end: streamRange.end,
+        }),
+        headers: streamRange.headers,
+      };
+    };
+    // return stream wrapper res
+    return this.streamVideoWrapper(key, range, streamFunction, folder);
+  }
 
   // ------------------------------------------------------------
   // private methods

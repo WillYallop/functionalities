@@ -106,6 +106,18 @@ export default class S3Store extends Store {
     // return save wrapper res
     return this.saveVideoWrapper(key, data, saveFunction, folder);
   }
+  streamVideo(key: string, range: string, folder?: string) {
+    // stream function
+    const streamFunction = (key: string, folder?: string) => {
+      const params = {
+        Key: `${this.#formatFolder(folder)}${key}`,
+        Bucket: this.options.bucket,
+      };
+      return this.client.getObject(params).createReadStream();
+    };
+    // return stream wrapper res
+    return this.streamVideoWrapper(key, range, streamFunction, folder);
+  }
 
   // private
   #formatFolder = (folder?: string) => {

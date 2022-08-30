@@ -144,4 +144,7 @@ export default class MediaKit {
   stream(key: string, folder?: string) {
     return this.store.stream(key, folder);
   }
+  streamVideo(key: string, range: string = "", folder?: string) {
+    return this.store.streamVideo(key, range, folder);
+  }
 }

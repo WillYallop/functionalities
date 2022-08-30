@@ -1,6 +1,8 @@
 /// <reference types="node" />
 /// <reference types="node" />
+/// <reference types="node" />
 import { MK_Options, MK_OptionsParam, MK_SaveSingleFileRes } from "../../types";
+import { ReadStream } from "fs";
 import ImageKit from "../image-kit/kit";
 import VideoKit from "../video-kit/kit";
 import S3Store from "./stores/s3";
@@ -15,5 +17,14 @@ export default class MediaKit {
     }>;
     get(key: string, folder?: string): Promise<Buffer | null>;
     stream(key: string, folder?: string): import("stream").Readable | null;
+    streamVideo(key: string, range?: string, folder?: string): {
+        stream: import("stream").Readable | ReadStream | null;
+        headers: {
+            "Content-Range": string;
+            "Accept-Ranges": string;
+            "Content-Length": number;
+            "Content-Type": string;
+        };
+    } | null;
 }
 //# sourceMappingURL=kit.d.ts.map

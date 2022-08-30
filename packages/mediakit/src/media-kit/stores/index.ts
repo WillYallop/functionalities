@@ -24,11 +24,41 @@ type ST_StreamFunction = (
   key: string,
   folder?: string
 ) => ReadStream | Readable | null;
+type ST_StreamVideoFunction = (
+  key: string,
+  range: string,
+  folder?: string
+) => {
+  stream: ReadStream | Readable | null;
+  headers: {
+    "Content-Range": string;
+    "Accept-Ranges": string;
+    "Content-Length": number;
+    "Content-Type": string;
+  };
+};
+
+const CHUNK_SIZE = 10 ** 6;
 
 export default class Store {
   constructor() {}
   fileKey(key: string, ext: string) {
     return `${key}.${ext}`;
+  }
+  streamRange(range: string, videoSize: number) {
+    const start = Number(range.replace(/\D/g, ""));
+    const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+    const contentLength = end - start + 1;
+    return {
+      start,
+      end,
+      headers: {
+        "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+        "Accept-Ranges": "bytes",
+        "Content-Length": contentLength,
+        "Content-Type": "video/mp4",
+      },
+    };
   }
 
   // Images and file
@@ -114,6 +144,18 @@ export default class Store {
         mime: data.mimetype,
         extension: data.extension,
       };
+    }
+  }
+  streamVideoWrapper(
+    key: string,
+    range: string,
+    streamFunction: ST_StreamVideoFunction,
+    folder?: string
+  ) {
+    try {
+      return streamFunction(key, range, folder);
+    } catch (err) {
+      return null;
     }
   }
 }
