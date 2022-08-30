@@ -28,7 +28,7 @@ type ST_StreamVideoFunction = (
   key: string,
   range: string,
   folder?: string
-) => {
+) => Promise<{
   stream: ReadStream | Readable | null;
   headers: {
     "Content-Range": string;
@@ -36,9 +36,10 @@ type ST_StreamVideoFunction = (
     "Content-Length": number;
     "Content-Type": string;
   };
-};
+}>;
 
-const CHUNK_SIZE = 10 ** 6;
+// 5mb
+const CHUNK_SIZE = 5 * 1024 * 1024;
 
 export default class Store {
   constructor() {}
@@ -146,14 +147,14 @@ export default class Store {
       };
     }
   }
-  streamVideoWrapper(
+  async streamVideoWrapper(
     key: string,
     range: string,
     streamFunction: ST_StreamVideoFunction,
     folder?: string
   ) {
     try {
-      return streamFunction(key, range, folder);
+      return await streamFunction(key, range, folder);
     } catch (err) {
       return null;
     }

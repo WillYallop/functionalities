@@ -94,7 +94,11 @@ export default class LocalStore extends Store {
   }
   streamVideo(key: string, range: string, folder?: string) {
     // stream function
-    const streamFunction = (key: string, range: string, folder?: string) => {
+    const streamFunction = async (
+      key: string,
+      range: string,
+      folder?: string
+    ) => {
       const videoSize = fs.statSync(this.#filePath(key, folder)).size;
       const streamRange = this.streamRange(range, videoSize);
       return {

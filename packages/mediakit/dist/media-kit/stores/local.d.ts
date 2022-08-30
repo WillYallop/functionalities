@@ -15,7 +15,7 @@ export default class LocalStore extends Store {
     }>;
     stream(key: string, folder?: string): import("stream").Readable | null;
     saveVideo(key: string, data: VK_VideoData, folder?: string): Promise<import("../../../types").ST_SaveFileResponse>;
-    streamVideo(key: string, range: string, folder?: string): {
+    streamVideo(key: string, range: string, folder?: string): Promise<{
         stream: import("stream").Readable | fs.ReadStream | null;
         headers: {
             "Content-Range": string;
@@ -23,6 +23,6 @@ export default class LocalStore extends Store {
             "Content-Length": number;
             "Content-Type": string;
         };
-    } | null;
+    } | null>;
 }
 //# sourceMappingURL=local.d.ts.map

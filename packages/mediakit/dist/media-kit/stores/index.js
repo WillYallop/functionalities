@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const CHUNK_SIZE = 10 ** 6;
+const CHUNK_SIZE = 5 * 1024 * 1024;
 class Store {
     constructor() { }
     fileKey(key, ext) {
@@ -90,9 +90,9 @@ class Store {
             };
         }
     }
-    streamVideoWrapper(key, range, streamFunction, folder) {
+    async streamVideoWrapper(key, range, streamFunction, folder) {
         try {
-            return streamFunction(key, range, folder);
+            return await streamFunction(key, range, folder);
         }
         catch (err) {
             return null;

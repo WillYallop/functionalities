@@ -18,7 +18,7 @@ export default class S3Store extends Store {
     }>;
     stream(key: string, folder?: string): stream.Readable | null;
     saveVideo(key: string, data: VK_VideoData, folder?: string): Promise<ST_SaveFileResponse>;
-    streamVideo(key: string, range: string, folder?: string): {
+    streamVideo(key: string, range: string, folder?: string): Promise<{
         stream: stream.Readable | fs.ReadStream | null;
         headers: {
             "Content-Range": string;
@@ -26,6 +26,6 @@ export default class S3Store extends Store {
             "Content-Length": number;
             "Content-Type": string;
         };
-    } | null;
+    } | null>;
 }
 //# sourceMappingURL=s3.d.ts.map

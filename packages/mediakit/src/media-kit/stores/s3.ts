@@ -108,12 +108,29 @@ export default class S3Store extends Store {
   }
   streamVideo(key: string, range: string, folder?: string) {
     // stream function
-    const streamFunction = (key: string, folder?: string) => {
+    const streamFunction = async (
+      key: string,
+      range: string,
+      folder?: string
+    ) => {
       const params = {
         Key: `${this.#formatFolder(folder)}${key}`,
         Bucket: this.options.bucket,
+        Range: range,
       };
-      return this.client.getObject(params).createReadStream();
+
+      const res = await this.client
+        .headObject({
+          Bucket: this.options.bucket,
+          Key: `${this.#formatFolder(folder)}${key}`,
+        })
+        .promise();
+
+      const streamRange = this.streamRange(range, res?.ContentLength || 0);
+      return {
+        stream: this.client.getObject(params).createReadStream(),
+        headers: streamRange.headers,
+      };
     };
     // return stream wrapper res
     return this.streamVideoWrapper(key, range, streamFunction, folder);

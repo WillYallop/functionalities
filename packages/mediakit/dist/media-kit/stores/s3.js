@@ -72,12 +72,23 @@ class S3Store extends _1.default {
         return this.saveVideoWrapper(key, data, saveFunction, folder);
     }
     streamVideo(key, range, folder) {
-        const streamFunction = (key, folder) => {
+        const streamFunction = async (key, range, folder) => {
             const params = {
                 Key: `${this.#formatFolder(folder)}${key}`,
                 Bucket: this.options.bucket,
+                Range: range,
             };
-            return this.client.getObject(params).createReadStream();
+            const res = await this.client
+                .headObject({
+                Bucket: this.options.bucket,
+                Key: `${this.#formatFolder(folder)}${key}`,
+            })
+                .promise();
+            const streamRange = this.streamRange(range, res?.ContentLength || 0);
+            return {
+                stream: this.client.getObject(params).createReadStream(),
+                headers: streamRange.headers,
+            };
         };
         return this.streamVideoWrapper(key, range, streamFunction, folder);
     }

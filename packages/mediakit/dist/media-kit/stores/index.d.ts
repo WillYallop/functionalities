@@ -9,7 +9,7 @@ declare type ST_SaveVideoFunction = (key: string, data: VK_VideoData, folder?: s
 declare type ST_GetFunction = (key: string, folder?: string) => Promise<Buffer>;
 declare type ST_DeleteFunction = (key: string, folder?: string) => void;
 declare type ST_StreamFunction = (key: string, folder?: string) => ReadStream | Readable | null;
-declare type ST_StreamVideoFunction = (key: string, range: string, folder?: string) => {
+declare type ST_StreamVideoFunction = (key: string, range: string, folder?: string) => Promise<{
     stream: ReadStream | Readable | null;
     headers: {
         "Content-Range": string;
@@ -17,7 +17,7 @@ declare type ST_StreamVideoFunction = (key: string, range: string, folder?: stri
         "Content-Length": number;
         "Content-Type": string;
     };
-};
+}>;
 export default class Store {
     constructor();
     fileKey(key: string, ext: string): string;
@@ -38,7 +38,7 @@ export default class Store {
     }>;
     streamWrapper(key: string, streamFunction: ST_StreamFunction, folder?: string): Readable | null;
     saveVideoWrapper(key: string, data: VK_VideoData, saveFunction: ST_SaveVideoFunction, folder?: string): Promise<ST_SaveFileResponse>;
-    streamVideoWrapper(key: string, range: string, streamFunction: ST_StreamVideoFunction, folder?: string): {
+    streamVideoWrapper(key: string, range: string, streamFunction: ST_StreamVideoFunction, folder?: string): Promise<{
         stream: Readable | ReadStream | null;
         headers: {
             "Content-Range": string;
@@ -46,7 +46,7 @@ export default class Store {
             "Content-Length": number;
             "Content-Type": string;
         };
-    } | null;
+    } | null>;
 }
 export {};
 //# sourceMappingURL=index.d.ts.map

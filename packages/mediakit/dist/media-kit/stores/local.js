@@ -50,7 +50,7 @@ class LocalStore extends _1.default {
         return this.saveVideoWrapper(key, data, saveFunction, folder);
     }
     streamVideo(key, range, folder) {
-        const streamFunction = (key, range, folder) => {
+        const streamFunction = async (key, range, folder) => {
             const videoSize = fs_extra_1.default.statSync(this.#filePath(key, folder)).size;
             const streamRange = this.streamRange(range, videoSize);
             return {

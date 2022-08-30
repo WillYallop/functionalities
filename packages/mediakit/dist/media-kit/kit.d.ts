@@ -17,7 +17,7 @@ export default class MediaKit {
     }>;
     get(key: string, folder?: string): Promise<Buffer | null>;
     stream(key: string, folder?: string): import("stream").Readable | null;
-    streamVideo(key: string, range?: string, folder?: string): {
+    streamVideo(key: string, range?: string, folder?: string): Promise<{
         stream: import("stream").Readable | ReadStream | null;
         headers: {
             "Content-Range": string;
@@ -25,6 +25,6 @@ export default class MediaKit {
             "Content-Length": number;
             "Content-Type": string;
         };
-    } | null;
+    } | null>;
 }
 //# sourceMappingURL=kit.d.ts.map

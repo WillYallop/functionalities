@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { localMediaKitInstance } from "../../util/mediakit";
+import { s3MediaKitInstance } from "../../util/mediakit";
 
 const streamVideo = async (req: Request, res: Response) => {
   const range = req.headers.range;
@@ -8,7 +8,7 @@ const streamVideo = async (req: Request, res: Response) => {
   }
 
   // store video kit
-  const steamRes = await localMediaKitInstance.streamVideo(
+  const steamRes = await s3MediaKitInstance.streamVideo(
     req.params.key,
     req.headers.range,
     "/videos"
