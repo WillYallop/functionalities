@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frontend Playground</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link rel="stylesheet" href="/src/scss/main.scss" />
+  </head>
+  <body>
+    <div class="playground-row">
+      <h2>Disclosure Example</h2>
+
+      <!-- Disclosure Exmaple -->
+      <div class="" data-disclosure="container">
+        <button data-disclosure="toggle">Toggle me</button>
+        <div data-disclosure="region">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+            euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
+            nisi nisi.
+          </p>
+        </div>
+      </div>
+      <div class="" data-disclosure="container" data-disclosure-state="true">
+        <button data-disclosure="toggle">Toggle me</button>
+        <div data-disclosure="region">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+            euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
+            nisi nisi.
+          </p>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/ts/main.ts"></script>
+  </body>
+</html>

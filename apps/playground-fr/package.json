@@ -1,0 +1,19 @@
+{
+  "name": "playground-fr",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@functionalities/disclosure": "*",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.9"
+  },
+  "dependencies": {
+    "sass": "^1.54.7"
+  }
+}

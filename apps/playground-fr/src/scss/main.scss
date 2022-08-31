@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 40px;
+}
+
+.playground-row {
+  padding: 40px;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  h2 {
+    margin-bottom: 20px;
+  }
+}

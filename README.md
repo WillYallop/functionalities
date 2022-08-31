@@ -8,7 +8,7 @@ Functionalities is a collection packages for the backend and frontend that aims 
 
 ## Frontend Packages
 
-- @functionalities/accordions (WIP)
+- [@functionalities/disclosure](/packages/disclosure/README.md)
 - @functionalities/toggler (WIP)
 - @functionalities/animations (WIP)
 - @functionalities/stickyheader (WIP)
