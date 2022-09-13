@@ -1,16 +1,12 @@
-# Disclosure - v1.1.1
+# Disclosure - v1.1.3
 
 Disclosure is a minimal frontend package for implementing accessible, lightweight disclosure components.
-
---
 
 ## Install
 
 ```
 npm install @functionalities/disclosure --save
 ```
-
---
 
 ## Example
 
@@ -39,8 +35,6 @@ An example of a single disclosure row, these can be repeated as many times as yo
 ```
 
 > The `data-disclosure-state` attribute if not present will default to false.
-
---
 
 ## Config
 
@@ -80,8 +74,6 @@ The default state of all initialised disclosures. True means they will all be op
 ### closeAll
 
 Determines whether all disclosures should close when once is opened. By default this is true.
-
---
 
 ## Limitations
 

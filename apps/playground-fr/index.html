@@ -11,32 +11,52 @@
     />
     <link rel="stylesheet" href="/src/scss/main.scss" />
   </head>
-  <body>
-    <div class="playground-row">
-      <h2>Disclosure Example</h2>
+  <body>    
+    
+    <header id="siteHeader">
+        <h1>Frontend Playground</h1>
+    </header>
 
-      <!-- Disclosure Exmaple -->
-      <div class="" data-disclosure="container">
-        <button data-disclosure="toggle">Toggle me</button>
-        <div data-disclosure="region">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
-            nisi nisi.
-          </p>
+    <main class="playground-main">
+         <!-- Disclosure row -->
+        <div class="playground-row">
+            <h2>Disclosure Example</h2>
+    
+            <!-- Disclosure Exmaple -->
+            <div class="" data-disclosure="container">
+                <button data-disclosure="toggle">Toggle me</button>
+                <div data-disclosure="region">
+                    <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                    euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
+                    nisi nisi.
+                    </p>
+                </div>
+            </div>
+            <div class="" data-disclosure="container" data-disclosure-state="true">
+                <button data-disclosure="toggle">Toggle me</button>
+                <div data-disclosure="region">
+                    <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                    euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
+                    nisi nisi.
+                    </p>
+                </div>
+            </div>
+            <div class="" data-disclosure="container">
+                <button data-disclosure="toggle">Toggle me</button>
+                <div data-disclosure="region">
+                    <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                    euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
+                    nisi nisi.
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="" data-disclosure="container" data-disclosure-state="true">
-        <button data-disclosure="toggle">Toggle me</button>
-        <div data-disclosure="region">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
-            nisi nisi.
-          </p>
-        </div>
-      </div>
-    </div>
+    </main>
+
+
     <script type="module" src="/src/ts/main.ts"></script>
   </body>
 </html>
