@@ -4,6 +4,7 @@ interface configParam {
     targetAttribute?: string;
     duration?: number;
     defaultState?: boolean;
+    closeAll?: boolean;
 }
 interface config {
     idPrefix: string;
@@ -11,6 +12,7 @@ interface config {
     targetAttribute: string;
     duration: number;
     defaultState: boolean;
+    closeAll: boolean;
 }
 interface disclosureObj {
     index: number;
@@ -19,7 +21,7 @@ interface disclosureObj {
     regionScrollHeight: number;
     togglers: NodeListOf<HTMLElement>;
 }
-declare type disclosures = WeakMap<HTMLElement, disclosureObj>;
+declare type disclosures = Map<HTMLElement, disclosureObj>;
 export default class Disclosure {
     #private;
     attributes: {

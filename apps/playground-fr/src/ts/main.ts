@@ -6,4 +6,5 @@ new Disclosure({
   targetAttribute: "data-disclosure",
   duration: 200,
   defaultState: false,
+  closeAll: true,
 });

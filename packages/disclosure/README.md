@@ -1,8 +1,8 @@
-# Disclosure - v1.0.0
+# Disclosure - v1.1.0
 
 Disclosure is a minimal frontend package for implementing accessible, lightweight disclosure components.
 
----
+--
 
 ## Install
 
@@ -10,7 +10,7 @@ Disclosure is a minimal frontend package for implementing accessible, lightweigh
 npm install @functionalities/disclosure --save
 ```
 
----
+--
 
 ## Example
 
@@ -40,7 +40,7 @@ An example of a single disclosure row, these can be repeated as many times as yo
 
 > The `data-disclosure-state` attribute if not present will default to false.
 
----
+--
 
 ## Config
 
@@ -53,6 +53,7 @@ new Disclosure({
   targetAttribute: "data-disclosure", // string
   duration: 200, // number in ms
   defaultState: false, // boolean
+  closeAll: true // boolean
 });
 ```
 
@@ -76,7 +77,11 @@ The duration of the CSS transition in ms.
 
 The default state of all initialised disclosures. True means they will all be open by default, and false means they will be closed.
 
----
+### closeAll
+
+Determines whether all disclosures should close when once is opened. By default this is true.
+
+--
 
 ## Limitations
 

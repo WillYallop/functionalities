@@ -4,6 +4,7 @@ interface configParam {
   targetAttribute?: string;
   duration?: number;
   defaultState?: boolean;
+  closeAll?: boolean;
 }
 interface config {
   idPrefix: string;
@@ -11,6 +12,7 @@ interface config {
   targetAttribute: string;
   duration: number;
   defaultState: boolean;
+  closeAll: boolean;
 }
 
 interface disclosureObj {
@@ -20,7 +22,7 @@ interface disclosureObj {
   regionScrollHeight: number;
   togglers: NodeListOf<HTMLElement>;
 }
-type disclosures = WeakMap<HTMLElement, disclosureObj>;
+type disclosures = Map<HTMLElement, disclosureObj>;
 
 export default class Disclosure {
   attributes = {
@@ -32,7 +34,7 @@ export default class Disclosure {
   config: config;
   constructor(config?: configParam) {
     // create a weak map to store all disclosures elements with a data-disclosure attribute of attribute.container
-    this.disclosures = new WeakMap();
+    this.disclosures = new Map();
 
     const defaultConfig = {
       idPrefix: "disclosure_",
@@ -40,6 +42,7 @@ export default class Disclosure {
       targetAttribute: "data-disclosure",
       duration: 200,
       defaultState: false,
+      closeAll: true,
     };
     this.config = { ...defaultConfig, ...config };
 
@@ -130,6 +133,19 @@ export default class Disclosure {
     const disclosure = this.disclosures.get(ele);
     if (!disclosure) return;
     disclosure.state = !disclosure.state;
+
+    // if closeAll is true and new state on toggled element is true, close all open modals
+    if (this.config.closeAll && disclosure.state) {
+      for (let [key, value] of this.disclosures.entries()) {
+        if (key !== ele) {
+          value.state = false;
+          this.#toggleEle(key, value.state, false);
+          this.#toggleTogglers(value);
+          this.#toggleEle(value.region, value.state, true);
+        }
+      }
+    }
+
     this.#toggleEle(ele, disclosure.state, false);
     this.#toggleTogglers(disclosure);
     this.#toggleEle(disclosure.region, disclosure.state, true);

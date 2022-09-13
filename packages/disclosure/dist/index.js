@@ -7,13 +7,14 @@ export default class Disclosure {
     disclosures;
     config;
     constructor(config) {
-        this.disclosures = new WeakMap();
+        this.disclosures = new Map();
         const defaultConfig = {
             idPrefix: "disclosure_",
             activeClass: "disclosure-active",
             targetAttribute: "data-disclosure",
             duration: 200,
             defaultState: false,
+            closeAll: true,
         };
         this.config = { ...defaultConfig, ...config };
         this.#init();
@@ -72,6 +73,16 @@ export default class Disclosure {
         if (!disclosure)
             return;
         disclosure.state = !disclosure.state;
+        if (this.config.closeAll && disclosure.state) {
+            for (let [key, value] of this.disclosures.entries()) {
+                if (key !== ele) {
+                    value.state = false;
+                    this.#toggleEle(key, value.state, false);
+                    this.#toggleTogglers(value);
+                    this.#toggleEle(value.region, value.state, true);
+                }
+            }
+        }
         this.#toggleEle(ele, disclosure.state, false);
         this.#toggleTogglers(disclosure);
         this.#toggleEle(disclosure.region, disclosure.state, true);
