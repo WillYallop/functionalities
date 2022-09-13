@@ -11,5 +11,5 @@ Functionalities is a collection packages for the backend and frontend that aims 
 - [@functionalities/disclosure](/packages/disclosure/README.md)
 - @functionalities/toggler (WIP)
 - @functionalities/animations (WIP)
-- @functionalities/stickyheader (WIP)
+- [@functionalities/stickyheader](/packages/stickyheader/README.md)
 - @functionalities/formvalidation (WIP)
