@@ -1,4 +1,4 @@
-# Sticky Header - v1.0.0
+# Sticky Header - v1.0.1
 
 Sticky header is a small frontend utility package for implementing a sticky header. It has three states for being at the top of the page, scrolling down and scrolling up, each of which will add a unique class allowing you to style it however you like.
 
@@ -19,7 +19,7 @@ npm install @functionalities/stickyheader --save
 Using functionalities sticky header couldn't be easier. Simply import the package in your code, and add a header that has an ID.
 
 ```typescript
-import Disclosure from "@functionalities/stickyheader";
+import StickyHeader from "@functionalities/stickyheader";
 
 new StickyHeader('siteHeader');
 ```

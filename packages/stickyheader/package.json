@@ -1,6 +1,6 @@
 {
   "name": "@functionalities/stickyheader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "sideEffects": false,
   "description": "A frontend utility package for sticky headers",
