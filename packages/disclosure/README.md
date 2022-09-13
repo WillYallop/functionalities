@@ -1,4 +1,4 @@
-# Disclosure - v1.1.0
+# Disclosure - v1.1.1
 
 Disclosure is a minimal frontend package for implementing accessible, lightweight disclosure components.
 
