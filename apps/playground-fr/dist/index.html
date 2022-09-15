@@ -10,8 +10,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
     
-    <script type="module" crossorigin src="/assets/index.8dae6764.js"></script>
-    <link rel="stylesheet" href="/assets/index.c8bdbdce.css">
+    <script type="module" crossorigin src="/assets/index.c9c58e82.js"></script>
+    <link rel="stylesheet" href="/assets/index.3acbdb9f.css">
   </head>
   <body>    
     
@@ -56,6 +56,50 @@
                 </div>
             </div>
         </div>
+        <!-- Toggler row -->
+        <div class="playground-row">
+            <h2>Toggler Example</h2>
+            <button class="toggler-btn" data-toggler="button" data-toggler-state="true" data-toggler-close="tab-1, tab-2, tab-3">
+                <span class="toggler-btn__on">SHOWING TAB SECTION</span>
+                <span class="toggler-btn__off">HIDING TAB SECTION</span>
+            </button>
+            <div class="toggler-btn__reciever" data-toggler-receiver="button">
+                <nav class="toggler-nav">
+                    <ul>
+                        <li data-toggler="tab-1" data-toggler-state="true" data-toggler-close="tab-2, tab-3">Tab 1</li>
+                        <li data-toggler="tab-2" data-toggler-close="tab-1, tab-3">Tab 2</li>
+                        <li data-toggler="tab-3" data-toggler-close="tab-1, tab-2">Tab 3</li>
+                    </ul>
+                </nav>
+                <!-- Tab 1 -->
+                <div class="toggler-tab" data-toggler-receiver="tab-1">
+                    <h3>Tab 1</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                        euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
+                        nisi nisi.
+                    </p>
+                </div>
+                <!-- Tab 2 -->
+                <div class="toggler-tab"  data-toggler-receiver="tab-2">
+                    <h3>Tab 2</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                        euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
+                        nisi nisi.
+                    </p>
+                </div>
+                <!-- Tab 3 -->
+                <div class="toggler-tab"  data-toggler-receiver="tab-3">
+                    <h3>Tab 3</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                        euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
+                        nisi nisi.
+                    </p>
+                </div>
+            </div>
+        </div>  
     </main>
 
 

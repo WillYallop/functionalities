@@ -1,5 +1,6 @@
 import Disclosure from "@functionalities/disclosure";
 import StickyHeader from "@functionalities/stickyheader";
+import Toggler from "@functionalities/toggler";
 
 new Disclosure({
   idPrefix: "disclosure_",
@@ -17,7 +18,7 @@ new StickyHeader("siteHeader", {
     movedDown: "sticky-down",
     movedUp: "sticky-up",
   },
-  onChange: (data) => {
-    console.log(data);
-  },
+  onChange: () => {},
 });
+
+new Toggler();

@@ -39,7 +39,74 @@ body {
   padding: 40px;
   border: 1px solid #dbdbdb;
   border-radius: 10px;
+  margin-bottom: 10px;
   h2 {
     margin-bottom: 20px;
+  }
+  .toggler-btn {
+    border: 1px solid black;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    &.active {
+      .toggler-btn {
+        &__on {
+          display: block;
+        }
+        &__off {
+          display: none;
+        }
+      }
+    }
+    &__on {
+      background-color: green;
+      color: white;
+      display: none;
+      padding: 10px 20px;
+    }
+    &__off {
+      background-color: red;
+      color: white;
+      display: block;
+      padding: 10px 20px;
+    }
+    &__reciever {
+      &.active {
+        display: block;
+      }
+      border: 1px solid black;
+      padding: 10px;
+      border-radius: 5px;
+      display: none;
+      margin-top: 5px;
+    }
+  }
+  .toggler-nav {
+    ul {
+      list-style-type: none;
+      display: flex;
+      li {
+        padding: 10px;
+        border: 1px solid black;
+        margin-right: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        &.active {
+          background-color: green;
+          color: white;
+        }
+      }
+    }
+  }
+  .toggler-tab {
+    width: 100%;
+    display: none;
+    margin-top: 10px;
+    h3 {
+      margin-bottom: 5px;
+    }
+    &.active {
+      display: block;
+    }
   }
 }

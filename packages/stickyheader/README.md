@@ -8,7 +8,7 @@ Sticky header is a small frontend utility package for implementing a sticky head
 npm install @functionalities/stickyheader --save
 ```
 
-### Features
+## Features
 
 - Adds one of 3 configurable classes depending on scroll state.
 - Has a callback function that fires on state change.

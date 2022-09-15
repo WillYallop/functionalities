@@ -9,7 +9,7 @@ Functionalities is a collection packages for the backend and frontend that aims 
 ## Frontend Packages
 
 - [@functionalities/disclosure](/packages/disclosure/README.md)
-- @functionalities/toggler (WIP)
+- [@functionalities/toggler](/packages/toggler/README.md) 
 - @functionalities/animations (WIP)
 - [@functionalities/stickyheader](/packages/stickyheader/README.md)
 - @functionalities/formvalidation (WIP)
