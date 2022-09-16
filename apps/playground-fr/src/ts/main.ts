@@ -1,6 +1,7 @@
 import Disclosure from "@functionalities/disclosure";
 import StickyHeader from "@functionalities/stickyheader";
 import Toggler from "@functionalities/toggler";
+import Animations from "@functionalities/animations";
 
 new Disclosure({
   idPrefix: "disclosure_",
@@ -22,3 +23,8 @@ new StickyHeader("siteHeader", {
 });
 
 new Toggler();
+
+new Animations({
+  activeClass: "animate",
+  reset: true,
+});

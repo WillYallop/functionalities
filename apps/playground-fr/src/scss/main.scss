@@ -110,3 +110,25 @@ body {
     }
   }
 }
+
+.animate-text {
+  opacity: 0;
+  transition: opacity 1s;
+  &.show-me {
+    opacity: 1;
+  }
+}
+
+.turn-red {
+  animation: turnRed ease 1s;
+  animation-fill-mode: forwards;
+  transform-origin: left;
+}
+@keyframes turnRed {
+  0% {
+    color: inherit;
+  }
+  100% {
+    color: red;
+  }
+}

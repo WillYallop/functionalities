@@ -13,7 +13,8 @@
     "@functionalities/stickyheader": "*",
     "typescript": "^4.6.4",
     "vite": "^3.0.9",
-    "@functionalities/toggler": "*"
+    "@functionalities/toggler": "*",
+    "@functionalities/animations": "*"
   },
   "dependencies": {
     "sass": "^1.54.7"
