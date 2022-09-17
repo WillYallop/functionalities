@@ -3,6 +3,7 @@ import morgan from "morgan";
 import fileUpload, { UploadedFile } from "express-fileupload";
 import localRoutes from "./routes/localStore";
 import s3Routes from "./routes/s3Store";
+import formsRoutes from "./routes/forms";
 
 interface Error {
   status?: number;
@@ -19,6 +20,16 @@ const app = express();
 // ------------------------------------
 // MIDDLEWARE
 // ------------------------------------
+// cores allow all
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+  next();
+});
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(
@@ -34,6 +45,7 @@ app.use(
 // ------------------------------------
 app.use("/local", localRoutes);
 app.use("/s3", s3Routes);
+app.use("/forms", formsRoutes);
 
 // ------------------------------------
 // ERROR HANDLING

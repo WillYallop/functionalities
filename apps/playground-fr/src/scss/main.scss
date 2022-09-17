@@ -132,3 +132,46 @@ body {
     color: red;
   }
 }
+
+form {
+  width: 100%;
+  input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    &.error {
+      border: 1px solid red;
+    }
+  }
+  // form status ele
+  .form-status {
+    margin-bottom: 10px;
+    &__message {
+      display: none;
+    }
+    &__loading {
+      display: none;
+    }
+    &[data-form-status=""] {
+      display: none;
+    }
+    &[data-form-status="error"] {
+      .form-status__message {
+        display: block;
+      }
+    }
+    &[data-form-status="success"] {
+      .form-status__message {
+        display: block;
+      }
+    }
+    &[data-form-status="loading"] {
+      .form-status__loading {
+        display: block;
+      }
+    }
+  }
+}

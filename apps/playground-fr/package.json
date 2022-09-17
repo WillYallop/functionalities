@@ -14,7 +14,8 @@
     "typescript": "^4.6.4",
     "vite": "^3.0.9",
     "@functionalities/toggler": "*",
-    "@functionalities/animations": "*"
+    "@functionalities/animations": "*",
+    "@functionalities/formhandler": "*"
   },
   "dependencies": {
     "sass": "^1.54.7"
