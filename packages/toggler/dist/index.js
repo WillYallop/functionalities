@@ -83,10 +83,20 @@ export default class Toggler {
             });
         };
         toggle();
+        const resetMultiTogglers = () => {
+            this.multiToggler.forEach((multiTogglerInstance, key) => {
+                if (multiTogglerInstance.targets.includes(togglerValue)) {
+                    multiTogglerInstance.state = false;
+                    this.#updateGroup(document.querySelectorAll(`[${this.config.attributes.multi}="${key}"]`), multiTogglerInstance, true);
+                }
+            });
+        };
         toggler.addEventListener("click", (e) => {
             e.preventDefault();
             togglerInstance.state = !togglerInstance.state;
             toggle();
+            if (!togglerInstance.state)
+                resetMultiTogglers();
         });
     }
     #multiClickEvent(toggler) {

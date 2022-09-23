@@ -156,12 +156,29 @@ export default class Toggler {
     };
     toggle();
 
+    const resetMultiTogglers = () => {
+      // reset multi toggler state
+      this.multiToggler.forEach((multiTogglerInstance, key) => {
+        if (multiTogglerInstance.targets.includes(togglerValue)) {
+          multiTogglerInstance.state = false;
+          this.#updateGroup(
+            document.querySelectorAll(
+              `[${this.config.attributes.multi}="${key}"]`
+            ) as NodeListOf<HTMLElement>,
+            multiTogglerInstance,
+            true
+          );
+        }
+      });
+    };
+
     toggler.addEventListener("click", (e) => {
       e.preventDefault();
       // toggle state
       togglerInstance.state = !togglerInstance.state;
       // update receivers & togglers
       toggle();
+      if (!togglerInstance.state) resetMultiTogglers();
     });
   }
   #multiClickEvent(toggler: HTMLElement) {
