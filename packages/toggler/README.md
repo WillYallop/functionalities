@@ -1,4 +1,4 @@
-# Toggler - v1.0.0
+# Toggler - v1.1.0
 
 Toggler is a frontend utility package that's sole purpose is to make class toggling easier. It's 100% markup/attribute based, so once the package is included, you won't have to add any further JS/TS. The two core attributes and ideas of the package are that you have both toggles and receivers. Togglers trigger all receivers and other togglers with the same value and add a class to them. Simple.
 
@@ -15,6 +15,7 @@ npm install @functionalities/toggler --save
 - Optional attribute to set a custom active class
 - Optional attribute to set the default toggle state 
 - Option attribute to target other togglers to trigger them off
+- Set multi toggler elements that toggle children togglers based on its state
 
 ## Example
 
@@ -153,6 +154,59 @@ This is one of the more powerful attributes. If you set this on a toggler, all o
 <div data-toggler-receiver="tab-3">Tab 3 content</div>
 ```
 
+### data-toggler-multi
+
+This is a standalone attribute that can be used to toggle multiple unique toggles based on its own state.
+
+```html
+<ul>
+    <li
+        data-toggler-multi="all-tabs"
+        data-toggler-multi-targets="tab-1, tab-2, tab-3"
+        data-toggler-multi-state="true"
+    >
+        All
+    </li>
+    <li data-toggler="tab-1">
+        Tab 1
+    </li>
+    <li data-toggler="tab-2">
+        Tab 2
+    </li>
+    <li data-toggler="tab-3">
+        Tab 3
+    </li>
+</ul>
+```
+
+> If the muli-target toggle has the data-toggler-close value it will still work, however on clicking the toggler with the data-toggler-close value there may be some quirkiness involved. Though these likely will never need to be used together.
+
+### data-toggler-multi-targets
+
+This has to be used with the ``data-toggler-multi`` attribute and is used to tell it which ``data-toggler``'s it should toggle. Make sure the format matches the example below.
+
+```html
+<li
+    data-toggler-multi="all-tabs"
+    data-toggler-multi-targets="tab-1, tab-2, tab-3"
+>
+    All
+</li>
+```
+
+### data-toggler-multi-state
+
+This sets the default state of the ``data-toggler-multi`` element. Having this set to true means all of its target togglers will be automatically set to true regardless if the toggler itself has the default state of true or false. By default this is false.
+
+```html
+<li
+    data-toggler-multi="all-tabs"
+    data-toggler-multi-state="true"
+>
+    All
+</li>
+```
+
 ## Config
 
 ```typescript
@@ -167,6 +221,4 @@ Sets the default active class for all togglers.
 
 ## Future
  
-- Add a new attribute for the data-toggler-open to toggle all specified togglers & receivers on
 - Ability to trigger functions 
-- Add the ability to set custom attribute names

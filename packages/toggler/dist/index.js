@@ -1,6 +1,7 @@
 export default class Toggler {
     config;
     map;
+    multiToggler;
     constructor(config) {
         this.config = {
             activeClass: "active",
@@ -10,14 +11,19 @@ export default class Toggler {
                 class: "data-toggler-class",
                 state: "data-toggler-state",
                 close: "data-toggler-close",
+                multi: "data-toggler-multi",
+                multiTargets: "data-toggler-multi-targets",
+                multiState: "data-toggler-multi-state",
             },
             ...config,
         };
         this.map = new Map();
+        this.multiToggler = new Map();
         this.#initialise();
     }
     #initialise() {
         const togglers = document.querySelectorAll(`[${this.config.attributes.toggler}]`);
+        const multiToggler = document.querySelectorAll(`[${this.config.attributes.multi}]`);
         [...togglers].map((toggler) => {
             const togglerValue = toggler.getAttribute(this.config.attributes.toggler);
             if (!togglerValue)
@@ -38,6 +44,24 @@ export default class Toggler {
             });
             this.#clickEvent(toggler);
         });
+        [...multiToggler].map((toggler) => {
+            const togglerValue = toggler.getAttribute(this.config.attributes.multi);
+            if (!togglerValue)
+                return;
+            const targets = toggler.getAttribute(this.config.attributes.multiTargets);
+            const targetTogglerVals = targets
+                ? targets.replaceAll(" ", "").split(",")
+                : [];
+            if (this.multiToggler.has(togglerValue))
+                return;
+            this.multiToggler.set(togglerValue, {
+                state: toggler.getAttribute(this.config.attributes.multiState) === "true",
+                targets: targetTogglerVals,
+                activeClass: toggler.getAttribute(this.config.attributes.class) ||
+                    this.config.activeClass,
+            });
+            this.#multiClickEvent(toggler);
+        });
     }
     #clickEvent(toggler) {
         const togglerValue = toggler.getAttribute(this.config.attributes.toggler);
@@ -57,6 +81,31 @@ export default class Toggler {
                 this.#updateGroup(document.querySelectorAll(`[${this.config.attributes.toggler}="${closeToggler}"]`), closeTogglerInstance, true);
                 this.#updateGroup(document.querySelectorAll(`[${this.config.attributes.receiver}="${closeToggler}"]`), closeTogglerInstance, false);
             });
+        };
+        toggle();
+        toggler.addEventListener("click", (e) => {
+            e.preventDefault();
+            togglerInstance.state = !togglerInstance.state;
+            toggle();
+        });
+    }
+    #multiClickEvent(toggler) {
+        const togglerValue = toggler.getAttribute(this.config.attributes.multi);
+        if (!togglerValue)
+            return;
+        const togglerInstance = this.multiToggler.get(togglerValue);
+        if (!togglerInstance)
+            return;
+        const toggle = () => {
+            togglerInstance.targets.map((target) => {
+                const targetInstance = this.map.get(target);
+                if (!targetInstance)
+                    return;
+                targetInstance.state = togglerInstance.state;
+                this.#updateGroup(document.querySelectorAll(`[${this.config.attributes.toggler}="${target}"]`), targetInstance, true);
+                this.#updateGroup(document.querySelectorAll(`[${this.config.attributes.receiver}="${target}"]`), targetInstance, false);
+            });
+            this.#updateGroup(document.querySelectorAll(`[${this.config.attributes.multi}="${togglerValue}"]`), togglerInstance, true);
         };
         toggle();
         toggler.addEventListener("click", (e) => {
