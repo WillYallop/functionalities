@@ -10,9 +10,7 @@ interface DefaultConfig {
     class: string;
     state: string;
     close: string;
-    multi: string;
-    multiTargets: string;
-    multiState: string;
+    targets: string;
   };
 }
 
@@ -20,17 +18,12 @@ interface TogglerObj {
   state: boolean;
   activeClass: string;
   closeTogglers: Array<string>;
-}
-interface TogglerMultiObj {
-  state: boolean;
-  activeClass: string;
   targets: Array<string>;
 }
 
 export default class Toggler {
   config: DefaultConfig;
   map: Map<string, TogglerObj>;
-  multiToggler: Map<string, TogglerMultiObj>;
   constructor(config?: Config) {
     this.config = {
       activeClass: "active",
@@ -40,14 +33,11 @@ export default class Toggler {
         class: "data-toggler-class",
         state: "data-toggler-state",
         close: "data-toggler-close",
-        multi: "data-toggler-multi",
-        multiTargets: "data-toggler-multi-targets",
-        multiState: "data-toggler-multi-state",
+        targets: "data-toggler-targets",
       },
       ...config,
     };
     this.map = new Map();
-    this.multiToggler = new Map();
     this.#initialise();
   }
   #initialise() {
@@ -55,15 +45,16 @@ export default class Toggler {
       `[${this.config.attributes.toggler}]`
     ) as NodeListOf<HTMLElement>;
 
-    //
-    const multiToggler = document.querySelectorAll(
-      `[${this.config.attributes.multi}]`
-    ) as NodeListOf<HTMLElement>;
-
     // for each toggler, add event listener and register unique ones in the map
     [...togglers].map((toggler) => {
       const togglerValue = toggler.getAttribute(this.config.attributes.toggler);
       if (!togglerValue) return;
+
+      // get the targets
+      const targets = toggler.getAttribute(this.config.attributes.targets);
+      const targetTogglerVals = targets
+        ? targets.replaceAll(" ", "").split(",")
+        : [];
 
       // get togglers close attribute
       const closeTogglers = toggler.getAttribute(this.config.attributes.close);
@@ -82,33 +73,19 @@ export default class Toggler {
           toggler.getAttribute(this.config.attributes.class) ||
           this.config.activeClass,
         closeTogglers: closeTogglersArray,
+        targets: targetTogglerVals,
       });
 
       // add event listeners to each toggler
-      this.#clickEvent(toggler);
+      if (targetTogglerVals.length > 0) this.#multiClickEvent(toggler);
+      else this.#clickEvent(toggler);
     });
 
-    // for multi togglers
-    [...multiToggler].map((toggler) => {
-      const togglerValue = toggler.getAttribute(this.config.attributes.multi);
-      if (!togglerValue) return;
-      // get the targets
-      const targets = toggler.getAttribute(this.config.attributes.multiTargets);
-      const targetTogglerVals = targets
-        ? targets.replaceAll(" ", "").split(",")
-        : [];
-      // set a unique instance for each toggler value into the map
-      if (this.multiToggler.has(togglerValue)) return;
-      this.multiToggler.set(togglerValue, {
-        state:
-          toggler.getAttribute(this.config.attributes.multiState) === "true",
-        targets: targetTogglerVals,
-        activeClass:
-          toggler.getAttribute(this.config.attributes.class) ||
-          this.config.activeClass,
-      });
-      // add event listeners to each toggler
-      this.#multiClickEvent(toggler);
+    // once complete, do initial toggle on data-toggler-targets type
+    this.map.forEach((togglerInstance, key) => {
+      if (togglerInstance.targets.length > 0) {
+        if (togglerInstance.state) this.#multiToggle(togglerInstance, key);
+      }
     });
   }
   #clickEvent(toggler: HTMLElement) {
@@ -156,18 +133,42 @@ export default class Toggler {
     };
     toggle();
 
-    const resetMultiTogglers = () => {
+    // update parent multi toggler state
+    const updateMultiToggle = () => {
       // reset multi toggler state
-      this.multiToggler.forEach((multiTogglerInstance, key) => {
-        if (multiTogglerInstance.targets.includes(togglerValue)) {
-          multiTogglerInstance.state = false;
-          this.#updateGroup(
-            document.querySelectorAll(
-              `[${this.config.attributes.multi}="${key}"]`
-            ) as NodeListOf<HTMLElement>,
-            multiTogglerInstance,
-            true
-          );
+      this.map.forEach((multiTogglerInstance, key) => {
+        // if the current toggler is being set to false, find and update the multi toggler
+        if (!togglerInstance.state) {
+          if (multiTogglerInstance.targets.includes(togglerValue)) {
+            multiTogglerInstance.state = false;
+            this.#updateGroup(
+              document.querySelectorAll(
+                `[${this.config.attributes.toggler}="${key}"]`
+              ) as NodeListOf<HTMLElement>,
+              multiTogglerInstance,
+              true
+            );
+          }
+        } else {
+          // if the current toggler is being set to true, find and update the multi toggler
+          if (multiTogglerInstance.targets.includes(togglerValue)) {
+            // if all targets are true, set the multi toggler to true
+            const allTrue = multiTogglerInstance.targets.every((target) => {
+              const targetInstance = this.map.get(target);
+              if (!targetInstance) return false;
+              return targetInstance.state;
+            });
+            if (allTrue) {
+              multiTogglerInstance.state = true;
+              this.#updateGroup(
+                document.querySelectorAll(
+                  `[${this.config.attributes.toggler}="${key}"]`
+                ) as NodeListOf<HTMLElement>,
+                multiTogglerInstance,
+                true
+              );
+            }
+          }
         }
       });
     };
@@ -178,55 +179,52 @@ export default class Toggler {
       togglerInstance.state = !togglerInstance.state;
       // update receivers & togglers
       toggle();
-      if (!togglerInstance.state) resetMultiTogglers();
+      updateMultiToggle();
     });
   }
   #multiClickEvent(toggler: HTMLElement) {
-    const togglerValue = toggler.getAttribute(this.config.attributes.multi);
+    const togglerValue = toggler.getAttribute(this.config.attributes.toggler);
     if (!togglerValue) return;
-    const togglerInstance = this.multiToggler.get(togglerValue);
+    const togglerInstance = this.map.get(togglerValue);
     if (!togglerInstance) return;
-
-    const toggle = () => {
-      // update receivers & togglers
-      togglerInstance.targets.map((target) => {
-        const targetInstance = this.map.get(target);
-        if (!targetInstance) return;
-        targetInstance.state = togglerInstance.state;
-        this.#updateGroup(
-          document.querySelectorAll(
-            `[${this.config.attributes.toggler}="${target}"]`
-          ) as NodeListOf<HTMLElement>,
-          targetInstance,
-          true
-        );
-        this.#updateGroup(
-          document.querySelectorAll(
-            `[${this.config.attributes.receiver}="${target}"]`
-          ) as NodeListOf<HTMLElement>,
-          targetInstance,
-          false
-        );
-      });
-      this.#updateGroup(
-        document.querySelectorAll(
-          `[${this.config.attributes.multi}="${togglerValue}"]`
-        ) as NodeListOf<HTMLElement>,
-        togglerInstance,
-        true
-      );
-    };
-    toggle();
-
     toggler.addEventListener("click", (e) => {
       e.preventDefault();
       togglerInstance.state = !togglerInstance.state;
-      toggle();
+      this.#multiToggle(togglerInstance, togglerValue);
     });
+  }
+  #multiToggle(toggler: TogglerObj, parentToggle: string) {
+    // update receivers & togglers
+    toggler.targets.map((target) => {
+      const targetInstance = this.map.get(target);
+      if (!targetInstance) return;
+      targetInstance.state = toggler.state;
+      this.#updateGroup(
+        document.querySelectorAll(
+          `[${this.config.attributes.toggler}="${target}"]`
+        ) as NodeListOf<HTMLElement>,
+        targetInstance,
+        true
+      );
+      this.#updateGroup(
+        document.querySelectorAll(
+          `[${this.config.attributes.receiver}="${target}"]`
+        ) as NodeListOf<HTMLElement>,
+        targetInstance,
+        false
+      );
+    });
+    this.#updateGroup(
+      document.querySelectorAll(
+        `[${this.config.attributes.toggler}="${parentToggle}"]`
+      ) as NodeListOf<HTMLElement>,
+      toggler,
+      true
+    );
   }
   #updateGroup(
     group: NodeListOf<HTMLElement>,
-    togglerInstance: TogglerObj | TogglerMultiObj,
+    togglerInstance: TogglerObj,
     aria: boolean
   ) {
     [...group].map((receiver) => {

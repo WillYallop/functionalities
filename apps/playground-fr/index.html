@@ -53,6 +53,7 @@
           </div>
         </div>
       </div>
+
       <!-- Toggler row -->
       <div class="playground-row">
         <h2>Toggler Example</h2>
@@ -68,13 +69,6 @@
         <div class="toggler-btn__reciever" data-toggler-receiver="button">
           <nav class="toggler-nav">
             <ul>
-              <li
-                data-toggler-multi="all-tabs"
-                data-toggler-multi-targets="tab-1, tab-2, tab-3"
-                data-toggler-multi-state="true"
-              >
-                All
-              </li>
               <li
                 data-toggler="tab-1"
                 data-toggler-state="true"
@@ -119,6 +113,55 @@
           </div>
         </div>
       </div>
+
+      <!-- Toggler row -->
+      <div class="playground-row">
+        <h2>Toggler Filters Example</h2>
+        <div class="toggler-btn__reciever active">
+          <nav class="toggler-nav">
+            <ul>
+              <li
+                data-toggler="all-tabs"
+                data-toggler-targets="tab-11, tab-22, tab-33"
+                data-toggler-state="true"
+              >
+                All
+              </li>
+              <li data-toggler="tab-11">Filter 1</li>
+              <li data-toggler="tab-22">Filter 2</li>
+              <li data-toggler="tab-33">Filter 3</li>
+            </ul>
+          </nav>
+          <!-- Tab 1 -->
+          <div class="toggler-tab" data-toggler-receiver="tab-11">
+            <h3>Filter 1</h3>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+              euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
+              nisi nisi.
+            </p>
+          </div>
+          <!-- Tab 2 -->
+          <div class="toggler-tab" data-toggler-receiver="tab-22">
+            <h3>Filter 2</h3>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+              euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
+              nisi nisi.
+            </p>
+          </div>
+          <!-- Tab 3 -->
+          <div class="toggler-tab" data-toggler-receiver="tab-33">
+            <h3>Filter 3</h3>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+              euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
+              nisi nisi.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <!-- Animation row -->
       <div class="playground-row">
         <h2>Animation Example</h2>
@@ -138,6 +181,7 @@
           <h3>Hello there</h3>
         </div>
       </div>
+
       <!-- Form row - on change -->
       <div class="playground-row">
         <h2>Form - on change</h2>
@@ -185,6 +229,7 @@
           </div>
         </form>
       </div>
+
       <!-- Form row - on submit -->
       <div class="playground-row">
         <h2>Form - on submit</h2>

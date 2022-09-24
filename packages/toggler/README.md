@@ -1,4 +1,4 @@
-# Toggler - v1.1.1
+# Toggler - v1.2.0
 
 Toggler is a frontend utility package that's sole purpose is to make class toggling easier. It's 100% markup/attribute based, so once the package is included, you won't have to add any further JS/TS. The two core attributes and ideas of the package are that you have both toggles and receivers. Togglers trigger all receivers and other togglers with the same value and add a class to them. Simple.
 
@@ -154,58 +154,56 @@ This is one of the more powerful attributes. If you set this on a toggler, all o
 <div data-toggler-receiver="tab-3">Tab 3 content</div>
 ```
 
-### data-toggler-multi
+### data-toggler-targets
 
-This is a standalone attribute that can be used to toggle multiple unique toggles based on its own state.
-
-```html
-<ul>
-    <li
-        data-toggler-multi="all-tabs"
-        data-toggler-multi-targets="tab-1, tab-2, tab-3"
-        data-toggler-multi-state="true"
-    >
-        All
-    </li>
-    <li data-toggler="tab-1">
-        Tab 1
-    </li>
-    <li data-toggler="tab-2">
-        Tab 2
-    </li>
-    <li data-toggler="tab-3">
-        Tab 3
-    </li>
-</ul>
-```
-
-> If the muli-target toggle has the data-toggler-close value it will still work, however on clicking the toggler with the data-toggler-close value there may be some quirkiness involved. Though these likely will never need to be used together.
-
-### data-toggler-multi-targets
-
-This has to be used with the ``data-toggler-multi`` attribute and is used to tell it which ``data-toggler``'s it should toggle. Make sure the format matches the example below.
+A powerful attribute that will allow the element it's placed on to toggle multiple ``data-toggler``'s based on its state. This could be used on an 'all' button in a filter for example. Other attributes like ``data-toggler-class`` and ``data-toggle-state`` both work on this attribute as well, note, if the state for this is set to true, on load all of its targets, will have their state set to true regardless of their default state.
 
 ```html
-<li
-    data-toggler-multi="all-tabs"
-    data-toggler-multi-targets="tab-1, tab-2, tab-3"
->
-    All
-</li>
+<nav class="toggler-nav">
+    <ul>
+        <li
+            data-toggler="all-filters"
+            data-toggler-targets="filter-1, filter-2, filter-3"
+            data-toggler-state="true"
+        >
+            All
+        </li>
+        <li data-toggler="filter-1">Filter 1</li>
+        <li data-toggler="filter-2">Filter 2</li>
+        <li data-toggler="filter-3">Filter 3</li>
+    </ul>
+</nav>
+<!-- Tab 1 -->
+<div class="toggler-tab" data-toggler-receiver="filter-1">
+    <h3>Filter 1</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+        euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
+        nisi nisi.
+    </p>
+</div>
+    <!-- Tab 2 -->
+<div class="toggler-tab" data-toggler-receiver="filter-2">
+    <h3>Filter 2</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+        euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
+        nisi nisi.
+    </p>
+</div>
+    <!-- Filter 3 -->
+<div class="toggler-tab" data-toggler-receiver="filter-3">
+    <h3>Filter 3</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+        euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
+        nisi nisi.
+    </p>
+</div>
 ```
 
-### data-toggler-multi-state
+> This is an example of a filter which has an all button to toggle all buttons. An element with ``data-toggler-targets`` will have its state toggled as well when you toggle its children. So if all the children's state is true, they will be set to true. If all but one is true, it will be false.
 
-This sets the default state of the ``data-toggler-multi`` element. Having this set to true means all of its target togglers will be automatically set to true regardless if the toggler itself has the default state of true or false. By default this is false.
-
-```html
-<li
-    data-toggler-multi="all-tabs"
-    data-toggler-multi-state="true"
->
-    All
-</li>
-```
 
 ## Config
 
