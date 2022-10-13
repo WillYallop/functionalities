@@ -1,4 +1,4 @@
-import Video from "../../src/video-kit/video";
+import Video from "../../dist/video-kit/video";
 
 export interface VK_ProcessConfig {
   keyPrefix?: string;
