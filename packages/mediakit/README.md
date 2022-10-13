@@ -1,4 +1,4 @@
-# MediaKit - v0.2.0
+# MediaKit - v0.2.1
 
 > For exmaples visit the repo and go to /apps/playground-api and look at the local and s3 controllers.
 
