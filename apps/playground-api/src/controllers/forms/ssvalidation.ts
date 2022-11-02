@@ -9,6 +9,7 @@ const standard = async (req: Request, res: Response) => {
         email: ["Email is required"],
         telephone: ["Telephone is required"],
       },
+      message: "There was an error",
     });
   }, 3000);
 };

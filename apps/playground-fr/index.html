@@ -182,11 +182,11 @@
         </div>
       </div>
 
-      <!-- Form row - on change -->
+      <!-- Form row -->
       <div class="playground-row">
         <h2>Form - on change</h2>
         <form
-          id="form-change"
+          id="form"
           action="http://localhost:4646/forms/ssvalidation"
           method="post"
         >
@@ -198,7 +198,9 @@
               name="firstName"
               required
             />
-            <div data-input-relation="firstName"></div>
+            <div class="error-container">
+              <p data-input-error="firstName"></p>
+            </div>
           </div>
           <!-- email -->
           <div data-input-relation="email">
@@ -208,7 +210,9 @@
               name="email"
               required
             />
-            <div data-input-relation="email"></div>
+            <div class="error-container">
+              <p data-input-error="email"></p>
+            </div>
           </div>
           <!-- telephone -->
           <div data-input-relation="telephone">
@@ -218,63 +222,12 @@
               name="telephone"
               required
             />
-            <div data-input-relation="telephone"></div>
+            <div class="error-container">
+              <p data-input-error="telephone"></p>
+            </div>
           </div>
           <!-- submit -->
-          <input data-form-submit type="submit" value="Submit" />
-          <!-- form status -->
-          <div class="form-status" data-form-status>
-            <p class="form-status__message" data-form-message></p>
-            <p class="form-status__loading">Loading</p>
-          </div>
-        </form>
-      </div>
-
-      <!-- Form row - on submit -->
-      <div class="playground-row">
-        <h2>Form - on submit</h2>
-        <form
-          id="form-submit"
-          action="http://localhost:4646/forms/standard"
-          method="post"
-        >
-          <!-- first name -->
-          <div data-input-relation="firstName">
-            <input
-              type="text"
-              placeholder="First Name"
-              name="firstName"
-              required
-            />
-            <div data-input-relation="firstName"></div>
-          </div>
-          <!-- email -->
-          <div data-input-relation="email">
-            <input
-              type="email"
-              placeholder="Email Address"
-              name="email"
-              required
-            />
-            <div data-input-relation="email"></div>
-          </div>
-          <!-- telephone -->
-          <div data-input-relation="telephone">
-            <input
-              type="tel"
-              placeholder="Telephone"
-              name="telephone"
-              required
-            />
-            <div data-input-relation="telephone"></div>
-          </div>
-          <!-- submit -->
-          <input data-form-submit type="submit" value="Submit" />
-          <!-- form status -->
-          <div class="form-status" data-form-status>
-            <p class="form-status__message" data-form-message></p>
-            <p class="form-status__loading">Loading</p>
-          </div>
+          <input type="submit" value="Submit" />
         </form>
       </div>
     </main>

@@ -146,6 +146,14 @@ form {
       border: 1px solid red;
     }
   }
+  .error {
+    .error-container {
+      display: block;
+    }
+  }
+  .error-container {
+    display: none;
+  }
   // form status ele
   .form-status {
     margin-bottom: 10px;
