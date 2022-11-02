@@ -1,6 +1,6 @@
 {
   "name": "@functionalities/mediakit",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "private": false,
   "type": "commonjs",
   "sideEffects": false,
@@ -13,7 +13,8 @@
     "lint": "eslint src --fix"
   },
   "files": [
-    "dist/**"
+    "dist/**",
+    "types/**"
   ],
   "repository": {
     "type": "git",
