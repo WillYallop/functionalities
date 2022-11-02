@@ -5,6 +5,7 @@ import Animations from "@functionalities/animations";
 import FormHandler, {
   flashMessage,
   conditionalInputs,
+  Turnstile,
 } from "@functionalities/formhandler";
 
 // Disclosures
@@ -44,6 +45,7 @@ new Animations({
 
 // On submit example
 new FormHandler("#form", {
+  recaptcha: new Turnstile("0x4AAAAAAABGWcyvpwR-o35g"),
   validate: {
     onChange: true,
     onSubmit: true,

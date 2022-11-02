@@ -1,8 +1,11 @@
+import GoogleV2 from "./recaptcha/googlev2";
+import Turnstile from "./recaptcha/turnstile";
 interface CustomValidation {
     name: string;
     validator: (value: string) => string;
 }
 interface Config {
+    recaptcha?: GoogleV2 | Turnstile;
     validate?: {
         onChange?: boolean;
         onBlur?: boolean;

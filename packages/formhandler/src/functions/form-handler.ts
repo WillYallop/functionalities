@@ -1,3 +1,6 @@
+import GoogleV2 from "./recaptcha/googlev2";
+import Turnstile from "./recaptcha/turnstile";
+
 // Types
 interface CustomValidation {
   name: string;
@@ -9,6 +12,7 @@ interface InputValidity {
   message: Array<string>;
 }
 interface Config {
+  recaptcha?: GoogleV2 | Turnstile;
   validate?: {
     onChange?: boolean;
     onBlur?: boolean;
@@ -168,8 +172,13 @@ export default class FormHandler {
 
   // ----------------------------------------
   // submit
-  #submit() {
+  async #submit() {
     if (!this.config.action) return;
+    if (this.config.recaptcha) {
+      console.log("waiting for recaptcha");
+      await this.config.recaptcha.refresh();
+      console.log("recaptcha done");
+    }
 
     // set the form data
     const formData = new FormData(this.form);

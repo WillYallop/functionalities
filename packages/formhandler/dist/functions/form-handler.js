@@ -109,9 +109,14 @@ export default class FormHandler {
             }
         }
     }
-    #submit() {
+    async #submit() {
         if (!this.config.action)
             return;
+        if (this.config.recaptcha) {
+            console.log("waiting for recaptcha");
+            await this.config.recaptcha.refresh();
+            console.log("recaptcha done");
+        }
         const formData = new FormData(this.form);
         fetch(this.config.action, {
             method: "POST",

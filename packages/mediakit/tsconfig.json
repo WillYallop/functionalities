@@ -15,6 +15,6 @@
     "declarationMap": true
   },
   "include": ["./src"],
-  "types": ["./types/**.d.ts"],
+  "types": ["./types/**/*.d.ts"],
   "exclude": ["node_modules", ".turbo", "coverage", "dist", "src/**/*.test.ts"]
 }
