@@ -6,6 +6,7 @@ interface configParam {
     movedUp?: string;
   };
   onChange?: (response: { state: string; scrollPos: number }) => void;
+  onScroll?: (response: { state: string; scrollPos: number }) => void;
 }
 interface config {
   triggerDistance: number;
@@ -15,6 +16,7 @@ interface config {
     movedUp: string;
   };
   onChange?: configParam["onChange"];
+  onScroll?: configParam["onScroll"];
 }
 
 export default class StickyHeader {
@@ -35,6 +37,7 @@ export default class StickyHeader {
         movedUp: config?.classes?.movedUp || "sticky-up",
       },
       onChange: config?.onChange || undefined,
+      onScroll: config?.onScroll || undefined,
     };
 
     // set default values
@@ -87,6 +90,13 @@ export default class StickyHeader {
               scrollPos: this.scrollPos,
             });
           }
+        }
+
+        if (this.config.onScroll != undefined) {
+          this.config.onScroll({
+            state: this.state,
+            scrollPos: this.scrollPos,
+          });
         }
       };
       this.onScrollHandler = this.onScroll.bind(this);

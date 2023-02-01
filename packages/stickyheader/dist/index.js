@@ -16,6 +16,7 @@ export default class StickyHeader {
                 movedUp: config?.classes?.movedUp || "sticky-up",
             },
             onChange: config?.onChange || undefined,
+            onScroll: config?.onScroll || undefined,
         };
         this.scrollPos =
             document.body.scrollTop || document.documentElement.scrollTop;
@@ -58,6 +59,12 @@ export default class StickyHeader {
                             scrollPos: this.scrollPos,
                         });
                     }
+                }
+                if (this.config.onScroll != undefined) {
+                    this.config.onScroll({
+                        state: this.state,
+                        scrollPos: this.scrollPos,
+                    });
                 }
             };
             this.onScrollHandler = this.onScroll.bind(this);

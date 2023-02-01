@@ -13,12 +13,11 @@ npm install @functionalities/toggler --save
 - Define togglers
 - Define receivers
 - Optional attribute to set a custom active class
-- Optional attribute to set the default toggle state 
+- Optional attribute to set the default toggle state
 - Option attribute to target other togglers to trigger them off
 - Set multi toggler elements that toggle children togglers based on its state
 
 ## Example
-
 
 ```typescript
 import Toggler from "@functionalities/toggler";
@@ -28,53 +27,61 @@ new Toggler();
 
 ```html
 <button class="toggler-btn" data-toggler="button" data-toggler-state="true">
-    <span class="toggler-btn__on">Active</span>
-    <span class="toggler-btn__off">Not active</span>
+  <span class="toggler-btn__on">Active</span>
+  <span class="toggler-btn__off">Not active</span>
 </button>
 ```
 
 > Simple example markup.
 
 ```html
-<button class="toggler-btn" data-toggler="button" data-toggler-state="true" data-toggler-close="tab-1, tab-2, tab-3">
-    <span class="toggler-btn__on">SHOWING TAB SECTION</span>
-    <span class="toggler-btn__off">HIDING TAB SECTION</span>
+<button
+  class="toggler-btn"
+  data-toggler="button"
+  data-toggler-state="true"
+  data-toggler-close="tab-1, tab-2, tab-3"
+>
+  <span class="toggler-btn__on">SHOWING TAB SECTION</span>
+  <span class="toggler-btn__off">HIDING TAB SECTION</span>
 </button>
 <div class="toggler-btn__reciever" data-toggler-receiver="button">
-    <nav class="toggler-nav">
-        <ul>
-            <li data-toggler="tab-1" data-toggler-state="true" data-toggler-close="tab-2, tab-3">Tab 1</li>
-            <li data-toggler="tab-2" data-toggler-close="tab-1, tab-3">Tab 2</li>
-            <li data-toggler="tab-3" data-toggler-close="tab-1, tab-2">Tab 3</li>
-        </ul>
-    </nav>
-    <!-- Tab 1 -->
-    <div class="toggler-tab" data-toggler-receiver="tab-1">
-        <h3>Tab 1</h3>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
-            nisi nisi.
-        </p>
-    </div>
-    <!-- Tab 2 -->
-    <div class="toggler-tab"  data-toggler-receiver="tab-2">
-        <h3>Tab 2</h3>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
-            nisi nisi.
-        </p>
-    </div>
-    <!-- Tab 3 -->
-    <div class="toggler-tab"  data-toggler-receiver="tab-3">
-        <h3>Tab 3</h3>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
-            nisi nisi.
-        </p>
-    </div>
+  <nav class="toggler-nav">
+    <ul>
+      <li
+        data-toggler="tab-1"
+        data-toggler-state="true"
+        data-toggler-close="tab-2, tab-3"
+      >
+        Tab 1
+      </li>
+      <li data-toggler="tab-2" data-toggler-close="tab-1, tab-3">Tab 2</li>
+      <li data-toggler="tab-3" data-toggler-close="tab-1, tab-2">Tab 3</li>
+    </ul>
+  </nav>
+  <!-- Tab 1 -->
+  <div class="toggler-tab" data-toggler-receiver="tab-1">
+    <h3>Tab 1</h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod,
+      nisi eget consectetur consectetur, nisi nisi, nisi nisi, nisi nisi.
+    </p>
+  </div>
+  <!-- Tab 2 -->
+  <div class="toggler-tab" data-toggler-receiver="tab-2">
+    <h3>Tab 2</h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod,
+      nisi eget consectetur consectetur, nisi nisi, nisi nisi, nisi nisi.
+    </p>
+  </div>
+  <!-- Tab 3 -->
+  <div class="toggler-tab" data-toggler-receiver="tab-3">
+    <h3>Tab 3</h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod,
+      nisi eget consectetur consectetur, nisi nisi, nisi nisi, nisi nisi.
+    </p>
+  </div>
 </div>
 ```
 
@@ -98,23 +105,24 @@ A toggler receiver has the toggler active class toggled on it when its matching 
 
 ```html
 <button data-toggler="my-toggler">Toggler</button>
-<div data-toggler-receiver="my-toggler">
-    Content 1
-</div>
-<div data-toggler-receiver="my-toggler">
-    Content 2
-</div>
+<div data-toggler-receiver="my-toggler">Content 1</div>
+<div data-toggler-receiver="my-toggler">Content 2</div>
 ```
 
 ### data-toggler-class
 
-This toggler class attribute tells the package on init what active class the toggler and receivers of the same value should have toggled on and off. By default its set to ``active``. This class is applied to all togglers and all receivers with the same value.
-
+This toggler class attribute tells the package on init what active class the toggler and receivers of the same value should have toggled on and off. By default its set to `active`. This class is applied to all togglers and all receivers with the same value.
 
 ```html
-<button class="custom-active-class" data-toggler="my-toggler" data-toggler-class="custom-active-class">Toggler</button>
+<button
+  class="custom-active-class"
+  data-toggler="my-toggler"
+  data-toggler-class="custom-active-class"
+>
+  Toggler
+</button>
 <div class="custom-active-class" data-toggler-receiver="my-toggler">
-    content
+  content
 </div>
 ```
 
@@ -124,17 +132,19 @@ The toggler state attribute tells the package on init what the default state of 
 
 ```html
 <style>
-.toggler-content {
+  .toggler-content {
     display: none;
-}
-.toggler-content.active {
+  }
+  .toggler-content.active {
     display: block;
-}
+  }
 </style>
 
-<button class="active" data-toggler="my-toggler" data-toggler-state="true">Toggler</button>
+<button class="active" data-toggler="my-toggler" data-toggler-state="true">
+  Toggler
+</button>
 <div class="toggler-content active" data-toggler-receiver="my-toggler">
-    content
+  content
 </div>
 ```
 
@@ -156,60 +166,56 @@ This is one of the more powerful attributes. If you set this on a toggler, all o
 
 ### data-toggler-targets
 
-A powerful attribute that will allow the element it's placed on to toggle multiple ``data-toggler``'s based on its state. This could be used on an 'all' button in a filter for example. Other attributes like ``data-toggler-class`` and ``data-toggle-state`` both work on this attribute as well, note, if the state for this is set to true, on load all of its targets, will have their state set to true regardless of their default state.
+A powerful attribute that will allow the element it's placed on to toggle multiple `data-toggler`'s based on its state. This could be used on an 'all' button in a filter for example. Other attributes like `data-toggler-class` and `data-toggle-state` both work on this attribute as well, note, if the state for this is set to true, on load all of its targets, will have their state set to true regardless of their default state.
 
 ```html
 <nav class="toggler-nav">
-    <ul>
-        <li
-            data-toggler="all-filters"
-            data-toggler-targets="filter-1, filter-2, filter-3"
-            data-toggler-state="true"
-        >
-            All
-        </li>
-        <li data-toggler="filter-1">Filter 1</li>
-        <li data-toggler="filter-2">Filter 2</li>
-        <li data-toggler="filter-3">Filter 3</li>
-    </ul>
+  <ul>
+    <li
+      data-toggler="all-filters"
+      data-toggler-targets="filter-1, filter-2, filter-3"
+      data-toggler-state="true"
+    >
+      All
+    </li>
+    <li data-toggler="filter-1">Filter 1</li>
+    <li data-toggler="filter-2">Filter 2</li>
+    <li data-toggler="filter-3">Filter 3</li>
+  </ul>
 </nav>
 <!-- Tab 1 -->
 <div class="toggler-tab" data-toggler-receiver="filter-1">
-    <h3>Filter 1</h3>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-        euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
-        nisi nisi.
-    </p>
+  <h3>Filter 1</h3>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisi
+    eget consectetur consectetur, nisi nisi, nisi nisi, nisi nisi.
+  </p>
 </div>
-    <!-- Tab 2 -->
+<!-- Tab 2 -->
 <div class="toggler-tab" data-toggler-receiver="filter-2">
-    <h3>Filter 2</h3>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-        euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
-        nisi nisi.
-    </p>
+  <h3>Filter 2</h3>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisi
+    eget consectetur consectetur, nisi nisi, nisi nisi, nisi nisi.
+  </p>
 </div>
-    <!-- Filter 3 -->
+<!-- Filter 3 -->
 <div class="toggler-tab" data-toggler-receiver="filter-3">
-    <h3>Filter 3</h3>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-        euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
-        nisi nisi.
-    </p>
+  <h3>Filter 3</h3>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisi
+    eget consectetur consectetur, nisi nisi, nisi nisi, nisi nisi.
+  </p>
 </div>
 ```
 
-> This is an example of a filter which has an all button to toggle all buttons. An element with ``data-toggler-targets`` will have its state toggled as well when you toggle its children. So if all the children's state is true, they will be set to true. If all but one is true, it will be false.
-
+> This is an example of a filter which has an all button to toggle all buttons. An element with `data-toggler-targets` will have its state toggled as well when you toggle its children. So if all the children's state is true, they will be set to true. If all but one is true, it will be false.
 
 ## Config
 
 ```typescript
 new Toggler({
-    activeClass: 'active' // string
+  activeClass: "active", // string
 });
 ```
 
@@ -217,6 +223,9 @@ new Toggler({
 
 Sets the default active class for all togglers.
 
-## Future
- 
-- Ability to trigger functions 
+## Future features
+
+- Expose a way to update the state of an reciever/toggler programatically,
+- Listen to recievers/togglers to changes of their active class to keep state in sync.
+- Make `data-toggler-close` work independently of being a toggler/reciever.
+- Ability to trigger functions.

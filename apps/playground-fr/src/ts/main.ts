@@ -27,6 +27,7 @@ new StickyHeader("siteHeader", {
     movedUp: "sticky-up",
   },
   onChange: () => {},
+  onScroll: () => {},
 });
 
 // Toggler

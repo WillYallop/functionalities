@@ -28,7 +28,6 @@ export default class Turnstile extends Recaptcha {
       turnstile.render(`#${ID}`, {
         sitekey: this.key,
         callback: (token: string) => {
-          console.log("hello");
           this.setToken(token);
         },
       });

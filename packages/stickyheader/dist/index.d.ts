@@ -9,6 +9,10 @@ interface configParam {
         state: string;
         scrollPos: number;
     }) => void;
+    onScroll?: (response: {
+        state: string;
+        scrollPos: number;
+    }) => void;
 }
 interface config {
     triggerDistance: number;
@@ -18,6 +22,7 @@ interface config {
         movedUp: string;
     };
     onChange?: configParam["onChange"];
+    onScroll?: configParam["onScroll"];
 }
 export default class StickyHeader {
     config: config;
