@@ -2,11 +2,7 @@ import Disclosure from "@functionalities/disclosure";
 import StickyHeader from "@functionalities/stickyheader";
 import Toggler from "@functionalities/toggler";
 import Animations from "@functionalities/animations";
-import FormHandler, {
-  flashMessage,
-  conditionalInputs,
-  Turnstile,
-} from "@functionalities/formhandler";
+import FormHandler, { Turnstile } from "@functionalities/formhandler";
 
 // Disclosures
 new Disclosure({

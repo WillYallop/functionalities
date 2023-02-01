@@ -1,5 +1,5 @@
 import { FitEnum } from "sharp";
-import Image from "../../dist/image-kit/image";
+import Image from "../../src/image-kit/image";
 import { ST_FileDataObj } from "../index";
 
 export interface IK_ProcessConfig {
