@@ -1,6 +1,4 @@
 export default class Recaptcha {
-    src;
-    key;
     constructor(config) {
         this.src = config.src;
         this.key = config.key;

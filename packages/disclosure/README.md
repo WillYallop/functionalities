@@ -1,4 +1,4 @@
-# Disclosure - v1.1.3
+# Disclosure - v1.1.4
 
 Disclosure is a minimal frontend package for implementing accessible, lightweight disclosure components.
 
@@ -47,7 +47,7 @@ new Disclosure({
   targetAttribute: "data-disclosure", // string
   duration: 200, // number in ms
   defaultState: false, // boolean
-  closeAll: true // boolean
+  closeAll: true, // boolean
 });
 ```
 

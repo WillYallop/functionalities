@@ -1,6 +1,6 @@
 {
   "name": "@functionalities/toggler",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": false,
   "sideEffects": false,
   "description": "A frontend utility package for toggling classes on elements",

@@ -1,22 +1,15 @@
 export default class StickyHeader {
-    config;
-    headerEle;
-    scrollPos;
-    prevScrollPos;
-    state;
-    prevState;
-    onScroll;
-    onScrollHandler;
     constructor(id, config) {
+        var _a, _b, _c;
         this.config = {
-            triggerDistance: config?.triggerDistance || 50,
+            triggerDistance: (config === null || config === void 0 ? void 0 : config.triggerDistance) || 50,
             classes: {
-                top: config?.classes?.top || "sticky-top",
-                movedDown: config?.classes?.movedDown || "sticky-down",
-                movedUp: config?.classes?.movedUp || "sticky-up",
+                top: ((_a = config === null || config === void 0 ? void 0 : config.classes) === null || _a === void 0 ? void 0 : _a.top) || "sticky-top",
+                movedDown: ((_b = config === null || config === void 0 ? void 0 : config.classes) === null || _b === void 0 ? void 0 : _b.movedDown) || "sticky-down",
+                movedUp: ((_c = config === null || config === void 0 ? void 0 : config.classes) === null || _c === void 0 ? void 0 : _c.movedUp) || "sticky-up",
             },
-            onChange: config?.onChange || undefined,
-            onScroll: config?.onScroll || undefined,
+            onChange: (config === null || config === void 0 ? void 0 : config.onChange) || undefined,
+            onScroll: (config === null || config === void 0 ? void 0 : config.onScroll) || undefined,
         };
         this.scrollPos =
             document.body.scrollTop || document.documentElement.scrollTop;
