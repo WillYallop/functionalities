@@ -11,7 +11,8 @@
     "rootDir": "./src",
     "declaration": true,
     "declarationMap": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "lib": ["es2021", "dom", "dom.iterable"]
   },
   "include": ["./src"],
   "exclude": ["node_modules", ".turbo", "coverage", "dist", "src/**/*.test.ts"]

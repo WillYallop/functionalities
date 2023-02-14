@@ -40,6 +40,7 @@ export default class Toggler {
     this.map = new Map();
     this.#initialise();
   }
+  // ----------------- PRIVATE METHODS ----------------- //
   #initialise() {
     const togglers = document.querySelectorAll(
       `[${this.config.attributes.toggler}]`
@@ -236,5 +237,32 @@ export default class Toggler {
         if (aria) receiver.setAttribute("aria-expanded", "false");
       }
     });
+  }
+  // ------------------ PUBLIC METHODS ------------------ //
+
+  public toggle(toggler: string, state?: boolean) {
+    const togglerInstance = this.map.get(toggler);
+    if (!togglerInstance) return;
+    const newState = state === undefined ? !togglerInstance.state : state;
+    if (togglerInstance.targets.length > 0) {
+      togglerInstance.state = newState;
+      this.#multiToggle(togglerInstance, toggler);
+    } else {
+      togglerInstance.state = newState;
+      this.#updateGroup(
+        document.querySelectorAll(
+          `[${this.config.attributes.toggler}="${toggler}"]`
+        ) as NodeListOf<HTMLElement>,
+        togglerInstance,
+        true
+      );
+      this.#updateGroup(
+        document.querySelectorAll(
+          `[${this.config.attributes.receiver}="${toggler}"]`
+        ) as NodeListOf<HTMLElement>,
+        togglerInstance,
+        false
+      );
+    }
   }
 }

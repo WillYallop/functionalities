@@ -27,7 +27,7 @@ new StickyHeader("siteHeader", {
 });
 
 // Toggler
-new Toggler({
+const togglerInstance = new Toggler({
   activeClass: "active",
 });
 
@@ -53,4 +53,12 @@ new FormHandler("#form", {
   onError: (form, res) => {
     console.log("Error", form, res);
   },
+});
+
+const button = document.querySelector(
+  "#testing-programatic-toggler"
+) as HTMLElement;
+
+button.addEventListener("click", () => {
+  togglerInstance.toggle("all-tabs");
 });

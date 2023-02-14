@@ -16,6 +16,7 @@ npm install @functionalities/toggler --save
 - Optional attribute to set the default toggle state
 - Option attribute to target other togglers to trigger them off
 - Set multi toggler elements that toggle children togglers based on its state
+- Programatically set state of togglers
 
 ## Example
 
@@ -86,6 +87,24 @@ new Toggler();
 ```
 
 > A more complex example, that will reveal a container that has tabs. Each tab will close the other tabs and reveal its content on a click. See the playground-fr app in the repo for the demo.
+
+## Methods
+
+## Toggle
+
+If you need to programatically update the state of a toggler, you can use the toggle method exposed on the Toggler instance. Here is an example:
+
+```typescript
+const togglerInstance = new Toggler();
+
+button.addEventListener("click", () => {
+  togglerInstance.toggle("all-tabs");
+  // togglerInstance.toggle("all-tabs", true);
+  // togglerInstance.toggle("all-tabs", false);
+});
+```
+
+The first paramater of the toggle method is the togglers key - this is required. The second paramater is optional, if left blank the toggler will toggle the state on and off, if a boolean is passed - the toggler will have its state set to that value.
 
 ## Attribute
 
@@ -225,7 +244,6 @@ Sets the default active class for all togglers.
 
 ## Future features
 
-- Expose a way to update the state of an reciever/toggler programatically,
-- Listen to recievers/togglers to changes of their active class to keep state in sync.
 - Make `data-toggler-close` work independently of being a toggler/reciever.
+- Update `data-toggler-targets` so optionally one must remain toggled. At the moment they can all be set to false at the same time.
 - Ability to trigger functions.

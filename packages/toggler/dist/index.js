@@ -18,6 +18,21 @@ export default class Toggler {
         this.map = new Map();
         __classPrivateFieldGet(this, _Toggler_instances, "m", _Toggler_initialise).call(this);
     }
+    toggle(toggler, state) {
+        const togglerInstance = this.map.get(toggler);
+        if (!togglerInstance)
+            return;
+        const newState = state === undefined ? !togglerInstance.state : state;
+        if (togglerInstance.targets.length > 0) {
+            togglerInstance.state = newState;
+            __classPrivateFieldGet(this, _Toggler_instances, "m", _Toggler_multiToggle).call(this, togglerInstance, toggler);
+        }
+        else {
+            togglerInstance.state = newState;
+            __classPrivateFieldGet(this, _Toggler_instances, "m", _Toggler_updateGroup).call(this, document.querySelectorAll(`[${this.config.attributes.toggler}="${toggler}"]`), togglerInstance, true);
+            __classPrivateFieldGet(this, _Toggler_instances, "m", _Toggler_updateGroup).call(this, document.querySelectorAll(`[${this.config.attributes.receiver}="${toggler}"]`), togglerInstance, false);
+        }
+    }
 }
 _Toggler_instances = new WeakSet(), _Toggler_initialise = function _Toggler_initialise() {
     const togglers = document.querySelectorAll(`[${this.config.attributes.toggler}]`);

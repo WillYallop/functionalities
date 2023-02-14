@@ -23,6 +23,7 @@ export default class Toggler {
     config: DefaultConfig;
     map: Map<string, TogglerObj>;
     constructor(config?: Config);
+    toggle(toggler: string, state?: boolean): void;
 }
 export {};
 //# sourceMappingURL=index.d.ts.map
