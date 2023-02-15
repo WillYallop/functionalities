@@ -3,7 +3,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _Toggler_instances, _Toggler_initialise, _Toggler_clickEvent, _Toggler_multiClickEvent, _Toggler_multiToggle, _Toggler_updateGroup;
+var _Toggler_instances, _Toggler_initialise, _Toggler_clickEvent, _Toggler_multiClickEvent, _Toggler_multiToggle, _Toggler_updateGroup, _Toggler_triggerTogglerFunction;
 export default class Toggler {
     constructor(config) {
         _Toggler_instances.add(this);
@@ -14,7 +14,8 @@ export default class Toggler {
                 state: "data-toggler-state",
                 close: "data-toggler-close",
                 targets: "data-toggler-targets",
-            } }, config);
+                function: "data-toggler-function",
+            }, functions: {} }, config);
         this.map = new Map();
         __classPrivateFieldGet(this, _Toggler_instances, "m", _Toggler_initialise).call(this);
     }
@@ -58,6 +59,7 @@ _Toggler_instances = new WeakSet(), _Toggler_initialise = function _Toggler_init
                 this.config.activeClass,
             closeTogglers: closeTogglersArray,
             targets: targetTogglerVals,
+            function: toggler.getAttribute(this.config.attributes.function) || undefined,
         });
         if (targetTogglerVals.length > 0)
             __classPrivateFieldGet(this, _Toggler_instances, "m", _Toggler_multiClickEvent).call(this, toggler);
@@ -117,6 +119,7 @@ _Toggler_instances = new WeakSet(), _Toggler_initialise = function _Toggler_init
     toggler.addEventListener("click", (e) => {
         e.preventDefault();
         togglerInstance.state = !togglerInstance.state;
+        __classPrivateFieldGet(this, _Toggler_instances, "m", _Toggler_triggerTogglerFunction).call(this, togglerInstance, toggler);
         toggle();
         updateMultiToggle();
     });
@@ -129,6 +132,7 @@ _Toggler_instances = new WeakSet(), _Toggler_initialise = function _Toggler_init
         return;
     toggler.addEventListener("click", (e) => {
         e.preventDefault();
+        __classPrivateFieldGet(this, _Toggler_instances, "m", _Toggler_triggerTogglerFunction).call(this, togglerInstance, toggler);
         togglerInstance.state = !togglerInstance.state;
         __classPrivateFieldGet(this, _Toggler_instances, "m", _Toggler_multiToggle).call(this, togglerInstance, togglerValue);
     });
@@ -155,5 +159,11 @@ _Toggler_instances = new WeakSet(), _Toggler_initialise = function _Toggler_init
                 receiver.setAttribute("aria-expanded", "false");
         }
     });
+}, _Toggler_triggerTogglerFunction = function _Toggler_triggerTogglerFunction(toggler, ele) {
+    if (toggler.function) {
+        const f = this.config.functions[toggler.function];
+        if (f)
+            f(toggler, ele);
+    }
 };
 //# sourceMappingURL=index.js.map

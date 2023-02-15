@@ -1,4 +1,4 @@
-# Toggler - v1.2.1
+# Toggler - v1.3.0
 
 Toggler is a frontend utility package that's sole purpose is to make class toggling easier. It's 100% markup/attribute based, so once the package is included, you won't have to add any further JS/TS. The two core attributes and ideas of the package are that you have both toggles and receivers. Togglers trigger all receivers and other togglers with the same value and add a class to them. Simple.
 
@@ -10,13 +10,13 @@ npm install @functionalities/toggler --save
 
 ## Features
 
-- Define togglers
-- Define receivers
-- Optional attribute to set a custom active class
-- Optional attribute to set the default toggle state
-- Option attribute to target other togglers to trigger them off
-- Set multi toggler elements that toggle children togglers based on its state
+- Configured in markup.
 - Programatically set state of togglers
+- Execute functions from togglers.
+- Custom active classes.
+- Default state attribute for togglers.
+- Togglers can close other unrelated togglers.
+- Create multi togglers that keep children togglers staet in sync.
 
 ## Example
 
@@ -230,11 +230,34 @@ A powerful attribute that will allow the element it's placed on to toggle multip
 
 > This is an example of a filter which has an all button to toggle all buttons. An element with `data-toggler-targets` will have its state toggled as well when you toggle its children. So if all the children's state is true, they will be set to true. If all but one is true, it will be false.
 
+### data-toggler-function
+
+A powerful attribute that will allow you to trigger functions when the toggler is clicked. Simply set the name of the function you want to execute as the value. Functions can be defined in the Toggler class instance in the functions object. Here is an example:
+
+```typescript
+new Toggler({
+  functions: {
+    myFunction: (toggler, ele) => {
+      console.log(toggler, ele);
+    },
+  },
+});
+```
+
+```html
+<button data-toggler="function-example" data-toggler-function="myFunction">
+  Execute my function!
+</button>
+```
+
 ## Config
 
 ```typescript
 new Toggler({
   activeClass: "active", // string
+  functions: {
+    exmapleFunction: (toggler, ele) => {},
+  },
 });
 ```
 
@@ -242,8 +265,28 @@ new Toggler({
 
 Sets the default active class for all togglers.
 
+### functions
+
+If you want to be able to trigger functions with your togglers, you will need to define those functions in the Toggler instance function object. On the element - using the `data-toggler-function` attribute you will be able to assign the function to trigger using its name as the value. Here is an example:
+
+```typescript
+new Toggler({
+  functions: {
+    myFunction: (toggler, ele) => {
+      console.log(toggler, ele);
+    },
+  },
+});
+```
+
+```html
+<button data-toggler="function-example" data-toggler-function="myFunction">
+  Execute my function!
+</button>
+```
+
 ## Future features
 
-- Make `data-toggler-close` work independently of being a toggler/reciever.
 - Update `data-toggler-targets` so optionally one must remain toggled. At the moment they can all be set to false at the same time.
-- Ability to trigger functions.
+- Add a method to register a new toggler. (Useful for if toggler markup is added after the toggler class initialisation).
+- Add a method to refresh all togglers back to their dom state. If no values are passed resync them all, else sync whats passed.

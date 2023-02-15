@@ -1,5 +1,8 @@
 interface Config {
     activeClass?: string;
+    functions?: {
+        [key: string]: (togglerInstance: TogglerObj, toggler: HTMLElement) => void;
+    };
 }
 interface DefaultConfig {
     activeClass: string;
@@ -10,6 +13,10 @@ interface DefaultConfig {
         state: string;
         close: string;
         targets: string;
+        function: string;
+    };
+    functions: {
+        [key: string]: (togglerInstance: TogglerObj, toggler: HTMLElement) => void;
     };
 }
 interface TogglerObj {
@@ -17,6 +24,7 @@ interface TogglerObj {
     activeClass: string;
     closeTogglers: Array<string>;
     targets: Array<string>;
+    function?: string;
 }
 export default class Toggler {
     #private;

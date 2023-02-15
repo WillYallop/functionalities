@@ -1,6 +1,9 @@
 // Types
 interface Config {
   activeClass?: string;
+  functions?: {
+    [key: string]: (togglerInstance: TogglerObj, toggler: HTMLElement) => void;
+  };
 }
 interface DefaultConfig {
   activeClass: string;
@@ -11,6 +14,10 @@ interface DefaultConfig {
     state: string;
     close: string;
     targets: string;
+    function: string;
+  };
+  functions: {
+    [key: string]: (togglerInstance: TogglerObj, toggler: HTMLElement) => void;
   };
 }
 
@@ -19,6 +26,7 @@ interface TogglerObj {
   activeClass: string;
   closeTogglers: Array<string>;
   targets: Array<string>;
+  function?: string;
 }
 
 export default class Toggler {
@@ -34,7 +42,9 @@ export default class Toggler {
         state: "data-toggler-state",
         close: "data-toggler-close",
         targets: "data-toggler-targets",
+        function: "data-toggler-function",
       },
+      functions: {},
       ...config,
     };
     this.map = new Map();
@@ -75,6 +85,8 @@ export default class Toggler {
           this.config.activeClass,
         closeTogglers: closeTogglersArray,
         targets: targetTogglerVals,
+        function:
+          toggler.getAttribute(this.config.attributes.function) || undefined,
       });
 
       // add event listeners to each toggler
@@ -178,6 +190,7 @@ export default class Toggler {
       e.preventDefault();
       // toggle state
       togglerInstance.state = !togglerInstance.state;
+      this.#triggerTogglerFunction(togglerInstance, toggler);
       // update receivers & togglers
       toggle();
       updateMultiToggle();
@@ -190,6 +203,7 @@ export default class Toggler {
     if (!togglerInstance) return;
     toggler.addEventListener("click", (e) => {
       e.preventDefault();
+      this.#triggerTogglerFunction(togglerInstance, toggler);
       togglerInstance.state = !togglerInstance.state;
       this.#multiToggle(togglerInstance, togglerValue);
     });
@@ -238,8 +252,13 @@ export default class Toggler {
       }
     });
   }
+  #triggerTogglerFunction(toggler: TogglerObj, ele: HTMLElement) {
+    if (toggler.function) {
+      const f = this.config.functions[toggler.function];
+      if (f) f(toggler, ele);
+    }
+  }
   // ------------------ PUBLIC METHODS ------------------ //
-
   public toggle(toggler: string, state?: boolean) {
     const togglerInstance = this.map.get(toggler);
     if (!togglerInstance) return;

@@ -117,7 +117,6 @@
       <!-- Toggler row -->
       <div class="playground-row">
         <h2>Toggler Filters Example</h2>
-        <button id="testing-programatic-toggler">Programatic Toggler</button>
         <div class="toggler-btn__reciever active">
           <nav class="toggler-nav">
             <ul>
@@ -128,7 +127,9 @@
               >
                 All
               </li>
-              <li data-toggler="tab-11">Filter 1</li>
+              <li data-toggler="tab-11" data-toggler-function="updateDonkeys">
+                Filter 1
+              </li>
               <li data-toggler="tab-22">Filter 2</li>
               <li data-toggler="tab-33">Filter 3</li>
             </ul>
