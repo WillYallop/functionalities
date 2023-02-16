@@ -1,6 +1,5 @@
 import Recaptcha from "./recaptcha";
 export default class Google extends Recaptcha {
-    constructor(key: string);
-    setInputToken(formData: FormData): void;
+    constructor();
 }
 //# sourceMappingURL=google.d.ts.map

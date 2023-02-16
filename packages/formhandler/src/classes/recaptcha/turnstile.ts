@@ -8,18 +8,15 @@ export default class Turnstile extends Recaptcha {
       src: "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback",
       key,
     });
-    this.#initialise();
   }
-  #initialise() {
+  // ----------------------------------------
+  // public methods
+  initialise(formEle: HTMLFormElement) {
     this.addScript();
     // Add dom element
     const div = document.createElement("div");
     div.id = ID;
-
-    // find form
-    const form = document.querySelector("form");
-    if (!form) return;
-    form.appendChild(div);
+    formEle.appendChild(div);
 
     // Add on load callback
     // @ts-ignore
@@ -33,19 +30,10 @@ export default class Turnstile extends Recaptcha {
       });
     };
   }
-
-  // ----------------------------------------
-  // public methods
-
   async refresh() {
     // @ts-ignore
     turnstile.reset(`#${ID}`);
     await this.waitUntilValid();
     return true;
-  }
-  // sets token on form data
-  setInputToken(formData: FormData) {
-    if (!this.token) return;
-    formData.append("cf-turnstile", this.token);
   }
 }

@@ -1,3 +1,4 @@
-declare const conditionalInputs: () => void;
-export default conditionalInputs;
+export default class ConditionalInputs {
+    constructor();
+}
 //# sourceMappingURL=conditional-inputs.d.ts.map

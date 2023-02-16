@@ -2,7 +2,6 @@ interface ConfigProps {
   src: string;
   key: string;
 }
-
 export default class Recaptcha {
   src: string;
   key: string;
@@ -31,8 +30,5 @@ export default class Recaptcha {
         }
       }, 50);
     });
-  }
-  get token() {
-    return sessionStorage.getItem("recaptcha-token");
   }
 }
