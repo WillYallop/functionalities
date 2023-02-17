@@ -1,6 +1,6 @@
 {
   "name": "@functionalities/formhandler",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": false,
   "sideEffects": false,
   "description": "A frontend utility package for handling forms",

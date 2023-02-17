@@ -5,6 +5,7 @@ import GoogleV2 from "./classes/recaptcha/googlev2";
 import merge from "./util/merge";
 
 // Types
+type ResErrors = { [key: string]: Array<string> };
 interface CustomValidation {
   name: string;
   validator: (value: string) => string;
@@ -14,6 +15,13 @@ interface InputValidity {
   valid: boolean;
   message: Array<string>;
 }
+
+interface SendResponse {
+  success: boolean;
+  message: string;
+  errors?: ResErrors;
+}
+
 interface Config {
   recaptcha?: Turnstile | GoogleV2;
   resetOnSuccess?: boolean;
@@ -37,6 +45,7 @@ interface Config {
   };
   onSuccess?: (form: HTMLFormElement, res: any) => void;
   onError?: (form: HTMLFormElement, res: any) => void;
+  send?: (action: string, data: FormData) => Promise<SendResponse>;
 }
 type InputElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
@@ -44,11 +53,12 @@ type InputElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 const defaultErrorClass = "error";
 
 export default class FormHandler {
-  config: Config;
+  config: Config = {};
   form: HTMLFormElement;
-  inputeValidationLock: boolean = true;
+  inputValidationLock: boolean = true;
   constructor(formSelector: string, config?: Config) {
     this.form = document.querySelector(formSelector) as HTMLFormElement;
+    if (!this.form) return;
     this.config = merge(
       {
         recaptcha: undefined,
@@ -96,19 +106,29 @@ export default class FormHandler {
       },
       { passive: true }
     );
-    const inputs = this.form.querySelectorAll("input, textarea, select");
-    [...inputs].forEach((input) => {
-      if (this.config.validate?.onChange) {
-        input.addEventListener(
-          "change",
-          (e) => {
-            if (this.inputeValidationLock) return;
-            this.#validateInput(e.target as InputElement);
-          },
-          { passive: true }
-        );
-      }
-    });
+    if (this.config.validate?.onChange) {
+      const inputs = this.form.querySelectorAll(
+        "input, textarea, select"
+      ) as NodeListOf<
+        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+      >;
+      [...inputs].forEach(
+        (input) => {
+          input.addEventListener("change", () => {
+            if (this.inputValidationLock) {
+              if (input.type === "file") {
+                this.#validateInput(input as HTMLInputElement);
+              }
+              return;
+            }
+            this.#validateInput(input as InputElement);
+          });
+        },
+        {
+          passive: true,
+        }
+      );
+    }
   }
   #onSubmit() {
     this.form.addEventListener("submit", (e) => {
@@ -125,11 +145,11 @@ export default class FormHandler {
             );
           }
           this.#setState("error");
-          this.inputeValidationLock = false;
+          this.inputValidationLock = false;
           return;
         }
       }
-      this.inputeValidationLock = true;
+      this.inputValidationLock = true;
       this.#submit();
     }),
       { passive: true };
@@ -143,6 +163,8 @@ export default class FormHandler {
     input.setCustomValidity("");
     // runs inputs custom validation and sets custom validity
     this.#addCustomValidation(input);
+    // runs inputs file validation and sets custom validity
+    if (input.type === "file") this.#fileValidation(input as HTMLInputElement);
     // check input validity
     const valid = input.checkValidity();
     const name = input.name;
@@ -168,6 +190,73 @@ export default class FormHandler {
       inputs: validity,
       valid: form.checkValidity(),
     };
+  }
+  #fileValidation(input: HTMLInputElement) {
+    const message: Array<string> = [];
+
+    const checkType = (type: string, index?: number) => {
+      if (!type) {
+        if (index !== undefined)
+          message.push(`File ${index + 1} is not a valid type.`);
+        else message.push("Please make sure your file is a valid type.");
+        return;
+      }
+      if (!input.accept.includes(type)) {
+        if (index !== undefined)
+          message.push(`File ${index + 1} is not a valid type.`);
+        else message.push("Please make sure your file is a valid type.");
+      }
+    };
+    const checkSize = (size: number, index?: number) => {
+      const acceptMax = input.getAttribute("accept-max");
+      const acceptMin = input.getAttribute("accept-min");
+      if (acceptMax !== null) {
+        const max = (parseInt(acceptMax) || 0) * 1024; // 0kb
+        if (size > max) {
+          if (index !== undefined)
+            message.push(`File ${index + 1} is too large.`);
+          else
+            message.push(
+              `Please make sure your file is smaller than ${this.#bytesToSize(
+                max
+              )}.`
+            );
+        }
+      }
+      if (acceptMin !== null) {
+        const min = (parseInt(acceptMin) || 0) * 1024; // 0kb
+        if (size < min) {
+          if (index !== undefined)
+            message.push(`File ${index + 1} is too small.`);
+          else
+            message.push(
+              `Please make sure your file is larger than ${this.#bytesToSize(
+                min
+              )}.`
+            );
+        }
+      }
+    };
+
+    const files = input.files;
+    if (!files?.length) return;
+
+    if (files.length > 1) {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        checkType(file.type, i);
+        checkSize(file.size, i);
+      }
+    } else {
+      const file = files[0];
+      checkType(file.type);
+      checkSize(file.size);
+    }
+
+    if (message.length) {
+      input.setCustomValidity(message.join(" "));
+      this.#setInputError(false, input.name, message);
+    }
   }
   // ----------------------------------------
   // validation utility functions
@@ -212,7 +301,7 @@ export default class FormHandler {
         ele.classList.remove(this.config.errorClass || defaultErrorClass);
       } else {
         ele.classList.add(this.config.errorClass || defaultErrorClass);
-        ele.innerText = messages[0];
+        ele.innerText = messages.join(" ");
       }
     });
 
@@ -227,7 +316,7 @@ export default class FormHandler {
   }
   // ----------------------------------------
   // utility functions
-  #formatErrorRes(errors: { [key: string]: Array<string> }) {
+  #formatErrorRes(errors: ResErrors) {
     for (let key in errors) {
       this.#setInputError(false, key, errors[key]);
     }
@@ -257,6 +346,14 @@ export default class FormHandler {
       });
     }
   }
+  #bytesToSize(bytes: number, decimals = 0) {
+    if (!+bytes) return "0 Bytes";
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+  }
   // ----------------------------------------
   // submit
   async #submit() {
@@ -278,41 +375,71 @@ export default class FormHandler {
       if (!input.required && !input.value) formData.delete(input.name);
     });
 
-    // send
-    try {
-      const res = await fetch(this.config.action, {
-        method: "POST",
-        body: formData,
-      });
-      const jsonRes = await res.json();
-
-      if (jsonRes.errors !== undefined) {
-        this.#formatErrorRes(jsonRes.errors);
+    // user implemented send function
+    if (this.config.send !== undefined) {
+      const res = await this.config.send(this.config.action, formData);
+      if (res.success) {
         if (this.config.flashMessage) {
           this.config.flashMessage.flash(
-            jsonRes.message || this.config.localisation?.validationError || "",
-            false
-          );
-        }
-        if (this.config.onError) this.config.onError(this.form, jsonRes);
-        this.#setState("error");
-      } else {
-        if (this.config.flashMessage) {
-          this.config.flashMessage.flash(
-            jsonRes.message || this.config.localisation?.success || "",
+            res.message || this.config.localisation?.success || "",
             true
           );
         }
-        if (this.config.onSuccess) this.config.onSuccess(this.form, jsonRes);
+        if (this.config.onSuccess) this.config.onSuccess(this.form, res);
         if (this.config.resetOnSuccess) this.form.reset();
         this.#setState("success");
+      } else {
+        if (res.errors !== undefined) this.#formatErrorRes(res.errors);
+        if (this.config.flashMessage) {
+          this.config.flashMessage.flash(
+            res.message || this.config.localisation?.validationError || "",
+            false
+          );
+        }
+        if (this.config.onError) this.config.onError(this.form, res);
+        this.#setState("error");
       }
-    } catch (err) {
-      if (this.config.flashMessage) {
-        this.config.flashMessage.flash(
-          this.config.localisation?.error || "",
-          false
-        );
+    }
+    // default send function
+    else {
+      // send
+      try {
+        const res = await fetch(this.config.action, {
+          method: "POST",
+          body: formData,
+        });
+        const jsonRes = await res.json();
+
+        if (jsonRes.errors !== undefined) {
+          this.#formatErrorRes(jsonRes.errors);
+          if (this.config.flashMessage) {
+            this.config.flashMessage.flash(
+              jsonRes.message ||
+                this.config.localisation?.validationError ||
+                "",
+              false
+            );
+          }
+          if (this.config.onError) this.config.onError(this.form, jsonRes);
+          this.#setState("error");
+        } else {
+          if (this.config.flashMessage) {
+            this.config.flashMessage.flash(
+              jsonRes.message || this.config.localisation?.success || "",
+              true
+            );
+          }
+          if (this.config.onSuccess) this.config.onSuccess(this.form, jsonRes);
+          if (this.config.resetOnSuccess) this.form.reset();
+          this.#setState("success");
+        }
+      } catch (err) {
+        if (this.config.flashMessage) {
+          this.config.flashMessage.flash(
+            this.config.localisation?.error || "",
+            false
+          );
+        }
       }
     }
   }

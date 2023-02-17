@@ -58,7 +58,21 @@ If this attribute is present on an element, whenever the input with the same nam
 
 An element with this attribute will have its innerHTML set to the first error message that corresponds to the input on validation failing.
 
+## New Validation Attributes
 
+The file input type has two new validation attributes as well as extending the function of the accept attribute.
+
+### accept
+
+By default the accept attribute doesnt work with the browser input validation API. All it does is tell the file browser window what files you can select. This library extends this functionality so if present the input will now return errors if the file you upload doesnt match one of the values.
+
+### accept-max
+
+A new attribute for files to specify the max file size. This value must be in KB. For example 1MB is equal to 1024KB. This works on each file uploaded in the case the input has the multiple attribute.
+
+### accept-min
+
+A new attribute for files to specifiy the min file size. This value must be in KB. For example 1MB is equal to 1024KB. This works on each file uploaded in the case the input has the multiple attribute.
 
 ## Recaptcha
 
@@ -157,6 +171,14 @@ interface Config {
   };
   onSuccess?: (form: HTMLFormElement, res: any) => void;
   onError?: (form: HTMLFormElement, res: any) => void;
+    send?: (
+    action: string,
+    data: FormData
+  ) => Promise<{
+    success: boolean;
+    message: string;
+    errors?: { [key: string]: Array<string> };
+  }>;
 }
 ```
 
@@ -249,3 +271,21 @@ On successful submission, this callback is fired. It receives the form and the r
 On a failed submission this callback is fired. It receives the form and the response from the POST request as its parameters. You can use this to extend some functionality.
 
 > default: undefined
+
+### send
+
+If the send value is set, this function will be used instead of the libraries default post fetch request. This function should return a promise and the following formatted data so we know the errors and success state. As you can see from the interface bellow, it also passes you the form action and data for you to use in your custom send request.
+
+```typescript
+interface Config {
+  // other
+  send?: (
+    action: string,
+    data: FormData
+  ) => Promise<{
+    success: boolean;
+    message: string;
+    errors?: { [key: string]: Array<string> };
+  }>;
+}
+```
