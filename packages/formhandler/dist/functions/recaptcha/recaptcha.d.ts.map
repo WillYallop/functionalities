@@ -1,1 +1,0 @@
-{"version":3,"file":"recaptcha.d.ts","sourceRoot":"","sources":["../../../src/functions/recaptcha/recaptcha.ts"],"names":[],"mappings":"AAAA,UAAU,WAAW;IACnB,GAAG,EAAE,MAAM,CAAC;IACZ,GAAG,EAAE,MAAM,CAAC;CACb;AACD,MAAM,CAAC,OAAO,OAAO,SAAS;IAC5B,GAAG,EAAE,MAAM,CAAC;IACZ,GAAG,EAAE,MAAM,CAAC;gBACA,MAAM,EAAE,WAAW;IAI/B,SAAS;IAOT,QAAQ,CAAC,KAAK,EAAE,MAAM;IAItB,cAAc;CAWf"}

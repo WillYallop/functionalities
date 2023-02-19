@@ -2,7 +2,7 @@ import Disclosure from "@functionalities/disclosure";
 import StickyHeader from "@functionalities/stickyheader";
 import Toggler from "@functionalities/toggler";
 import Animations from "@functionalities/animations";
-import FormHandler, { Turnstile } from "@functionalities/formhandler";
+import Forms, { Turnstile } from "@functionalities/forms";
 
 // Disclosures
 new Disclosure({
@@ -46,7 +46,7 @@ new Animations({
 // Form handler
 
 // On submit example
-new FormHandler("#form", {
+new Forms("#form", {
   recaptcha: new Turnstile("0x4AAAAAAABGWcyvpwR-o35g"),
   validate: {
     onChange: true,
