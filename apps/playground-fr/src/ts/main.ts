@@ -1,11 +1,15 @@
-import Disclosure from "@functionalities/disclosure";
+import DisclosureClass from "@functionalities/disclosure";
 import StickyHeader from "@functionalities/stickyheader";
 import Toggler from "@functionalities/toggler";
 import Animations from "@functionalities/animations";
 import Forms, { Turnstile } from "@functionalities/forms";
+import { Details, Disclosure } from "@functionalities/webcomponents";
+
+customElements.define("functionalities-details", Details);
+customElements.define("functionalities-disclosure", Disclosure);
 
 // Disclosures
-new Disclosure({
+new DisclosureClass({
   idPrefix: "disclosure_",
   activeClass: "disclosure-active",
   targetAttribute: "data-disclosure",
@@ -58,4 +62,19 @@ new Forms("#form", {
   onError: (form, res) => {
     console.log("Error", form, res);
   },
+});
+
+// Toggle disclosure component duration
+const toggleBtn = document.querySelector(
+  "#toggle-duration"
+) as HTMLButtonElement;
+const disclosure = document.querySelector("#disclosure_1") as Disclosure;
+toggleBtn.addEventListener("click", () => {
+  if (disclosure.getAttribute("duration") === "200") {
+    disclosure.setAttribute("duration", "500");
+    toggleBtn.textContent = "Toggle duration to 500ms";
+  } else {
+    disclosure.setAttribute("duration", "200");
+    toggleBtn.textContent = "Toggle duration to 200ms";
+  }
 });

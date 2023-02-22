@@ -183,3 +183,27 @@ form {
     }
   }
 }
+
+.disclosure {
+  display: block;
+  margin-bottom: 10px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  [open] {
+    summary {
+      border-radius: 5px 5px 0 0;
+    }
+  }
+  summary {
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  div {
+    border: 1px solid black;
+    border-radius: 0 0 5px 5px;
+    border-top: none;
+  }
+}

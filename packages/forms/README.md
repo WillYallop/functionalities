@@ -1,14 +1,14 @@
-# Forms - v1.2.0
+# Forms - v1.2.1
 
-Forms is a frontend library made to make input validation in forms easier. It handles submissions, error handling, flash messages, and recaptcha with Clourflares Turnstile and Google Recaptcha V2. All validation rules are handled in markup through input attributes such as required, minlength, pattern etc.
+Forms is a front-end library designed to facilitate input validation in forms. It handles form submissions, error handling, flash messages, and Recaptcha integration with Cloudflare's Turnstile and Google Recaptcha V2. All validation rules are managed through input attributes like "required," "minlength," "pattern," etc., which are set in the markup.
 
 ## Features
 
 - Uses browser input/form validation API.
-- Extends built in validation rules with custom validation.
+- Extends built-in validation rules with custom validation.
 - Supports file uploads.
-- Has a flash message module.
-- Supports Cloudflares Turnstile Recaptcha.
+- Includes a flash message module.
+- Supports Cloudflare's Turnstile Recaptcha.
 - Supports Google Recaptcha V2.
 
 ## Install
@@ -45,38 +45,37 @@ new Forms("#form");
 </form>
 ```
 
-
 ## Attributes
 
 ### `data-i-relation`
 
-If this attribute is present on an element, whenever the input with the same name fails, the error class will get applied to it.
+When this attribute is present on an element, the error class gets applied to the input element with the same name, whenever the input fails.
 
 ### `data-i-error`
 
-An element with this attribute will have its innerHTML set to the first error message that corresponds to the input on validation failing.
+The first error message that corresponds to the input on validation failure is set as the innerHTML of the element that has this attribute.
 
 ### `accept`
 
-By default the accept attribute doesnt work with the browser input validation API. All it does is tell the file browser window what files you can select. This library extends this functionality so if present the input will now return errors if the file you upload doesnt match one of the values.
+By default, the accept attribute does not work with the browser input validation API. It simply tells the file browser window what files can be selected. This library extends this functionality so that if it is present, an error will be returned if the uploaded file does not match one of the values.
 
 ### `accept-max`
 
-A new attribute for files to specify the max file size. This value must be in KB. For example 1MB is equal to 1024KB. This works on each file uploaded in the case the input has the multiple attribute.
+A new attribute for files that specifies the maximum file size. This value must be in KB. For example, 1MB is equal to 1024KB. This works on each file uploaded if the input has the multiple attribute.
 
 ### `accept-min`
 
-A new attribute for files to specifiy the min file size. This value must be in KB. For example 1MB is equal to 1024KB. This works on each file uploaded in the case the input has the multiple attribute.
+A new attribute for files that specifies the minimum file size. This value must be in KB. For example, 1MB is equal to 1024KB. This works on each file uploaded if the input has the multiple attribute.
 
 ## Recaptcha
 
-We currently support [Cloudflare's Turnstile](https://developers.cloudflare.com/turnstile/) and [Google Recaptcha V2](https://developers.google.com/recaptcha/docs/invisible) for our Recaptcha. These will append the corresponding script to the site and handle loading and refreshing Recaptcha tokens.
-
-> This is an optional module.
+This is an optional module.
 
 ### Turnstile
 
 Import and initialise the Turnstile class and pass it to your Forms instance. This requires one parameter which is the site key.
+
+Read more about [Cloudflare's Turnstile](https://developers.cloudflare.com/turnstile/).
 
 ```typescript
 import Forms, { Turnstile } from "@functionalities/forms";
@@ -92,6 +91,8 @@ new Forms("#form", {
 
 Import and initialise the GoogleV2 class and pass it to your Forms instance. This requires one parameter which is the site key.
 
+Read more about [Google Recaptcha V2](https://developers.google.com/recaptcha/docs/invisible).
+
 ```typescript
 import Forms, { GoogleV2 } from "@functionalities/forms";
 
@@ -102,11 +103,9 @@ new Forms("#form", {
 
 > This will be accessible on the backend of the body through the `g-recaptcha-response` key.
 
-
-
 ## Flash Message
 
-An optional module that allows messages to be toggled on the DOM. It is up to you to style.
+The Flash Message is an optional module that enables messages to be displayed on the DOM. Styling is left to the user's discretion.
 
 ```typescript
 import Forms, { FlashMessage } from "@functionalities/forms";
@@ -125,7 +124,7 @@ new Forms("#form", {
 
 ### `data-fm-close`
 
-Any element with this attribute that resides in the flash message container, will have a click event set that will close the popup.
+Any element with this attribute that resides within the flash message container will have a click event set that will close the popup.
 
 ### `data-fm-message`
 

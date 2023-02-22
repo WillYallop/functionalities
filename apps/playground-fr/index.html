@@ -17,6 +17,100 @@
     </header>
 
     <main class="playground-main">
+      <!-- Web Components row -->
+      <div class="playground-row">
+        <h2>Web Components Example - Details</h2>
+        <div>
+          <functionalities-details close-on-leave="true" open>
+            <details>
+              <summary>Close on focus: true</summary>
+              <p class="fade-in">Open</p>
+            </details>
+          </functionalities-details>
+          <functionalities-details close-on-leave="true">
+            <details>
+              <summary>Close on focus: true</summary>
+              <p class="fade-in">Open</p>
+            </details>
+          </functionalities-details>
+          <functionalities-details close-on-leave="false" open>
+            <details open>
+              <summary>Close on focus: false</summary>
+              <p class="fade-in">Open</p>
+            </details>
+          </functionalities-details>
+          <functionalities-details close-on-leave="false">
+            <details>
+              <summary>Close on focus: false</summary>
+              <p class="fade-in">Open</p>
+            </details>
+          </functionalities-details>
+        </div>
+      </div>
+
+      <!-- Web Components row -->
+      <div class="playground-row">
+        <h2>Web Components Example - Disclosure</h2>
+        <div>
+          <functionalities-disclosure
+            id="disclosure_1"
+            class="disclosure"
+            group="group-1"
+            duration="500"
+            open
+          >
+            <details>
+              <summary>Question 1</summary>
+              <div>
+                Answer: Duis id culpa Lorem amet tempor est elit est sunt.
+                Veniam eiusmod proident aute sit fugiat mollit nisi et consequat
+                amet laborum Lorem et occaecat. Aute incididunt minim elit amet
+                exercitation sit cupidatat voluptate ipsum ex sint esse.
+              </div>
+            </details>
+          </functionalities-disclosure>
+          <functionalities-disclosure
+            class="disclosure"
+            group="group-1"
+            duration="100"
+          >
+            <details>
+              <summary>Question 2</summary>
+              <div>
+                Answer: Duis id culpa Lorem amet tempor est elit est sunt.
+                Veniam eiusmod proident aute sit fugiat mollit nisi et consequat
+                amet laborum Lorem et occaecat. Aute incididunt minim elit amet
+                exercitation sit cupidatat voluptate ipsum ex sint esse.
+              </div>
+            </details>
+          </functionalities-disclosure>
+          <functionalities-disclosure class="disclosure" group="group-2">
+            <details>
+              <summary>Question 3</summary>
+              <div>
+                Answer: Duis id culpa Lorem amet tempor est elit est sunt.
+                Veniam eiusmod proident aute sit fugiat mollit nisi et consequat
+                amet laborum Lorem et occaecat. Aute incididunt minim elit amet
+                exercitation sit cupidatat voluptate ipsum ex sint esse.
+              </div>
+            </details>
+          </functionalities-disclosure>
+          <functionalities-disclosure class="disclosure" group="group-2">
+            <details>
+              <summary>Question 4</summary>
+              <div>
+                Answer: Duis id culpa Lorem amet tempor est elit est sunt.
+                Veniam eiusmod proident aute sit fugiat mollit nisi et consequat
+                amet laborum Lorem et occaecat. Aute incididunt minim elit amet
+                exercitation sit cupidatat voluptate ipsum ex sint esse.
+              </div>
+            </details>
+          </functionalities-disclosure>
+
+          <button id="toggle-duration">Toggle duration</button>
+        </div>
+      </div>
+
       <!-- Disclosure row -->
       <div class="playground-row">
         <h2>Disclosure Example</h2>

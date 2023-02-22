@@ -15,7 +15,8 @@
     "vite": "^3.0.9",
     "@functionalities/toggler": "*",
     "@functionalities/animations": "*",
-    "@functionalities/forms": "*"
+    "@functionalities/forms": "*",
+    "@functionalities/webcomponents": "*"
   },
   "dependencies": {
     "sass": "^1.54.7"

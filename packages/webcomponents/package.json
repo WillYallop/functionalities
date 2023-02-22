@@ -1,9 +1,9 @@
 {
-  "name": "@functionalities/forms",
-  "version": "1.2.1",
+  "name": "@functionalities/webcomponents",
+  "version": "0.1.0",
   "private": false,
   "sideEffects": false,
-  "description": "A frontend utility package for handling forms",
+  "description": "A collection of progressively enhanced web components",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/WillYallop/functionalities/tree/main/packages/forms"
+    "url": "https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents"
   },
   "devDependencies": {
     "@types/jest": "^26.0.22",
