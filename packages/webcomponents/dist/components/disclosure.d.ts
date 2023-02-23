@@ -10,6 +10,7 @@ declare class Disclosure extends ProgressiveDetails {
     attributeChangedCallback(property: string, oldValue: string, newValue: string): void;
     static get observedAttributes(): string[];
     onClick(e: Event): void;
+    summaryClick(e: Event): void;
     onToggle(): void;
     open(): void;
 }

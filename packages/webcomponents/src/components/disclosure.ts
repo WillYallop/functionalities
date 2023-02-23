@@ -62,9 +62,18 @@ class Disclosure extends ProgressiveDetails {
   }
   // Methods
   onClick(e: Event) {
-    e.preventDefault();
+    if (
+      e.target instanceof HTMLAnchorElement ||
+      e.target instanceof HTMLButtonElement
+    )
+      return;
+
     e.stopPropagation();
-    // if the summary is clicked or the element is a child of the summary
+    e.preventDefault();
+
+    this.summaryClick(e);
+  }
+  summaryClick(e: Event) {
     if (
       e.target === this.summaryEle ||
       this.summaryEle.contains(e.target as Node)

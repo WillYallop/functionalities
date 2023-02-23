@@ -46,8 +46,14 @@ class Disclosure extends ProgressiveDetails {
         return ["open", "group", "duration"];
     }
     onClick(e) {
-        e.preventDefault();
+        if (e.target instanceof HTMLAnchorElement ||
+            e.target instanceof HTMLButtonElement)
+            return;
         e.stopPropagation();
+        e.preventDefault();
+        this.summaryClick(e);
+    }
+    summaryClick(e) {
         if (e.target === this.summaryEle ||
             this.summaryEle.contains(e.target)) {
             if (this.closeSetTimeout)

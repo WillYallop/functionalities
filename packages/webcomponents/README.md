@@ -1,4 +1,4 @@
-# Web Components - v0.1.1
+# Web Components - v0.1.2
 
 The Web Components library, provides easy-to-use and simple solutions for common website features. The library aims to enhance browser elements progressively to ensure that the components function properly, even with JavaScript disabled.
 
