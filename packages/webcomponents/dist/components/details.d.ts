@@ -10,7 +10,7 @@ declare class Details extends HTMLElement {
     disconnectedCallback(): void;
     attributeChangedCallback(property: string, oldValue: string, newValue: string): void;
     static get observedAttributes(): string[];
-    onFocusOut(): void;
+    onFocusOut(e: Event): void;
     onToggle(): void;
     open(): void;
     close(): void;

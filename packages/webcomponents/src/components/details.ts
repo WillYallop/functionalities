@@ -27,18 +27,16 @@ class Details extends HTMLElement {
       // Events
       this.detailEle.addEventListener("toggle", this.onToggle.bind(this));
       const closeOnLeave = this.getAttribute("close-on-leave");
-      if (closeOnLeave === "true")
-        this.detailEle.addEventListener("focusout", this.onFocusOut.bind(this));
+      if (closeOnLeave === "true") {
+        document.addEventListener("click", this.onFocusOut.bind(this));
+      }
     }
   }
   disconnectedCallback() {
     this.detailEle.removeEventListener("toggle", this.onToggle.bind(this));
     const closeOnLeave = this.getAttribute("close-on-leave");
     if (closeOnLeave === "true")
-      this.detailEle.removeEventListener(
-        "focusout",
-        this.onFocusOut.bind(this)
-      );
+      document.addEventListener("click", this.onFocusOut.bind(this));
   }
   attributeChangedCallback(
     property: string,
@@ -54,8 +52,8 @@ class Details extends HTMLElement {
     return ["open"];
   }
   // Methods
-  onFocusOut() {
-    if (!this.detailEle.contains(document.activeElement)) {
+  onFocusOut(e: Event) {
+    if (!e.composedPath().includes(this)) {
       this.close();
     }
   }

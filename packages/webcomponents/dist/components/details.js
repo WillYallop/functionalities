@@ -19,15 +19,16 @@ class Details extends HTMLElement {
             this.summaryEle.setAttribute("role", "button");
             this.detailEle.addEventListener("toggle", this.onToggle.bind(this));
             const closeOnLeave = this.getAttribute("close-on-leave");
-            if (closeOnLeave === "true")
-                this.detailEle.addEventListener("focusout", this.onFocusOut.bind(this));
+            if (closeOnLeave === "true") {
+                document.addEventListener("click", this.onFocusOut.bind(this));
+            }
         }
     }
     disconnectedCallback() {
         this.detailEle.removeEventListener("toggle", this.onToggle.bind(this));
         const closeOnLeave = this.getAttribute("close-on-leave");
         if (closeOnLeave === "true")
-            this.detailEle.removeEventListener("focusout", this.onFocusOut.bind(this));
+            document.addEventListener("click", this.onFocusOut.bind(this));
     }
     attributeChangedCallback(property, oldValue, newValue) {
         if (property === "open" && !this.disableWatch) {
@@ -40,8 +41,8 @@ class Details extends HTMLElement {
     static get observedAttributes() {
         return ["open"];
     }
-    onFocusOut() {
-        if (!this.detailEle.contains(document.activeElement)) {
+    onFocusOut(e) {
+        if (!e.composedPath().includes(this)) {
             this.close();
         }
     }

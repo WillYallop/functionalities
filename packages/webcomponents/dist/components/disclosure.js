@@ -48,17 +48,20 @@ class Disclosure extends ProgressiveDetails {
     onClick(e) {
         e.preventDefault();
         e.stopPropagation();
-        if (this.closeSetTimeout)
-            clearTimeout(this.closeSetTimeout);
-        if (this.getAttribute("open") === null) {
-            this.setAttribute("open", "");
-            this.content.style.maxHeight = `${this.content.scrollHeight}px`;
-        }
-        else {
-            this.content.style.maxHeight = "0";
-            this.closeSetTimeout = setTimeout(() => {
-                this.removeAttribute("open");
-            }, this.duration);
+        if (e.target === this.summaryEle ||
+            this.summaryEle.contains(e.target)) {
+            if (this.closeSetTimeout)
+                clearTimeout(this.closeSetTimeout);
+            if (this.getAttribute("open") === null) {
+                this.setAttribute("open", "");
+                this.content.style.maxHeight = `${this.content.scrollHeight}px`;
+            }
+            else {
+                this.content.style.maxHeight = "0";
+                this.closeSetTimeout = setTimeout(() => {
+                    this.removeAttribute("open");
+                }, this.duration);
+            }
         }
     }
     onToggle() {
@@ -73,7 +76,7 @@ class Disclosure extends ProgressiveDetails {
                     if (detail.getAttribute("open") === null)
                         return;
                     else
-                        (_a = detail.querySelector("details")) === null || _a === void 0 ? void 0 : _a.click();
+                        (_a = detail.querySelector("summary")) === null || _a === void 0 ? void 0 : _a.click();
                 }
             });
         }
