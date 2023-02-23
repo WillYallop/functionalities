@@ -53,7 +53,6 @@ class Disclosure extends ProgressiveDetails {
         e.preventDefault();
     }
     summaryClick(e) {
-        console.log(e);
         if (e.target === this.summaryEle ||
             this.summaryEle.contains(e.target)) {
             if (this.closeSetTimeout)

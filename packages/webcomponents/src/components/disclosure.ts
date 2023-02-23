@@ -70,7 +70,6 @@ class Disclosure extends ProgressiveDetails {
     e.preventDefault();
   }
   summaryClick(e: Event) {
-    console.log(e);
     if (
       e.target === this.summaryEle ||
       this.summaryEle.contains(e.target as Node)
