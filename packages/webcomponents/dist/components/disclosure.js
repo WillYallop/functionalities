@@ -18,7 +18,9 @@ class Disclosure extends ProgressiveDetails {
             this.content.setAttribute("role", "region");
             this.content.setAttribute("aria-labelledby", id);
             this.detailEle.addEventListener("toggle", this.onToggle.bind(this));
-            this.detailEle.addEventListener("click", this.onClick.bind(this));
+            this.detailEle.addEventListener("click", this.detailsClick.bind(this));
+            this.summaryEle.addEventListener("click", this.summaryClick.bind(this));
+            this.content.addEventListener("click", this.contentClick.bind(this));
             this.content.style.transition = `max-height ${this.duration}ms ease-in-out`;
             this.content.style.overflow = "hidden";
             if (this.getAttribute("open") || this.detailEle.hasAttribute("open")) {
@@ -31,7 +33,9 @@ class Disclosure extends ProgressiveDetails {
     }
     disconnectedCallback() {
         this.detailEle.removeEventListener("toggle", this.onToggle.bind(this));
-        this.detailEle.removeEventListener("click", this.onClick.bind(this));
+        this.detailEle.removeEventListener("click", this.detailsClick.bind(this));
+        this.summaryEle.removeEventListener("click", this.summaryClick.bind(this));
+        this.content.removeEventListener("click", this.contentClick.bind(this));
     }
     attributeChangedCallback(property, oldValue, newValue) {
         super.attributeChangedCallback(property, oldValue, newValue);
@@ -45,15 +49,11 @@ class Disclosure extends ProgressiveDetails {
     static get observedAttributes() {
         return ["open", "group", "duration"];
     }
-    onClick(e) {
-        if (e.target instanceof HTMLAnchorElement ||
-            e.target instanceof HTMLButtonElement)
-            return;
-        e.stopPropagation();
+    detailsClick(e) {
         e.preventDefault();
-        this.summaryClick(e);
     }
     summaryClick(e) {
+        console.log(e);
         if (e.target === this.summaryEle ||
             this.summaryEle.contains(e.target)) {
             if (this.closeSetTimeout)
@@ -69,6 +69,9 @@ class Disclosure extends ProgressiveDetails {
                 }, this.duration);
             }
         }
+    }
+    contentClick(e) {
+        e.stopPropagation();
     }
     onToggle() {
         super.onToggle();
