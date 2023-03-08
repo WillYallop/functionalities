@@ -1,4 +1,4 @@
-# Web Components - v0.2.1
+# Web Components - v0.2.2
 
 > Strictly markup and fuctionality/progressive enhancement. No styling.
 
@@ -12,7 +12,7 @@ npm install @functionalities/webcomponents --save
 
 ## Components
 
-- [Details](./src/components/details/README.md)
-- [Disclosure](./src/components/disclosure/README.md)
-- [Sticky Header](./src/components/sticky-header/README.md)
-- [Carousel](./src/components/carousel/README.md) (Coming Soon)
+- [Details](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/details)
+- [Disclosure](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/disclosure)
+- [Sticky Header](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/sticky-header)
+- [Carousel](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/carousel) (Coming Soon)
