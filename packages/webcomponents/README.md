@@ -126,3 +126,8 @@ The ``<functionalities-sticky-header>`` component is a work in progress.
 ## Carousel
 
 The ``<functionalities-carousel>`` component is a work in progress, but will support a non JS fallback through the use of the CSS scroll-snap feature.
+
+## To Do:
+
+Add a hover attribute on the detials component to open the detail when hovered, and close it when the mouse exits the component.
+Touch device hover/click may conflict, would need some locking system if one is detected.

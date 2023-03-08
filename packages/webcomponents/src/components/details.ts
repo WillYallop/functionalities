@@ -19,6 +19,7 @@ class Details extends HTMLElement {
         "Details content element not found for details web component!"
       );
   }
+  // Hooks
   connectedCallback() {
     if (!this.initialised) {
       this.initialised = true;

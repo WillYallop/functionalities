@@ -1,4 +1,6 @@
-# Disclosure - v1.1.4
+# Disclosure - v1.1.4 (Discontinued)
+
+> This package is discontinued. An improved disclosure can be found in the [webcomponents library](../webcomponents/).
 
 Disclosure is a minimal frontend package for implementing accessible, lightweight disclosure components.
 

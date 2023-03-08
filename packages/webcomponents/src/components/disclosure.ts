@@ -8,6 +8,7 @@ class Disclosure extends ProgressiveDetails {
   constructor() {
     super();
   }
+  // Hooks
   connectedCallback() {
     if (!this.initialised) {
       this.initialised = true;
