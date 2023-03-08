@@ -1,4 +1,4 @@
-import ProgressiveDetails from "./details/details";
+import ProgressiveDetails from "../details/details";
 class Disclosure extends ProgressiveDetails {
     constructor() {
         super();
