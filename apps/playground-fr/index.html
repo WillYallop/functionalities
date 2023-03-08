@@ -285,55 +285,6 @@
           <h3>Hello there</h3>
         </div>
       </div>
-
-      <!-- Form row -->
-      <div class="playground-row">
-        <h2>Form - on change</h2>
-        <form
-          id="form"
-          action="http://localhost:4646/forms/ssvalidation"
-          method="post"
-        >
-          <!-- first name -->
-          <div data-i-relation="firstName">
-            <input
-              type="text"
-              placeholder="First Name"
-              name="firstName"
-              required
-            />
-            <div class="error-container">
-              <p data-i-error="firstName"></p>
-            </div>
-          </div>
-          <!-- email -->
-          <div data-i-relation="email">
-            <input
-              type="email"
-              placeholder="Email Address"
-              name="email"
-              required
-            />
-            <div class="error-container">
-              <p data-i-error="email"></p>
-            </div>
-          </div>
-          <!-- telephone -->
-          <div data-i-relation="telephone">
-            <input
-              type="tel"
-              placeholder="Telephone"
-              name="telephone"
-              required
-            />
-            <div class="error-container">
-              <p data-i-error="telephone"></p>
-            </div>
-          </div>
-          <!-- submit -->
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
     </main>
 
     <script type="module" src="/src/ts/main.ts"></script>

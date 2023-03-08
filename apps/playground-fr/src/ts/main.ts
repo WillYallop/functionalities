@@ -2,7 +2,6 @@ import DisclosureClass from "@functionalities/disclosure";
 import StickyHeader from "@functionalities/stickyheader";
 import Toggler from "@functionalities/toggler";
 import Animations from "@functionalities/animations";
-import Forms, { Turnstile } from "@functionalities/forms";
 import { Details, Disclosure } from "@functionalities/webcomponents";
 
 customElements.define("functionalities-details", Details);
@@ -45,23 +44,6 @@ new Animations({
   activeClass: "animate",
   reset: true,
   threshold: 1,
-});
-
-// Form handler
-
-// On submit example
-new Forms("#form", {
-  recaptcha: new Turnstile("0x4AAAAAAABGWcyvpwR-o35g"),
-  validate: {
-    onChange: true,
-    onSubmit: true,
-  },
-  onSuccess: (form, res) => {
-    console.log("Success", form, res);
-  },
-  onError: (form, res) => {
-    console.log("Error", form, res);
-  },
 });
 
 // Toggle disclosure component duration
