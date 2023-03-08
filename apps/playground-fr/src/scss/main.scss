@@ -9,24 +9,32 @@ body {
 }
 
 #siteHeader {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  border-bottom: 1px solid black;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    border-bottom: 1px solid black;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
   &.sticky-top {
-    background-color: red;
+    header {
+      background-color: red;
+    }
   }
   &.sticky-down {
-    background-color: green;
+    header {
+      background-color: green;
+    }
   }
   &.sticky-up {
-    background-color: blue;
+    header {
+      background-color: blue;
+    }
   }
 }
 

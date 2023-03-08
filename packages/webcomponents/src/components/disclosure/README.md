@@ -4,9 +4,17 @@ The Disclosure web component is an extension of the Details component with addit
 
 ## Quick Links
 
+- [Features](#features)
 - [Getting Started](#getting-started)
 - [Attributes](#attributes)
 - [Future Development](#future-development)
+
+## Features
+- Progressivly enhanced ``<details>``.
+- Define groups to allow one to disclosure of that group to be open at a time.
+- Animated height.
+- Has appropriate aria attributes.
+- Optional ``duration`` attribtue to change animation speed.
 
 ## Getting Started
 

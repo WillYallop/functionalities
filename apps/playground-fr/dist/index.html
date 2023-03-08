@@ -10,13 +10,21 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
     
-    <script type="module" crossorigin src="/assets/index.21cc4f6d.js"></script>
-    <link rel="stylesheet" href="/assets/index.aab929f0.css">
+    <script type="module" crossorigin src="/assets/index.6e269b71.js"></script>
+    <link rel="stylesheet" href="/assets/index.46ac0dd0.css">
   </head>
   <body>
-    <header id="siteHeader">
-      <h1>Frontend Playground</h1>
-    </header>
+    <functionalities-sticky-header
+      id="siteHeader"
+      class="sticky-top"
+      on-change="windowOnChange"
+      on-scroll="windowOnScroll"
+      trigger-offset="200"
+    >
+      <header id="siteHeader">
+        <h1>Frontend Playground</h1>
+      </header>
+    </functionalities-sticky-header>
 
     <main class="playground-main">
       <!-- Web Components row -->
@@ -57,7 +65,6 @@
         <h2>Web Components Example - Disclosure</h2>
         <div>
           <functionalities-disclosure
-            id="disclosure_1"
             class="disclosure"
             group="group-1"
             duration="500"
@@ -116,45 +123,6 @@
               </div>
             </details>
           </functionalities-disclosure>
-
-          <button id="toggle-duration">Toggle duration</button>
-        </div>
-      </div>
-
-      <!-- Disclosure row -->
-      <div class="playground-row">
-        <h2>Disclosure Example</h2>
-
-        <!-- Disclosure Exmaple -->
-        <div class="" data-disclosure="container">
-          <button data-disclosure="toggle">Toggle me</button>
-          <div data-disclosure="region">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
-              nisi nisi.
-            </p>
-          </div>
-        </div>
-        <div class="" data-disclosure="container" data-disclosure-state="true">
-          <button data-disclosure="toggle">Toggle me</button>
-          <div data-disclosure="region">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
-              nisi nisi.
-            </p>
-          </div>
-        </div>
-        <div class="" data-disclosure="container">
-          <button data-disclosure="toggle">Toggle me</button>
-          <div data-disclosure="region">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              euismod, nisi eget consectetur consectetur, nisi nisi, nisi nisi,
-              nisi nisi.
-            </p>
-          </div>
         </div>
       </div>
 

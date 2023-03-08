@@ -1,22 +1,24 @@
-import StickyHeader from "@functionalities/stickyheader";
 import Toggler from "@functionalities/toggler";
 import Animations from "@functionalities/animations";
-import { Details, Disclosure } from "@functionalities/webcomponents";
+import {
+  Details,
+  Disclosure,
+  StickyHeader,
+} from "@functionalities/webcomponents";
 
 customElements.define("functionalities-details", Details);
 customElements.define("functionalities-disclosure", Disclosure);
+customElements.define("functionalities-sticky-header", StickyHeader);
 
-// Sticky header
-new StickyHeader("siteHeader", {
-  triggerDistance: 50,
-  classes: {
-    top: "sticky-top",
-    movedDown: "sticky-down",
-    movedUp: "sticky-up",
-  },
-  onChange: () => {},
-  onScroll: () => {},
-});
+// @ts-ignore
+window.windowOnScroll = (data) => {
+  //   console.log(data);
+};
+
+// @ts-ignore
+window.windowOnChange = (data) => {
+  //   console.log(data);
+};
 
 // Toggler
 new Toggler({

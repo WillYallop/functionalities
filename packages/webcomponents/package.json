@@ -1,6 +1,6 @@
 {
   "name": "@functionalities/webcomponents",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "private": false,
   "sideEffects": false,
   "description": "A collection of progressively enhanced web components",

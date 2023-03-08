@@ -4,9 +4,15 @@ The Details component is an enhanced version of the ``<details>`` element that a
 
 ## Quick Links
 
+- [Features](#features)
 - [Getting Started](#getting-started)
 - [Attributes](#attributes)
 - [Future Development](#future-development)
+
+## Features
+- Progressivly enhanced ``<details>``.
+- Optional ``close-on-leave`` attribute.
+- Adds appropriate aria attributes.
 
 ## Getting Started
 

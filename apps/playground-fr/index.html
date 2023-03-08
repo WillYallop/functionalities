@@ -12,9 +12,17 @@
     <link rel="stylesheet" href="/src/scss/main.scss" />
   </head>
   <body>
-    <header id="siteHeader">
-      <h1>Frontend Playground</h1>
-    </header>
+    <functionalities-sticky-header
+      id="siteHeader"
+      class="sticky-top"
+      on-change="windowOnChange"
+      on-scroll="windowOnScroll"
+      trigger-offset="200"
+    >
+      <header id="siteHeader">
+        <h1>Frontend Playground</h1>
+      </header>
+    </functionalities-sticky-header>
 
     <main class="playground-main">
       <!-- Web Components row -->
