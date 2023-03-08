@@ -1,6 +1,6 @@
-# Sticky Header - v1.1.2 (Discontinued)
+# Sticky Header - v1.1.3 (Discontinued)
 
-> This package is discontinued. An improved sticky header can be found in the [webcomponents library](../webcomponents/).
+> This package is discontinued. An improved sticky header can be found in the [webcomponents library](https://www.npmjs.com/package/@functionalities/webcomponents).
 
 Sticky header is a small frontend utility package for implementing a sticky header. It has three states for being at the top of the page, scrolling down and scrolling up, each of which will add a unique class allowing you to style it however you like.
 

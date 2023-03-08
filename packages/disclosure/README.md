@@ -1,6 +1,6 @@
-# Disclosure - v1.1.5 (Discontinued)
+# Disclosure - v1.1.6 (Discontinued)
 
-> This package is discontinued. An improved disclosure can be found in the [webcomponents library](../webcomponents/).
+> This package is discontinued. An improved disclosure can be found in the [webcomponents library](https://www.npmjs.com/package/@functionalities/webcomponents).
 
 Disclosure is a minimal frontend package for implementing accessible, lightweight disclosure components.
 
