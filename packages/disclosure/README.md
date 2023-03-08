@@ -1,4 +1,4 @@
-# Disclosure - v1.1.4 (Discontinued)
+# Disclosure - v1.1.5 (Discontinued)
 
 > This package is discontinued. An improved disclosure can be found in the [webcomponents library](../webcomponents/).
 
