@@ -4,11 +4,13 @@ import {
   Details,
   Disclosure,
   StickyHeader,
+  Carousel,
 } from "@functionalities/webcomponents";
 
 customElements.define("functionalities-details", Details);
 customElements.define("functionalities-disclosure", Disclosure);
 customElements.define("functionalities-sticky-header", StickyHeader);
+customElements.define("functionalities-carousel", Carousel);
 
 // @ts-ignore
 window.windowOnScroll = (data) => {

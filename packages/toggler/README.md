@@ -1,4 +1,4 @@
-# Toggler - v1.3.0
+# Toggler - v1.3.1
 
 Toggler is a frontend utility package that's sole purpose is to make class toggling easier. It's 100% markup/attribute based, so once the package is included, you won't have to add any further JS/TS. The two core attributes and ideas of the package are that you have both toggles and receivers. Togglers trigger all receivers and other togglers with the same value and add a class to them. Simple.
 
