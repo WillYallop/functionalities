@@ -1,18 +1,19 @@
 declare class StickyHeader extends HTMLElement {
-    initialised: boolean;
-    triggerOffset: number;
-    prevScrollPos: number;
-    scrollPos: number;
-    state: string;
-    prevState: string;
+    private triggerOffset;
+    private prevScrollPos;
+    private scrollPos;
+    private state;
+    private prevState;
     constructor();
     connectedCallback(): void;
     disconnectedCallback(): void;
     attributeChangedCallback(property: string, oldValue: string, newValue: string): void;
     static get observedAttributes(): string[];
-    onScroll(): void;
-    setClass(): void;
-    onResize(): void;
+    private registerEvents;
+    private setState;
+    private onScroll;
+    private setClass;
+    private onResize;
 }
 export default StickyHeader;
 //# sourceMappingURL=sticky-header.d.ts.map

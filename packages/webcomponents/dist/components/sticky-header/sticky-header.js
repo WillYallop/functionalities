@@ -4,7 +4,6 @@ const moveUp = "sticky-up";
 class StickyHeader extends HTMLElement {
     constructor() {
         super();
-        this.initialised = false;
         this.triggerOffset = 0;
         this.prevScrollPos = 0;
         this.scrollPos = 0;
@@ -12,34 +11,9 @@ class StickyHeader extends HTMLElement {
         this.prevState = this.state;
     }
     connectedCallback() {
-        if (!this.initialised) {
-            this.initialised = true;
-            if (this.hasAttribute("trigger-offset")) {
-                this.triggerOffset = parseInt(this.getAttribute("trigger-offset") || "0");
-            }
-            else {
-                this.triggerOffset = this.offsetHeight;
-            }
-            this.scrollPos =
-                document.body.scrollTop || document.documentElement.scrollTop;
-            this.prevScrollPos = this.scrollPos;
-            if (this.scrollPos > this.triggerOffset) {
-                this.state = moveDown;
-            }
-            else {
-                this.state = scrollTop;
-            }
-            this.prevState = this.state;
-            this.setClass();
-            window.addEventListener("scroll", this.onScroll.bind(this), {
-                passive: true,
-            });
-            if (!this.hasAttribute("trigger-offset")) {
-                window.addEventListener("resize", this.onResize.bind(this), {
-                    passive: true,
-                });
-            }
-        }
+        this.registerEvents();
+        this.setState();
+        this.setClass();
     }
     disconnectedCallback() {
         window.removeEventListener("scroll", this.onScroll.bind(this));
@@ -51,12 +25,42 @@ class StickyHeader extends HTMLElement {
         this.classList.remove(scrollTop);
     }
     attributeChangedCallback(property, oldValue, newValue) {
-        if (property === "trigger-offset") {
-            this.triggerOffset = parseInt(newValue || "0");
+        switch (property) {
+            case "trigger-offset":
+                this.triggerOffset = parseInt(newValue || "0");
+                break;
         }
     }
     static get observedAttributes() {
         return ["trigger-offset"];
+    }
+    registerEvents() {
+        window.addEventListener("scroll", this.onScroll.bind(this), {
+            passive: true,
+        });
+        if (!this.hasAttribute("trigger-offset")) {
+            window.addEventListener("resize", this.onResize.bind(this), {
+                passive: true,
+            });
+        }
+    }
+    setState() {
+        if (this.hasAttribute("trigger-offset")) {
+            this.triggerOffset = parseInt(this.getAttribute("trigger-offset") || "0");
+        }
+        else {
+            this.triggerOffset = this.offsetHeight;
+        }
+        this.scrollPos =
+            document.body.scrollTop || document.documentElement.scrollTop;
+        this.prevScrollPos = this.scrollPos;
+        if (this.scrollPos > this.triggerOffset) {
+            this.state = moveDown;
+        }
+        else {
+            this.state = scrollTop;
+        }
+        this.prevState = this.state;
     }
     onScroll() {
         this.scrollPos =
@@ -106,14 +110,18 @@ class StickyHeader extends HTMLElement {
     setClass() {
         if (this.state != moveDown) {
             this.classList.remove(moveDown);
+            document.body.classList.remove(moveDown);
         }
         if (this.state != moveUp) {
             this.classList.remove(moveUp);
+            document.body.classList.remove(moveUp);
         }
         if (this.state != scrollTop) {
             this.classList.remove(scrollTop);
+            document.body.classList.remove(scrollTop);
         }
         this.classList.add(this.state);
+        document.body.classList.add(this.state);
     }
     onResize() {
         this.triggerOffset = this.offsetHeight;

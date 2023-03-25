@@ -14,5 +14,6 @@ npm install @functionalities/webcomponents --save
 
 - [Details](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/details)
 - [Disclosure](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/disclosure)
+- [Checkbox Toggler](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/checkbox-toggler)
 - [Sticky Header](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/sticky-header)
 - [Carousel](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/carousel) (Coming Soon)

@@ -10,18 +10,16 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
     
-    <script type="module" crossorigin src="/assets/index.6dbe42ac.js"></script>
-    <link rel="stylesheet" href="/assets/index.46ac0dd0.css">
+    <script type="module" crossorigin src="/assets/index.f9382bca.js"></script>
+    <link rel="stylesheet" href="/assets/index.ed46b881.css">
   </head>
   <body>
     <functionalities-sticky-header
-      id="siteHeader"
-      class="sticky-top"
       on-change="windowOnChange"
       on-scroll="windowOnScroll"
       trigger-offset="200"
     >
-      <header id="siteHeader">
+      <header>
         <h1>Frontend Playground</h1>
       </header>
     </functionalities-sticky-header>
@@ -44,6 +42,41 @@
             <button id="prev-slide">PREV</button>
             <button id="next-slide">NEXT</button>
           </div>
+        </div>
+      </div>
+
+      <!-- Web Components row -->
+      <div class="playground-row">
+        <h2>Web Components Example - Checkbox Toggler</h2>
+        <div>
+          <functionalities-checkbox-toggler
+            data-id="checkbox-input"
+            data-target-id="checkbox-dropdown"
+          >
+            <label
+              tabindex="0"
+              role="button"
+              for="checkbox-input"
+              aria-expanded="false"
+              aria-controls="checkbox-dropdown"
+              >Toggle</label
+            >
+            <input
+              type="checkbox"
+              id="checkbox-input"
+              class="checkbox-toggler__checkbox"
+              checked
+            />
+            <div id="checkbox-dropdown" class="checkbox-toggler__dropdown">
+              Est irure occaecat exercitation voluptate sint aliqua commodo ad.
+              Cupidatat aliquip laborum ea cupidatat eu. Ea irure esse et veniam
+              ex proident sunt ullamco anim esse. Commodo non id exercitation
+              exercitation ad. Dolore sint ad est reprehenderit sint nulla in.
+              <a href="/">Link</a>
+              <a href="/">Link 2</a>
+              <button>Button</button>
+            </div>
+          </functionalities-checkbox-toggler>
         </div>
       </div>
 

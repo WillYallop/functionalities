@@ -41,8 +41,6 @@ Then, use it in your HTML:
 
 > The attributes on the ``<functionalities-sticky-header>`` element are not required.
 
-By default you may wish to add ``class="sticky-top"`` to the ``<functionalities-sticky-header>`` element depending on your styling to stop the flashing as the web component is initialised.
-
 ## Classes
 
 ### .sticky-top

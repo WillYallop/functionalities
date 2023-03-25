@@ -6,11 +6,14 @@ declare class Carousel extends HTMLElement {
     private prevButton;
     constructor();
     connectedCallback(): void;
+    disconnectedCallback(): void;
+    attributeChangedCallback(property: string, oldValue: string, newValue: string): void;
+    static get observedAttributes(): never[];
+    private setElements;
     private registerEvents;
-    private updateSlides;
-    nextSlide(): void;
-    prevSlide(): void;
-    get template(): HTMLTemplateElement;
+    private setState;
+    private setAttributes;
+    private setStyle;
 }
 export default Carousel;
 //# sourceMappingURL=carousel.d.ts.map

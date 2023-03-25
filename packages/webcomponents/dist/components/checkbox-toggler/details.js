@@ -1,39 +1,8 @@
 class Details extends HTMLElement {
     constructor() {
         super();
+        this.initialised = false;
         this.disableWatch = false;
-        this.detailEle = null;
-        this.summaryEle = null;
-        this.content = null;
-    }
-    connectedCallback() {
-        this.setElements();
-        this.registerEvents();
-        this.setAttributes();
-        this.setState();
-    }
-    disconnectedCallback() {
-        var _a;
-        (_a = this.detailEle) === null || _a === void 0 ? void 0 : _a.removeEventListener("toggle", this.onToggle.bind(this));
-        if (this.getAttribute("close-on-leave") === "true")
-            document.addEventListener("click", this.onFocusOut.bind(this));
-    }
-    attributeChangedCallback(property, oldValue, newValue) {
-        switch (property) {
-            case "open": {
-                if (!this.disableWatch) {
-                    if (newValue === null)
-                        this.close();
-                    else
-                        this.open();
-                }
-            }
-        }
-    }
-    static get observedAttributes() {
-        return ["open", "close-on-leave"];
-    }
-    setElements() {
         this.detailEle = this.querySelector("details");
         if (!this.detailEle) {
             throw new Error("Details element not found for details web component!");
@@ -47,21 +16,30 @@ class Details extends HTMLElement {
             throw new Error("Details content element not found for details web component!");
         }
     }
-    registerEvents() {
+    connectedCallback() {
         var _a;
+        this.summaryEle.setAttribute("role", "button");
         (_a = this.detailEle) === null || _a === void 0 ? void 0 : _a.addEventListener("toggle", this.onToggle.bind(this));
         if (this.getAttribute("close-on-leave") === "true") {
             document.addEventListener("click", this.onFocusOut.bind(this));
         }
     }
-    setState() {
+    disconnectedCallback() {
         var _a;
-        if (this.hasAttribute("open") || ((_a = this.detailEle) === null || _a === void 0 ? void 0 : _a.hasAttribute("open")))
-            this.open();
+        (_a = this.detailEle) === null || _a === void 0 ? void 0 : _a.removeEventListener("toggle", this.onToggle.bind(this));
+        if (this.getAttribute("close-on-leave") === "true")
+            document.addEventListener("click", this.onFocusOut.bind(this));
     }
-    setAttributes() {
-        var _a;
-        (_a = this.summaryEle) === null || _a === void 0 ? void 0 : _a.setAttribute("role", "button");
+    attributeChangedCallback(property, oldValue, newValue) {
+        if (property === "open" && !this.disableWatch) {
+            if (newValue === null)
+                this.close();
+            else
+                this.open();
+        }
+    }
+    static get observedAttributes() {
+        return ["open"];
     }
     onFocusOut(e) {
         if (!e.composedPath().includes(this)) {

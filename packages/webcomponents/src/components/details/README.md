@@ -7,6 +7,7 @@ The Details component is an enhanced version of the ``<details>`` element that a
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Attributes](#attributes)
+- [Notes](#notes)
 - [Future Development](#future-development)
 
 ## Features
@@ -51,6 +52,8 @@ Setting the open attribute on the ``<functionalities-details>`` element will set
 
 > If you want it open by default, it is better practice to put the open attribute on the ``<details>`` element. When the ``<functionalities-details>`` is initiated, it will see this and set the open attribute on itself. This way, if JavaScript is disabled, it will still have the same default state.
 
+## Notes
+
+If you wish to animate the content in and out, you should use the ``CheckboxToggler`` component instead. This is because the details and summary elements with CSS can only animate the content in, not out, and also have very inconsistent behavior across browsers. The ``CheckboxToggler`` is also accessible and works without JavaScript enabled.
+
 ## Future Development
-- Add a hover attribute on the detials component to open the detail when hovered, and close it when the mouse exits the component.
-Touch device hover/click may conflict, would need some locking system if one is detected.
