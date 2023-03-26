@@ -13,6 +13,10 @@ A simple, accessible web component that allows users to toggle the state of a ch
 ## Features
 - Fully accessible!
 - Works without JS enabled.
+- Optional ``body-class`` attribute.
+- Optional ``close-on-leave`` attribute.
+- Optional ``open-on-hover`` attribute.
+- Optional ``open-on-focus`` attribute.
 
 ## Getting Started
 
@@ -28,8 +32,12 @@ Then, use it in your HTML:
 
 ```html
 <functionalities-checkbox-toggler
-  data-id="input"
-  data-target-id="dropdown"
+    input-id="input"
+    target-id="dropdown"
+    body-class="checkbox-active"
+    close-on-leave
+    open-on-hover
+    open-on-focus
 >
   <label
     tabindex="0"
@@ -42,7 +50,7 @@ Then, use it in your HTML:
   </label>
   <input
     type="checkbox"
-    id="checkbox-input"
+    id="input"
     class="hidden"
   />
   <div id="dropdown">
@@ -57,12 +65,28 @@ Then, use it in your HTML:
 
 The Checkbox Toggler component supports the following attributes:
 
-### data-id
+### input-id (required)
 
 This should be a unique ID that is used on the input and the label's for attribute.
 
-### data-target-id
+### target-id (required)
 
 This is the target you wish to toggles ID. This value is only used for setting the aria-controls value on the label if you choose not to add it to the label (you should add it to the label).
+
+### body-class (optional)
+
+If the attribute is present, whenever the checkbox is checked, the value of this attribute will be added to the bodies class.
+
+### close-on-leave (optional)
+
+If the attribute is present, the checkbox will be set to false when the focus leaves the web component.
+
+### open-on-hover (optional)
+
+If the attribute is present, the checkbox will be set to checked if the web component is hovered.
+
+### open-on-focus (optional)
+
+If the attribute is present, the checkbox will be set to checked if the webcomponent is focused.
 
 ## Future Development

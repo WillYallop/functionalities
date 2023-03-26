@@ -1,6 +1,6 @@
 # Disclosure
 
-The Disclosure web component is an extension of the Details component with additional options to assign groups to disclosures so that only one is open at a time, and to animate the height of the content when toggled. This component is built to progressively enhance the ``<details>`` element and provides accessibility attributes even when JavaScript is disabled.
+The Disclosure web component is an extension of the details/summary elements with additional options to assign groups to disclosures so that only one is open at a time, and to animate the height of the content when toggled. This component is built to progressively enhance the ``<details>`` element and provides accessibility attributes even when JavaScript is disabled.
 
 ## Quick Links
 

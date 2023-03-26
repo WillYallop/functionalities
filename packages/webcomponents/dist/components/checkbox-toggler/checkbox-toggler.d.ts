@@ -10,6 +10,9 @@ declare class CheckboxToggler extends HTMLElement {
     private setAttributes;
     private handleClick;
     private handleKeydown;
+    private onFocusOut;
+    private onHoverIn;
+    private onHoverOut;
     private toggleCheckbox;
 }
 export default CheckboxToggler;

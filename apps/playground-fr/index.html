@@ -48,8 +48,12 @@
         <h2>Web Components Example - Checkbox Toggler</h2>
         <div>
           <functionalities-checkbox-toggler
-            data-id="checkbox-input"
-            data-target-id="checkbox-dropdown"
+            input-id="checkbox-input"
+            target-id="checkbox-dropdown"
+            body-class="checkbox-active"
+            close-on-leave
+            open-on-hover
+            open-on-focus
           >
             <label
               tabindex="0"
@@ -82,7 +86,13 @@
       <div class="playground-row">
         <h2>Web Components Example - Details</h2>
         <div>
-          <functionalities-details close-on-leave="true" open>
+          <functionalities-details
+            body-class="details-active"
+            close-on-leave
+            open-on-hover
+            open-on-focus
+            open
+          >
             <details>
               <summary>Close on focus: true</summary>
               <div class="detail-dropdown fade-in">
@@ -90,19 +100,19 @@
               </div>
             </details>
           </functionalities-details>
-          <functionalities-details close-on-leave="true">
+          <functionalities-details close-on-leave>
             <details>
               <summary>Close on focus: true</summary>
               <p class="fade-in">Open</p>
             </details>
           </functionalities-details>
-          <functionalities-details close-on-leave="false" open>
+          <functionalities-details open>
             <details open>
               <summary>Close on focus: false</summary>
               <p class="fade-in">Open</p>
             </details>
           </functionalities-details>
-          <functionalities-details close-on-leave="false">
+          <functionalities-details>
             <details>
               <summary>Close on focus: false</summary>
               <p class="fade-in">Open</p>

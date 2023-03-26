@@ -15,8 +15,16 @@ class Details extends HTMLElement {
     disconnectedCallback() {
         var _a;
         (_a = this.detailEle) === null || _a === void 0 ? void 0 : _a.removeEventListener("toggle", this.onToggle.bind(this));
-        if (this.getAttribute("close-on-leave") === "true")
+        if (this.hasAttribute("close-on-leave")) {
             document.addEventListener("click", this.onFocusOut.bind(this));
+        }
+        if (this.hasAttribute("open-on-hover")) {
+            this === null || this === void 0 ? void 0 : this.removeEventListener("mouseenter", this.onHoverIn.bind(this));
+            this === null || this === void 0 ? void 0 : this.removeEventListener("mouseleave", this.onHoverOut.bind(this));
+        }
+        if (this.hasAttribute("open-on-focus")) {
+            this === null || this === void 0 ? void 0 : this.removeEventListener("focusin", this.onHoverIn.bind(this));
+        }
     }
     attributeChangedCallback(property, oldValue, newValue) {
         switch (property) {
@@ -50,8 +58,15 @@ class Details extends HTMLElement {
     registerEvents() {
         var _a;
         (_a = this.detailEle) === null || _a === void 0 ? void 0 : _a.addEventListener("toggle", this.onToggle.bind(this));
-        if (this.getAttribute("close-on-leave") === "true") {
+        if (this.hasAttribute("close-on-leave")) {
             document.addEventListener("click", this.onFocusOut.bind(this));
+        }
+        if (this.hasAttribute("open-on-hover")) {
+            this === null || this === void 0 ? void 0 : this.addEventListener("mouseenter", this.onHoverIn.bind(this));
+            this === null || this === void 0 ? void 0 : this.addEventListener("mouseleave", this.onHoverOut.bind(this));
+        }
+        if (this.hasAttribute("open-on-focus")) {
+            this === null || this === void 0 ? void 0 : this.addEventListener("focusin", this.onHoverIn.bind(this));
         }
     }
     setState() {
@@ -75,11 +90,20 @@ class Details extends HTMLElement {
         else
             this.close();
     }
+    onHoverIn(e) {
+        this.open();
+    }
+    onHoverOut(e) {
+        this.close();
+    }
     open() {
         var _a, _b;
         this.disableWatch = true;
         (_a = this.detailEle) === null || _a === void 0 ? void 0 : _a.setAttribute("open", "");
         (_b = this.summaryEle) === null || _b === void 0 ? void 0 : _b.setAttribute("aria-expanded", "true");
+        const bodyClass = this.getAttribute("body-class");
+        if (bodyClass)
+            document.body.classList.add(bodyClass);
         this.setAttribute("open", "");
         this.disableWatch = false;
     }
@@ -88,6 +112,9 @@ class Details extends HTMLElement {
         this.disableWatch = true;
         (_a = this.detailEle) === null || _a === void 0 ? void 0 : _a.removeAttribute("open");
         (_b = this.summaryEle) === null || _b === void 0 ? void 0 : _b.setAttribute("aria-expanded", "false");
+        const bodyClass = this.getAttribute("body-class");
+        if (bodyClass)
+            document.body.classList.remove(bodyClass);
         this.removeAttribute("open");
         this.disableWatch = false;
     }

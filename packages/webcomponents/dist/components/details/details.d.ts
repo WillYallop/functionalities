@@ -14,6 +14,8 @@ declare class Details extends HTMLElement {
     private setAttributes;
     private onFocusOut;
     private onToggle;
+    private onHoverIn;
+    private onHoverOut;
     private open;
     private close;
 }

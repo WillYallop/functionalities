@@ -16,10 +16,21 @@ class CheckboxToggler extends HTMLElement {
   disconnectedCallback() {
     this.label?.removeEventListener("click", this.handleClick.bind(this));
     this.label?.removeEventListener("keydown", this.handleKeydown.bind(this));
+    if (this.hasAttribute("close-on-leave")) {
+      document.removeEventListener("click", this.onFocusOut.bind(this));
+    }
+    if (this.hasAttribute("open-on-hover")) {
+      this?.removeEventListener("mouseenter", this.onHoverIn.bind(this));
+      this?.removeEventListener("mouseleave", this.onHoverOut.bind(this));
+    }
+    if (this.hasAttribute("open-on-focus")) {
+      this?.removeEventListener("focusin", this.onHoverIn.bind(this));
+      this?.removeEventListener("focusout", this.onHoverOut.bind(this));
+    }
   }
   // Init
   private setElements() {
-    const id = this.getAttribute("data-id");
+    const id = this.getAttribute("input-id");
     this.label = document.querySelector(`label[for="${id}"]`);
     if (!this.label) {
       throw new Error(
@@ -32,7 +43,7 @@ class CheckboxToggler extends HTMLElement {
         `Checkbox not found for checkbox toggler web component with ID of "${id}".`
       );
     }
-    const targetID = this.getAttribute("data-target-id");
+    const targetID = this.getAttribute("target-id");
     if (targetID) {
       this.target = document.querySelector(`#${targetID}`);
       if (!this.target) {
@@ -45,6 +56,17 @@ class CheckboxToggler extends HTMLElement {
   private registerEvents() {
     this.label?.addEventListener("click", this.handleClick.bind(this));
     this.label?.addEventListener("keydown", this.handleKeydown.bind(this));
+    if (this.hasAttribute("close-on-leave")) {
+      document.addEventListener("click", this.onFocusOut.bind(this));
+    }
+    if (this.hasAttribute("open-on-hover")) {
+      this?.addEventListener("mouseenter", this.onHoverIn.bind(this));
+      this?.addEventListener("mouseleave", this.onHoverOut.bind(this));
+    }
+    if (this.hasAttribute("open-on-focus")) {
+      this?.addEventListener("focusin", this.onHoverIn.bind(this));
+      this?.addEventListener("focusout", this.onHoverOut.bind(this));
+    }
   }
   private setAttributes() {
     this.label?.setAttribute("aria-expanded", "false");
@@ -70,15 +92,29 @@ class CheckboxToggler extends HTMLElement {
       this.toggleCheckbox();
     }
   };
+  private onFocusOut(e: Event) {
+    if (!e.composedPath().includes(this)) {
+      if (this.checkbox?.checked) this.toggleCheckbox();
+    }
+  }
+  private onHoverIn(e: Event) {
+    if (!this.checkbox?.checked) this.toggleCheckbox();
+  }
+  private onHoverOut(e: Event) {
+    if (this.checkbox?.checked) this.toggleCheckbox();
+  }
   // Methods
   private toggleCheckbox() {
     if (this.checkbox) {
       this.checkbox.checked = !this.checkbox.checked;
       this.checkbox.dispatchEvent(new Event("change"));
+      const bodyclass = this.getAttribute("body-class");
       if (this.checkbox.checked) {
         this.label?.setAttribute("aria-expanded", "true");
+        if (bodyclass) document.body.classList.add(bodyclass);
       } else {
         this.label?.setAttribute("aria-expanded", "false");
+        if (bodyclass) document.body.classList.remove(bodyclass);
       }
     }
   }

@@ -18,8 +18,16 @@ class Details extends HTMLElement {
   }
   disconnectedCallback() {
     this.detailEle?.removeEventListener("toggle", this.onToggle.bind(this));
-    if (this.getAttribute("close-on-leave") === "true")
+    if (this.hasAttribute("close-on-leave")) {
       document.addEventListener("click", this.onFocusOut.bind(this));
+    }
+    if (this.hasAttribute("open-on-hover")) {
+      this?.removeEventListener("mouseenter", this.onHoverIn.bind(this));
+      this?.removeEventListener("mouseleave", this.onHoverOut.bind(this));
+    }
+    if (this.hasAttribute("open-on-focus")) {
+      this?.removeEventListener("focusin", this.onHoverIn.bind(this));
+    }
   }
   attributeChangedCallback(
     property: string,
@@ -57,8 +65,15 @@ class Details extends HTMLElement {
   }
   private registerEvents() {
     this.detailEle?.addEventListener("toggle", this.onToggle.bind(this));
-    if (this.getAttribute("close-on-leave") === "true") {
+    if (this.hasAttribute("close-on-leave")) {
       document.addEventListener("click", this.onFocusOut.bind(this));
+    }
+    if (this.hasAttribute("open-on-hover")) {
+      this?.addEventListener("mouseenter", this.onHoverIn.bind(this));
+      this?.addEventListener("mouseleave", this.onHoverOut.bind(this));
+    }
+    if (this.hasAttribute("open-on-focus")) {
+      this?.addEventListener("focusin", this.onHoverIn.bind(this));
     }
   }
   private setState() {
@@ -78,11 +93,19 @@ class Details extends HTMLElement {
     if (this.detailEle?.hasAttribute("open")) this.open();
     else this.close();
   }
+  private onHoverIn(e: Event) {
+    this.open();
+  }
+  private onHoverOut(e: Event) {
+    this.close();
+  }
   // Methods
   private open() {
     this.disableWatch = true;
     this.detailEle?.setAttribute("open", "");
     this.summaryEle?.setAttribute("aria-expanded", "true");
+    const bodyClass = this.getAttribute("body-class");
+    if (bodyClass) document.body.classList.add(bodyClass);
     this.setAttribute("open", "");
     this.disableWatch = false;
   }
@@ -90,6 +113,8 @@ class Details extends HTMLElement {
     this.disableWatch = true;
     this.detailEle?.removeAttribute("open");
     this.summaryEle?.setAttribute("aria-expanded", "false");
+    const bodyClass = this.getAttribute("body-class");
+    if (bodyClass) document.body.classList.remove(bodyClass);
     this.removeAttribute("open");
     this.disableWatch = false;
   }
