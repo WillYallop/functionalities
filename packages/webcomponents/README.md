@@ -1,4 +1,4 @@
-# Web Components - v0.4.1
+# Web Components - v0.4.2
 
 > Focused on accessibility, strictly markup and functionality/progressive enhancement. No styling unless necessary.
 

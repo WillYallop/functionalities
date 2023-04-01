@@ -35,6 +35,9 @@ class Controls extends HTMLElement {
     }
     initialAttributes() {
         var _a;
+        if (!this.id) {
+            this.id = `carousel-controls-${this.container.index}`;
+        }
         (_a = this.playPauseButton) === null || _a === void 0 ? void 0 : _a.setAttribute("aria-controls", this.track.id);
         this.updateState();
     }

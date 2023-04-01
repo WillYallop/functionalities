@@ -114,7 +114,7 @@ class Pagination extends HTMLElement {
       this.buttons.forEach((button, index) => {
         this.updateState(index);
       });
-    }, 200);
+    }, 300);
   }
   // Getters
   get container() {
