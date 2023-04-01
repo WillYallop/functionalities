@@ -1,8 +1,8 @@
-# Web Components - v0.2.2
+# Web Components - v0.4.1
 
-> Strictly markup and fuctionality/progressive enhancement. No styling.
+> Focused on accessibility, strictly markup and functionality/progressive enhancement. No styling unless necessary.
 
-The Web Components library, provides easy-to-use and simple solutions for common website features. The library aims to enhance browser elements progressively to ensure that the components function properly, even with JavaScript disabled.
+The Web Components library provides easy-to-use and simple solutions for common website features, with a strong focus on meeting accessibility standards and retaining as much functionality as possible in the case JS is disabled. All components included in this library adhere to the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA, providing a solid foundation for accessible web experiences.
 
 ## Install
 
@@ -17,3 +17,12 @@ npm install @functionalities/webcomponents --save
 - [Details Disclosure](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/detail-disclosure)
 - [Checkbox Toggler](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/checkbox-toggler)
 - [Sticky Header](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/sticky-header)
+
+
+## Coming soon
+
+Web component solutions that adhere to the same priciples for the following items are in the works.
+
+- Animations
+- Form
+- File input
