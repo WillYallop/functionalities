@@ -1,0 +1,1 @@
+{"version":3,"file":"progress.d.ts","sourceRoot":"","sources":["../../../src/components/carousel/progress.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,SAAS,MAAM,aAAa,CAAC;AAEzC,cAAM,QAAS,SAAQ,WAAW;;IAIhC,iBAAiB;IAKjB,MAAM;IAGN,iBAAiB;IAMjB,KAAK,CAAC,QAAQ,EAAE,MAAM;IAgBtB,IAAI;IAGJ,MAAM,CAAC,QAAQ,EAAE,MAAM;IAMvB,IAAI,SAAS,cAEZ;IACD,IAAI,SAAS,WAEZ;CACF;AAED,eAAe,QAAQ,CAAC"}

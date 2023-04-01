@@ -1,4 +1,4 @@
-class Details extends HTMLElement {
+class EnhancedDetails extends HTMLElement {
   private detailEle: HTMLDetailsElement | null;
   private summaryEle: HTMLElement | null;
   private content: HTMLElement | null;
@@ -120,4 +120,4 @@ class Details extends HTMLElement {
   }
 }
 
-export default Details;
+export default EnhancedDetails;

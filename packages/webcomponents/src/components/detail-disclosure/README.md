@@ -1,6 +1,6 @@
-# Disclosure
+# Detail Disclosure
 
-The Disclosure web component is an extension of the details/summary elements with additional options to assign groups to disclosures so that only one is open at a time, and to animate the height of the content when toggled. This component is built to progressively enhance the ``<details>`` element and provides accessibility attributes even when JavaScript is disabled.
+The Detail Disclosure web component is an extension of the details/summary elements with additional options to assign groups to disclosures so that only one is open at a time, and to animate the height of the content when toggled. This component is built to progressively enhance the ``<details>`` element and provides accessibility attributes even when JavaScript is disabled.
 
 ## Quick Links
 
@@ -18,18 +18,18 @@ The Disclosure web component is an extension of the details/summary elements wit
 
 ## Getting Started
 
-To use the Disclosure component, import it and define it as a custom element:
+To use the Detail Disclosure component, import it and define it as a custom element:
 
 ```typescript
-import { Disclosure } from "@functionalities/webcomponents";
+import { DetailDisclosure } from "@functionalities/webcomponents";
 
-customElements.define("functionalities-disclosure", Disclosure);
+customElements.define("detail-disclosure", DetailDisclosure);
 ```
 
-Once defined, you can use the functionalities-disclosure custom element in your HTML markup to wrap a ``<details>`` element with a ``<summary>`` element and a content element.
+Once defined, you can use the detail-disclosure custom element in your HTML markup to wrap a ``<details>`` element with a ``<summary>`` element and a content element.
 
 ```html
-<functionalities-disclosure group="group-1" duration="200">
+<detail-disclosure group="group-1" duration="200">
     <details open>
         <summary>Question 1</summary>
         <div>
@@ -39,33 +39,33 @@ Once defined, you can use the functionalities-disclosure custom element in your 
             exercitation sit cupidatat voluptate ipsum ex sint esse.
         </div>
     </details>
-</functionalities-disclosure>
+</detail-disclosure>
 ```
 
 > This web component requires the ``<details>``, ``<summary>`` and a content element to work!
 
 ## Attributes
 
-The Disclosure component supports the following attributes:
+The Detail Disclosure component supports the following attributes:
 
 ### group
 
-The group attribute is used to group multiple Disclosure elements together. When multiple elements belong to the same group, only one element can be open at a time within the group. If you want multiple instances of this element to belong to the same group, set the same attribute value to them all.
+The group attribute is used to group multiple Detail Disclosure elements together. When multiple elements belong to the same group, only one element can be open at a time within the group. If you want multiple instances of this element to belong to the same group, set the same attribute value to them all.
 
 ```html
-<functionalities-disclosure group="group-1">
+<detail-disclosure group="group-1">
     <details>
         <summary>Question 1</summary>
         <div>Answer 1</div>
     </details>
-</functionalities-disclosure>
+</detail-disclosure>
 
-<functionalities-disclosure group="group-1">
+<detail-disclosure group="group-1">
     <details>
         <summary>Question 2</summary>
         <div>Answer 2</div>
     </details>
-</functionalities-disclosure>
+</detail-disclosure>
 
 ```
 

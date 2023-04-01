@@ -25,13 +25,13 @@ To use the Checkbox Toggler component, import it and define it as a custom eleme
 ```typescript
 import { CheckboxToggler } from "@functionalities/webcomponents";
 
-customElements.define("functionalities-checkbox-toggler", CheckboxToggler);
+customElements.define("checkbox-toggler", CheckboxToggler);
 ```
 
 Then, use it in your HTML:
 
 ```html
-<functionalities-checkbox-toggler
+<checkbox-toggler
     input-id="input"
     target-id="dropdown"
     body-class="checkbox-active"
@@ -56,7 +56,7 @@ Then, use it in your HTML:
   <div id="dropdown">
     Dropdown Content
   </div>
-</functionalities-checkbox-toggler>
+</checkbox-toggler>
 ```
 
 > The tabindex, aria-expanded, aria-controls and role attributes on the element will be added automatically with the component if not present. Though for the best accessible experience if JS is disabled, it is recceomended you add these in your markup.

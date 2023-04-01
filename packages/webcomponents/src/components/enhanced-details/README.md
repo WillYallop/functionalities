@@ -1,6 +1,6 @@
-# Details
+# Enhanced Details
 
-The Details component is an enhanced version of the ``<details>`` element that adds accessibility attributes, an animation trigger for the content, and the option to close the detail on focusout. The Details component retains the functionality of the ``<details>`` element, even with JavaScript disabled.
+The Enhanced Details component is an enhanced version of the ``<details>`` element that adds accessibility attributes, an animation trigger for the content, and the option to close the detail on focusout. The Enhanced Details component retains the functionality of the ``<details>`` element, even with JavaScript disabled.
 
 **Note:**
 If you wish to animate the content in and out, you should use the ``CheckboxToggler`` component instead. This is because the details and summary elements with CSS can only animate the content in, not out, and also have very inconsistent behavior across browsers. The ``CheckboxToggler`` is also accessible and works without JavaScript enabled.
@@ -19,18 +19,18 @@ If you wish to animate the content in and out, you should use the ``CheckboxTogg
 
 ## Getting Started
 
-To use the Details component, import it and define it as a custom element:
+To use the Enhanced Details component, import it and define it as a custom element:
 
 ```typescript
-import { Details } from "@functionalities/webcomponents";
+import { EnhancedDetails } from "@functionalities/webcomponents";
 
-customElements.define("functionalities-details", Details);
+customElements.define("enhanced-details", EnhancedDetails);
 ```
 
 Then, use it in your HTML:
 
 ```html
-<functionalities-details
+<enhanced-details
     body-class="details-active"
     close-on-leave
     open-on-hover
@@ -41,20 +41,20 @@ Then, use it in your HTML:
         <summary>Close on focus: true</summary>
         <div>Open</div>
     </details>
-</functionalities-details>
+</enhanced-details>
 ```
 
-> The Details component requires the ``<details>``, ``<summary>``, and a content element to work.
+> The Enhanced Details component requires the ``<details>``, ``<summary>``, and a content element to work.
 
 ## Attributes
 
-The Details component supports the following attributes:
+The Enhanced Details component supports the following attributes:
 
 ### open (optional)
 
-Setting the open attribute on the ``<functionalities-details>`` element will set the ``<details>`` element to open by default. If set or removed programmatically, it will update the ``<details>`` element below. 
+Setting the open attribute on the ``<enhanced-details>`` element will set the ``<details>`` element to open by default. If set or removed programmatically, it will update the ``<details>`` element below. 
 
-> If you want it open by default, it is better practice to put the open attribute on the ``<details>`` element. When the ``<functionalities-details>`` is initiated, it will see this and set the open attribute on itself. This way, if JavaScript is disabled, it will still have the same default state.
+> If you want it open by default, it is better practice to put the open attribute on the ``<details>`` element. When the ``<enhanced-details>`` is initiated, it will see this and set the open attribute on itself. This way, if JavaScript is disabled, it will still have the same default state.
 
 ### body-class (optional)
 

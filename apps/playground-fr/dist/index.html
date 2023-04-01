@@ -10,11 +10,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
     
-    <script type="module" crossorigin src="/assets/index.b6326bc5.js"></script>
-    <link rel="stylesheet" href="/assets/index.ed46b881.css">
+    <script type="module" crossorigin src="/assets/index.d8d54e72.js"></script>
+    <link rel="stylesheet" href="/assets/index.2f9c0d66.css">
   </head>
   <body>
-    <functionalities-sticky-header
+    <sticky-header
       on-change="windowOnChange"
       on-scroll="windowOnScroll"
       trigger-offset="200"
@@ -22,26 +22,43 @@
       <header>
         <h1>Frontend Playground</h1>
       </header>
-    </functionalities-sticky-header>
+    </sticky-header>
 
     <main class="playground-main">
       <!-- Web Components row -->
       <div class="playground-row">
         <h2>Web Components Example - Carousel</h2>
         <div>
-          <functionalities-carousel>
+          <carousel-container autoplay="true" duration="2000">
             <carousel-track>
-              <carousel-slide>1</carousel-slide>
-              <carousel-slide>2</carousel-slide>
-              <carousel-slide>3</carousel-slide>
-              <carousel-slide>4</carousel-slide>
-              <carousel-slide>5</carousel-slide>
+              <carousel-slide>Slide one</carousel-slide>
+              <carousel-slide>Slide two</carousel-slide>
+              <carousel-slide>Slide three</carousel-slide>
+              <carousel-slide>Slide four</carousel-slide>
+              <carousel-slide>Slide five</carousel-slide>
+              <carousel-slide>Slide six</carousel-slide>
+              <carousel-slide>Slide seven</carousel-slide>
+              <carousel-slide>Slide eight</carousel-slide>
+              <carousel-slide>Slide nine</carousel-slide>
+              <carousel-slide>Slide ten</carousel-slide>
             </carousel-track>
-          </functionalities-carousel>
-          <div class="carousel-buttons">
-            <button id="prev-slide">PREV</button>
-            <button id="next-slide">NEXT</button>
-          </div>
+            <carousel-pagination></carousel-pagination>
+            <carousel-controls></carousel-controls>
+          </carousel-container>
+
+          <carousel-container
+            class="carousel-vertical"
+            autoplay="true"
+            duration="2000"
+          >
+            <carousel-track>
+              <carousel-slide>Slide one</carousel-slide>
+              <carousel-slide>Slide two</carousel-slide>
+              <carousel-slide>Slide three</carousel-slide>
+            </carousel-track>
+            <carousel-pagination></carousel-pagination>
+            <carousel-controls></carousel-controls>
+          </carousel-container>
         </div>
       </div>
 
@@ -49,13 +66,11 @@
       <div class="playground-row">
         <h2>Web Components Example - Checkbox Toggler</h2>
         <div>
-          <functionalities-checkbox-toggler
+          <checkbox-toggler
             input-id="checkbox-input"
             target-id="checkbox-dropdown"
             body-class="checkbox-active"
             close-on-leave
-            open-on-hover
-            open-on-focus
           >
             <label
               tabindex="0"
@@ -80,7 +95,7 @@
               <a href="/">Link 2</a>
               <button>Button</button>
             </div>
-          </functionalities-checkbox-toggler>
+          </checkbox-toggler>
         </div>
       </div>
 
@@ -88,38 +103,32 @@
       <div class="playground-row">
         <h2>Web Components Example - Details</h2>
         <div>
-          <functionalities-details
-            body-class="details-active"
-            close-on-leave
-            open-on-hover
-            open-on-focus
-            open
-          >
+          <enhanced-details body-class="details-active" close-on-leave open>
             <details>
               <summary>Close on focus: true</summary>
               <div class="detail-dropdown fade-in">
                 <a href="https://facebook.com">TEST LINK</a>
               </div>
             </details>
-          </functionalities-details>
-          <functionalities-details close-on-leave>
+          </enhanced-details>
+          <enhanced-details close-on-leave>
             <details>
               <summary>Close on focus: true</summary>
               <p class="fade-in">Open</p>
             </details>
-          </functionalities-details>
-          <functionalities-details open>
+          </enhanced-details>
+          <enhanced-details open>
             <details open>
               <summary>Close on focus: false</summary>
               <p class="fade-in">Open</p>
             </details>
-          </functionalities-details>
-          <functionalities-details>
+          </enhanced-details>
+          <enhanced-details>
             <details>
               <summary>Close on focus: false</summary>
               <p class="fade-in">Open</p>
             </details>
-          </functionalities-details>
+          </enhanced-details>
         </div>
       </div>
 
@@ -127,7 +136,7 @@
       <div class="playground-row">
         <h2>Web Components Example - Disclosure</h2>
         <div>
-          <functionalities-disclosure
+          <detail-disclosure
             class="disclosure"
             group="group-1"
             duration="500"
@@ -148,12 +157,8 @@
                 </a>
               </div>
             </details>
-          </functionalities-disclosure>
-          <functionalities-disclosure
-            class="disclosure"
-            group="group-1"
-            duration="100"
-          >
+          </detail-disclosure>
+          <detail-disclosure class="disclosure" group="group-1" duration="100">
             <details>
               <summary>Question 2</summary>
               <div>
@@ -163,8 +168,8 @@
                 exercitation sit cupidatat voluptate ipsum ex sint esse.
               </div>
             </details>
-          </functionalities-disclosure>
-          <functionalities-disclosure class="disclosure" group="group-2">
+          </detail-disclosure>
+          <detail-disclosure class="disclosure" group="group-2">
             <details>
               <summary>Question 3</summary>
               <div>
@@ -174,8 +179,8 @@
                 exercitation sit cupidatat voluptate ipsum ex sint esse.
               </div>
             </details>
-          </functionalities-disclosure>
-          <functionalities-disclosure class="disclosure" group="group-2">
+          </detail-disclosure>
+          <detail-disclosure class="disclosure" group="group-2">
             <details>
               <summary>Question 4</summary>
               <div>
@@ -185,7 +190,7 @@
                 exercitation sit cupidatat voluptate ipsum ex sint esse.
               </div>
             </details>
-          </functionalities-disclosure>
+          </detail-disclosure>
         </div>
       </div>
 

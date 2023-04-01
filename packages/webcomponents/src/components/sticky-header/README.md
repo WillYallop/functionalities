@@ -22,13 +22,13 @@ To use the Sticky Header component, import it and define it as a custom element:
 ```typescript
 import { StickyHeader } from "@functionalities/webcomponents";
 
-customElements.define("functionalities-sticky-header", StickyHeader);
+customElements.define("sticky-header", StickyHeader);
 ```
 
 Then, use it in your HTML:
 
 ```html
-<functionalities-sticky-header
+<sticky-header
     on-change="windowOnChange"
     on-scroll="windowOnScroll"
     trigger-offset="200"
@@ -36,10 +36,10 @@ Then, use it in your HTML:
     <header>
         <h1>My Website</h1>
     </header>
-</functionalities-sticky-header>
+</sticky-header>
 ```
 
-> The attributes on the ``<functionalities-sticky-header>`` element are not required.
+> The attributes on the ``<sticky-header>`` element are not required.
 
 ## Classes
 

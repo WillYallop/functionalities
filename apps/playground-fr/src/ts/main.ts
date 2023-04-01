@@ -1,18 +1,23 @@
 import Toggler from "@functionalities/toggler";
 import Animations from "@functionalities/animations";
 import {
-  Details,
-  Disclosure,
+  EnhancedDetails,
+  DetailDisclosure,
   StickyHeader,
-  Carousel,
   CheckboxToggler,
+  Carousel,
 } from "@functionalities/webcomponents";
 
-customElements.define("functionalities-details", Details);
-customElements.define("functionalities-disclosure", Disclosure);
-customElements.define("functionalities-sticky-header", StickyHeader);
-customElements.define("functionalities-carousel", Carousel);
-customElements.define("functionalities-checkbox-toggler", CheckboxToggler);
+customElements.define("enhanced-details", EnhancedDetails);
+customElements.define("detail-disclosure", DetailDisclosure);
+customElements.define("sticky-header", StickyHeader);
+customElements.define("checkbox-toggler", CheckboxToggler);
+
+customElements.define("carousel-container", Carousel.Container);
+customElements.define("carousel-track", Carousel.Track);
+customElements.define("carousel-slide", Carousel.Slide);
+customElements.define("carousel-controls", Carousel.Controls);
+customElements.define("carousel-pagination", Carousel.Pagination);
 
 // @ts-ignore
 window.windowOnScroll = (data) => {

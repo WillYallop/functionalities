@@ -1,4 +1,4 @@
-class Disclosure extends HTMLElement {
+class DetailDisclosure extends HTMLElement {
   private detailEle: HTMLDetailsElement | null;
   private summaryEle: HTMLElement | null;
   private content: HTMLElement | null;
@@ -154,7 +154,7 @@ class Disclosure extends HTMLElement {
     if (this.group) {
       const group = document.querySelectorAll(
         `[group="${this.group}"]`
-      ) as NodeListOf<Disclosure>;
+      ) as NodeListOf<DetailDisclosure>;
 
       group.forEach((detail) => {
         if (detail !== this) {
@@ -166,4 +166,4 @@ class Disclosure extends HTMLElement {
   }
 }
 
-export default Disclosure;
+export default DetailDisclosure;
