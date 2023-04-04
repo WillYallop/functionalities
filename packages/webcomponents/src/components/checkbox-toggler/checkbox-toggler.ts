@@ -69,15 +69,10 @@ class CheckboxToggler extends HTMLElement {
     }
   }
   private setAttributes() {
-    this.label?.setAttribute("aria-expanded", "false");
     this.label?.setAttribute("tabindex", "0");
-    this.label?.setAttribute("role", "button");
     const targetID = this.getAttribute("data-target-id");
     if (targetID) {
       this.label?.setAttribute("aria-controls", targetID);
-    }
-    if (this.checkbox?.checked) {
-      this.label?.setAttribute("aria-expanded", "true");
     }
   }
   // Events
@@ -110,10 +105,8 @@ class CheckboxToggler extends HTMLElement {
       this.checkbox.dispatchEvent(new Event("change"));
       const bodyclass = this.getAttribute("body-class");
       if (this.checkbox.checked) {
-        this.label?.setAttribute("aria-expanded", "true");
         if (bodyclass) document.body.classList.add(bodyclass);
       } else {
-        this.label?.setAttribute("aria-expanded", "false");
         if (bodyclass) document.body.classList.remove(bodyclass);
       }
     }

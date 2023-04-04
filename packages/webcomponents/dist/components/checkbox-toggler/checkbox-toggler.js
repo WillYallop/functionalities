@@ -71,16 +71,11 @@ class CheckboxToggler extends HTMLElement {
         }
     }
     setAttributes() {
-        var _a, _b, _c, _d, _e, _f;
-        (_a = this.label) === null || _a === void 0 ? void 0 : _a.setAttribute("aria-expanded", "false");
-        (_b = this.label) === null || _b === void 0 ? void 0 : _b.setAttribute("tabindex", "0");
-        (_c = this.label) === null || _c === void 0 ? void 0 : _c.setAttribute("role", "button");
+        var _a, _b;
+        (_a = this.label) === null || _a === void 0 ? void 0 : _a.setAttribute("tabindex", "0");
         const targetID = this.getAttribute("data-target-id");
         if (targetID) {
-            (_d = this.label) === null || _d === void 0 ? void 0 : _d.setAttribute("aria-controls", targetID);
-        }
-        if ((_e = this.checkbox) === null || _e === void 0 ? void 0 : _e.checked) {
-            (_f = this.label) === null || _f === void 0 ? void 0 : _f.setAttribute("aria-expanded", "true");
+            (_b = this.label) === null || _b === void 0 ? void 0 : _b.setAttribute("aria-controls", targetID);
         }
     }
     onFocusOut(e) {
@@ -101,18 +96,15 @@ class CheckboxToggler extends HTMLElement {
             this.toggleCheckbox();
     }
     toggleCheckbox() {
-        var _a, _b;
         if (this.checkbox) {
             this.checkbox.checked = !this.checkbox.checked;
             this.checkbox.dispatchEvent(new Event("change"));
             const bodyclass = this.getAttribute("body-class");
             if (this.checkbox.checked) {
-                (_a = this.label) === null || _a === void 0 ? void 0 : _a.setAttribute("aria-expanded", "true");
                 if (bodyclass)
                     document.body.classList.add(bodyclass);
             }
             else {
-                (_b = this.label) === null || _b === void 0 ? void 0 : _b.setAttribute("aria-expanded", "false");
                 if (bodyclass)
                     document.body.classList.remove(bodyclass);
             }

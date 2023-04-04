@@ -90,3 +90,4 @@ If the attribute is present, the checkbox will be set to checked if the web comp
 If the attribute is present, the checkbox will be set to checked if the webcomponent is focused.
 
 ## Future Development
+- Fix bug with clicking to toggle when focus on is active. Causes it to close after clicking opens and brings focus to it.
