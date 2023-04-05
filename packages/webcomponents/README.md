@@ -1,4 +1,4 @@
-# Web Components - v0.4.2
+# Web Components - v0.5.0
 
 > Focused on accessibility, strictly markup and functionality/progressive enhancement. No styling unless necessary.
 
@@ -17,12 +17,11 @@ npm install @functionalities/webcomponents --save
 - [Details Disclosure](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/detail-disclosure)
 - [Checkbox Toggler](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/checkbox-toggler)
 - [Sticky Header](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/sticky-header)
-
+- [Animate](https://github.com/WillYallop/functionalities/tree/main/packages/webcomponents/src/components/animate)
 
 ## Coming soon
 
 Web component solutions that adhere to the same priciples for the following items are in the works.
 
-- Animations
 - Form
 - File input

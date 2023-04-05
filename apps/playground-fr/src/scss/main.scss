@@ -336,3 +336,61 @@ carousel-progress {
     transition: 0;
   }
 }
+
+// --------------------------------
+// Animation styles
+animate-container {
+  animation-delay: 0s;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  backface-visibility: hidden;
+  // Default DIV styles
+  display: block;
+  position: relative;
+
+  // Animate
+  &[animate="true"] {
+    // fade-in
+    &[type="fade-in"] {
+      animation-name: fade-in;
+      @media (prefers-reduced-motion: reduce) {
+        animation-name: fade-in-reduced;
+      }
+    }
+    // ADD MORE ANIMATIONS HERE
+  }
+
+  // Default
+  &[animate="false"] {
+    // fade-in
+    &[type="fade-in"] {
+      opacity: 0;
+      transform: translate3d(0, 10px, 0);
+      @media (prefers-reduced-motion: reduce) {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+  }
+}
+
+// --------------------------------
+// Keyframes
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes fade-in-reduced {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

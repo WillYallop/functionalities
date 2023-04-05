@@ -41,8 +41,6 @@ Then, use it in your HTML:
 >
   <label
     tabindex="0"
-    role="button"
-    aria-expanded="false"
     aria-controls="dropdown"
     for="input"
   >
@@ -59,7 +57,7 @@ Then, use it in your HTML:
 </checkbox-toggler>
 ```
 
-> The tabindex, aria-expanded, aria-controls and role attributes on the element will be added automatically with the component if not present. Though for the best accessible experience if JS is disabled, it is recceomended you add these in your markup.
+> The tabindex, and aria-controls attributes on the element will be added automatically with the component if not present. Though for the best accessible experience if JS is disabled, it is recceomended you add these in your markup.
 
 ## Attributes
 

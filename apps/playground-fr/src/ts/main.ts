@@ -1,17 +1,18 @@
 import Toggler from "@functionalities/toggler";
-import Animations from "@functionalities/animations";
 import {
   EnhancedDetails,
   DetailDisclosure,
   StickyHeader,
   CheckboxToggler,
   Carousel,
+  Animation,
 } from "@functionalities/webcomponents";
 
 customElements.define("enhanced-details", EnhancedDetails);
 customElements.define("detail-disclosure", DetailDisclosure);
 customElements.define("sticky-header", StickyHeader);
 customElements.define("checkbox-toggler", CheckboxToggler);
+customElements.define("animate-container", Animation);
 
 customElements.define("carousel-container", Carousel.Container);
 customElements.define("carousel-track", Carousel.Track);
@@ -37,11 +38,4 @@ new Toggler({
       console.log("updateDonkeys", instance, ele);
     },
   },
-});
-
-// Animations
-new Animations({
-  activeClass: "animate",
-  reset: true,
-  threshold: 1,
 });
