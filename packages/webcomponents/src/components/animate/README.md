@@ -72,7 +72,7 @@ animate-container {
   }
 
   // Default
-  &[animate="true"] {
+  &[animate="false"] {
     // fade-in
     &[type="fade-in"] {
       opacity: 0;
