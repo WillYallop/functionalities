@@ -5,14 +5,14 @@ import {
   StickyHeader,
   CheckboxToggler,
   Carousel,
-  Animation,
+  Animate,
 } from "@functionalities/webcomponents";
 
 customElements.define("enhanced-details", EnhancedDetails);
 customElements.define("detail-disclosure", DetailDisclosure);
 customElements.define("sticky-header", StickyHeader);
 customElements.define("checkbox-toggler", CheckboxToggler);
-customElements.define("animate-container", Animation);
+customElements.define("animate-container", Animate);
 
 customElements.define("carousel-container", Carousel.Container);
 customElements.define("carousel-track", Carousel.Track);
@@ -38,4 +38,16 @@ new Toggler({
       console.log("updateDonkeys", instance, ele);
     },
   },
+});
+
+const labels = document.querySelectorAll("[test-label]");
+labels.forEach((label) => {
+  label.addEventListener("click", (e) => {
+    e.preventDefault();
+    const forValue = label.getAttribute("for");
+    if (!forValue) return;
+    const input = document.getElementById(forValue) as HTMLInputElement;
+    if (!input) return;
+    input.checked = !input.checked;
+  });
 });
