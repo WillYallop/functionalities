@@ -73,7 +73,6 @@ class Animate extends HTMLElement {
   }
   // Setters\
   set animateAttribute(value: boolean) {
-    console.log("animateAttribute", value);
     this.setAttribute("animate", value.toString());
   }
   set on(value: on) {
