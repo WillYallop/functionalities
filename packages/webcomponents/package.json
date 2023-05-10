@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "dev": "nodemon --watch 'src/**' --ext 'ts,json' --exec 'tsc'",
+    "dev": "tsc",
     "test": "jest --coverage --passWithNoTests --runInBand",
     "lint": "eslint src --fix"
   },

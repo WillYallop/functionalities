@@ -9,13 +9,9 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@functionalities/disclosure": "*",
-    "@functionalities/stickyheader": "*",
     "typescript": "^4.6.4",
     "vite": "^3.0.9",
     "@functionalities/toggler": "*",
-    "@functionalities/animations": "*",
-    "@functionalities/forms": "*",
     "@functionalities/webcomponents": "*"
   },
   "dependencies": {
